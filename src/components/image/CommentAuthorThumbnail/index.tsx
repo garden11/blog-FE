@@ -1,3 +1,6 @@
+// constants
+import { DEFAULT_PROFILE_IMAGE_URI } from "src/constants";
+
 type Props = {
   image: {
     uri?: string;
@@ -5,13 +8,13 @@ type Props = {
 };
 
 const CommentAuthorThumbnail = (props: Props) => {
-  const DEFAULT_IMAGE_URI = "/assets/images/default-profile-picture.png";
+  const defaultUri = DEFAULT_PROFILE_IMAGE_URI;
 
   const { image } = props;
 
   return (
     <div className="author-thumb">
-      <img src={image?.uri ? image.uri : DEFAULT_IMAGE_URI} />
+      <img src={image?.uri ? image.uri : defaultUri} />
     </div>
   );
 };
