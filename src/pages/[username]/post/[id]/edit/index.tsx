@@ -111,7 +111,9 @@ const PostEdit = (props: Props) => {
         categoryId: form.categoryId,
         title: form.title,
         content: form.content,
+        imageUriList: [] as PostRequest["imageUriList"],
       } as PostRequest;
+      let postRequest: PostRequest;
 
       const imgNodeList = parse(form.content).querySelectorAll("img");
       const uriList = imgNodeList.map((listItem) =>
@@ -123,17 +125,7 @@ const PostEdit = (props: Props) => {
         (listItem, index) => listItem && uriList.indexOf(listItem) === index
       ) as string[];
 
-      const postImageRequest = uriList
-        ? ({ uriList: uriDistictList } as PostImageRequest)
-        : ({} as PostImageRequest);
-
-      await postService.updatePostImages({
-        accessToken: session.accessToken,
-        postId: post.id,
-        request: postImageRequest,
-      });
-
-      let postRequest: PostRequest;
+      postRequestDefault.imageUriList = uriDistictList;
 
       if (form.registerYN === "Y") {
         postRequest = {
