@@ -27,9 +27,7 @@ const Tiptap = (props: Props) => {
         Link,
         Image.configure({
           inline: true,
-          HTMLAttributes: {
-            class: "tiptap-image",
-          },
+          HTMLAttributes: {},
         }),
       ],
       autofocus: "end",
