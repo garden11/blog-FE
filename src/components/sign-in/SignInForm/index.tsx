@@ -47,12 +47,7 @@ const SignInForm = (props: Props) => {
         <div className="link">
           <a
             onClick={() =>
-              handleSubmit(
-                onSubmit({
-                  username: process.env.NEXT_PUBLIC_TEST_USER_USERNAME ?? "",
-                  password: process.env.NEXT_PUBLIC_TEST_USER_PASSWORD ?? "",
-                })
-              )
+              handleSubmit(onSubmit({ username: "test", password: "1111" }))
             }
           >
             Test sign in

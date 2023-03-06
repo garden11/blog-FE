@@ -4,9 +4,11 @@ import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { ValidationError } from "yup";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 
-// components
-import MenuBar from "./MenuBar";
+// models
+import { imageFormSchema } from "src/models/forms/imageForm";
+import { useEffect } from "react";
 
 type Props = {
   value: string;
@@ -27,7 +29,9 @@ const Tiptap = (props: Props) => {
         Link,
         Image.configure({
           inline: true,
-          HTMLAttributes: {},
+          HTMLAttributes: {
+            class: "tiptap-image",
+          },
         }),
       ],
       autofocus: "end",
@@ -40,13 +44,44 @@ const Tiptap = (props: Props) => {
     [!!value]
   );
 
+  const TiptapMenuBar = (props: {}) => {
+    const handleClickImageButton = () => {
+      if (typeof document === undefined) return;
+
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("accept", "image/*");
+      input.click();
+      input.onchange = async () => {
+        const file = input?.files?.[0];
+
+        if (!file) return;
+
+        await imageFormSchema
+          .validate({ image: file })
+          .then(({ image }) => {
+            onSubmitImage(image, editor);
+          })
+          .catch((error) => {
+            onErrorSubmitImage(error);
+          });
+      };
+    };
+
+    return (
+      <>
+        <div className="menu-bar">
+          <button onClick={handleClickImageButton} type="button">
+            <AddPhotoAlternateIcon fontSize="large" />
+          </button>
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
-      <MenuBar
-        editor={editor}
-        onSubmitImage={onSubmitImage}
-        onErrorSubmitImage={onErrorSubmitImage}
-      />
+      <TiptapMenuBar />
       <EditorContent editor={editor} className="editor" />
     </>
   );

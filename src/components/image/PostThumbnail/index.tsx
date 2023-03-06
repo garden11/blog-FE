@@ -1,6 +1,3 @@
-// constants
-import { DEFAULT_POST_THUMBNAIL_IMAGE_URI } from "src/constants";
-
 type Props = {
   image: {
     uri?: string;
@@ -10,11 +7,11 @@ type Props = {
 const PostThumbnail = (props: Props) => {
   const { image } = props;
 
-  const defaultUri = DEFAULT_POST_THUMBNAIL_IMAGE_URI;
+  const DEFAULT_IMAGE_URI = "/assets/images/default-post-thumbnail.png";
 
   return (
     <div className="blog-thumb">
-      <img src={image.uri ? image.uri : defaultUri} />
+      <img src={image.uri ? image.uri : DEFAULT_IMAGE_URI} />
     </div>
   );
 };

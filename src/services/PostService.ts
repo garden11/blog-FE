@@ -22,12 +22,12 @@ export type PostRequest = {
   createdAt: string;
   registeredAt: string;
   updatedAt: string;
-  imageUriList: PostImage["uri"][];
 };
 
 export type PostImageRequest = {
   image: File;
   postId: PostImage["id"];
+  uriList: PostImage["uri"][];
 };
 
 export default class PostService {
@@ -137,6 +137,26 @@ export default class PostService {
         [AUTHORIZATION_HEADER_KEY]: accessToken,
       },
     });
+
+    return response.data;
+  };
+
+  updatePostImages = async ({
+    accessToken,
+    postId,
+    request,
+  }: {
+    accessToken: Tokens["accessToken"];
+    postId: Post["id"];
+    request: PostImageRequest;
+  }): Promise<void> => {
+    const response = await appAxios().put(
+      `/api/v1/post/${postId}/post-images`,
+      request,
+      {
+        headers: { [AUTHORIZATION_HEADER_KEY]: accessToken },
+      }
+    );
 
     return response.data;
   };

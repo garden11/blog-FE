@@ -330,7 +330,8 @@ header .navbar {
 
 /* 추가 */
 .blog-posts .blog-post .down-content .post-content img {
-  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* 추가 */
@@ -990,8 +991,8 @@ footer p a:hover {
   background-color: transparent;
   border: 0;
 }
-.post-editor form .editor-container .editor img {
-  max-width: 100%;
+.post-editor form .editor-container .editor .tiptap-image {
+  width: 100%;
 }
 .post-editor form .bottom-bar {
   flex: 0;
