@@ -111,29 +111,22 @@ const PostEdit = (props: Props) => {
         categoryId: form.categoryId,
         title: form.title,
         content: form.content,
+        imageUriList: [] as PostRequest["imageUriList"],
       } as PostRequest;
+      let postRequest: PostRequest;
 
       const imgNodeList = parse(form.content).querySelectorAll("img");
-      const uriList = imgNodeList.map((listItem) =>
+      let imageUriList = imgNodeList.map((listItem) =>
         listItem.getAttribute("src")
       );
 
       // undefined, 중복된 값 제거
-      const uriDistictList = uriList.filter(
-        (listItem, index) => listItem && uriList.indexOf(listItem) === index
-      ) as string[];
+      imageUriList = imageUriList.filter(
+        (listItem, index) =>
+          listItem && imageUriList.indexOf(listItem) === index
+      );
 
-      const postImageRequest = uriList
-        ? ({ uriList: uriDistictList } as PostImageRequest)
-        : ({} as PostImageRequest);
-
-      await postService.updatePostImages({
-        accessToken: session.accessToken,
-        postId: post.id,
-        request: postImageRequest,
-      });
-
-      let postRequest: PostRequest;
+      postRequestDefault.imageUriList = imageUriList as string[];
 
       if (form.registerYN === "Y") {
         postRequest = {

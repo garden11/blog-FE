@@ -1,5 +1,8 @@
 import _ from "lodash";
 
+// constants
+import { PAGE_NUMBER_BUTTON_LENGTH } from "src/constants";
+
 // models
 import { PageInfo } from "src/models/pageInfo";
 
@@ -14,7 +17,7 @@ type Props = {
 const PageNavigation = (props: Props) => {
   const { pageInfo, onClickButton } = props;
 
-  const NUMBER_BUTTON_LENGTH = 5;
+  const numberButtonLength = PAGE_NUMBER_BUTTON_LENGTH;
 
   const pageUtil = new PageUtil();
 
@@ -32,8 +35,8 @@ const PageNavigation = (props: Props) => {
 
   const NumberButtonGroup = () => {
     const firstPageNumber =
-      Math.floor(pageInfo.number / NUMBER_BUTTON_LENGTH) * NUMBER_BUTTON_LENGTH;
-    let lastPageNumber = firstPageNumber + NUMBER_BUTTON_LENGTH - 1;
+      Math.floor(pageInfo.number / numberButtonLength) * numberButtonLength;
+    let lastPageNumber = firstPageNumber + numberButtonLength - 1;
 
     if (lastPageNumber > pageInfo.totalPages)
       lastPageNumber = pageUtil.convertToNumberFromLabel(pageInfo.totalPages);
