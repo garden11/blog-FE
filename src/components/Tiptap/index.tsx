@@ -1,8 +1,7 @@
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
-import Link from "@tiptap/extension-link";
+import HardBreak from "@tiptap/extension-hard-break";
 import { ValidationError } from "yup";
 
 // components
@@ -23,11 +22,18 @@ const Tiptap = (props: Props) => {
     {
       extensions: [
         StarterKit,
-        Underline,
-        Link,
+        HardBreak.extend({
+          addKeyboardShortcuts() {
+            return {
+              Enter: () => this.editor.commands.setHardBreak(),
+            };
+          },
+        }),
         Image.configure({
           inline: true,
-          HTMLAttributes: {},
+          HTMLAttributes: {
+            contentEditable: true,
+          },
         }),
       ],
       autofocus: "end",
@@ -61,5 +67,16 @@ export const setTiptapEditorImage = ({
   uri: string;
   editor: Editor | null;
 }) => {
-  editor?.chain().focus().setImage({ src: uri }).focus().run();
+  editor
+    ?.chain()
+    .insertContent({
+      type: "image",
+      attrs: {
+        src: uri,
+      },
+    })
+    .run();
+
+  editor?.commands.setHardBreak();
+  editor?.chain().focus().run();
 };
