@@ -323,12 +323,6 @@ header .navbar {
 }
 
 /* 추가 */
-/* 비어있는 p태그를 br과 같이 나타나게 함 */
-.blog-posts .blog-post .down-content .post-content p:empty::after {
-  content: "\00A0";
-}
-
-/* 추가 */
 .blog-posts .blog-post .down-content .post-content img {
   max-width: 100%;
 }
@@ -486,13 +480,14 @@ a {
 
 /* 수정 */
 ul.page-numbers {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin: 10px 0px; /* 추가 */
 }
 
 /* 수정 */
 ul.page-numbers li {
-  display: inline-block !important;
+  /* display: inline-block !important; */
   margin: 0px 5px !important;
   padding: 0px !important; /* 추가 */
   border: 0px !important; /* 추가 */
