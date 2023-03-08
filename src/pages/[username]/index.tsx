@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 // services
 import PostService from "src/services/PostService";
-import ProfileService from "src/services/ProfileService";
 
 // components
 import Layout from "src/components/shared/Layout";
@@ -15,7 +14,10 @@ import PostBoard from "src/components/post/PostBoard";
 import { Category } from "src/models/category";
 import { PostView } from "src/models/post";
 import { PageInfo } from "src/models/pageInfo";
-import { ProfileView } from "src/models/profile";
+
+// hooks
+import useAuth from "src/hooks/useAuth";
+import usePost from "src/hooks/usePost";
 
 type PageQuery = {
   username?: string;
@@ -28,6 +30,9 @@ type Props = {};
 const BlogBoard = (props: Props) => {
   const router = useRouter();
   const { username, categoryId, page = 1 } = router.query as PageQuery;
+
+  const { isSignedIn } = useAuth();
+  const { handleClickCreatePostButton } = usePost();
 
   const postService = new PostService();
 
@@ -74,12 +79,14 @@ const BlogBoard = (props: Props) => {
             <div className="row">
               <div className="col-lg-8">
                 <PostBoard
+                  canPost={isSignedIn(username)}
                   postList={postList}
                   postListPageInfo={postListPageInfo}
                   onClickPostListItem={handleClickPostBoardListItem}
                   onClickPageNavigationButton={
                     handleClickPostBoardPageNavigationButton
                   }
+                  onClickCreatePostButton={handleClickCreatePostButton}
                 />
               </div>
               <div className="col-lg-4">

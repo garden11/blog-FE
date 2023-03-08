@@ -1,7 +1,9 @@
 import _ from "lodash";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+// hooks
+import usePost from "src/hooks/usePost";
 
 // models
 import { Category } from "src/models/category";
@@ -10,15 +12,11 @@ import { UserInfo } from "src/models/user";
 
 // services
 import CategoryService from "src/services/CategoryService";
-import PostService, { PostRequest } from "src/services/PostService";
 import ProfileService from "src/services/ProfileService";
 
 // components
 import CategoryMenu from "./CategoryMenu";
 import Profile from "./Profile";
-
-// utils
-import DateUtil from "src/utils/DateUtil";
 
 type Props = {
   username?: UserInfo["username"];
@@ -28,36 +26,17 @@ type Props = {
 const SideBar = (props: Props) => {
   const { username, categoryId } = props;
 
-  const { data: session } = useSession();
-
   const router = useRouter();
 
   const categoryService = new CategoryService();
   const profileService = new ProfileService();
-  const postService = new PostService();
 
-  const dateUtil = new DateUtil();
+  const { handleClickCreatePostButton } = usePost();
 
   const [categoryList, setCategoryList] = useState<Category[]>(
     [] as Category[]
   );
   const [profile, setProfile] = useState<ProfileView>({} as ProfileView);
-
-  const handleClickPostEditButton = async () => {
-    if (!session) return;
-
-    const request = {
-      username: session.username,
-      createdAt: dateUtil.createUtcUnixString(),
-    } as PostRequest;
-
-    const post = await postService.createPost({
-      accessToken: session.accessToken,
-      request,
-    });
-
-    post && router.push(`/${username}/post/${post.id}/edit`);
-  };
 
   useEffect(() => {
     if (!username) return;
@@ -88,7 +67,7 @@ const SideBar = (props: Props) => {
         <div className="col-lg-12">
           <Profile
             profile={profile}
-            onClickPostEditButton={handleClickPostEditButton}
+            onClickCreatePostButton={handleClickCreatePostButton}
           />
         </div>
         <div className="col-lg-12">
