@@ -46,18 +46,25 @@ const ProfileImageForm = (props: Props) => {
   }, [props.previewImage]);
 
   useEffect(() => {
-    if (!image) return;
+    const validateImage = async () => {
+      if (!image) return;
 
-    (async () => {
-      await imageFormSchema.validate({ image }).then((value) => {
-        const reader = new FileReader();
-        reader.onload = () =>
-          setPreviewImage({
-            uri: typeof reader.result === "string" ? reader.result : undefined,
-          });
-        reader.readAsDataURL(value.image);
-      });
-    })().catch((error: ValidationError) => alert(error.message));
+      try {
+        await imageFormSchema.validate({ image }).then((value) => {
+          const reader = new FileReader();
+          reader.onload = () =>
+            setPreviewImage({
+              uri:
+                typeof reader.result === "string" ? reader.result : undefined,
+            });
+          reader.readAsDataURL(value.image);
+        });
+      } catch (error) {
+        (error: ValidationError) => alert(error.message);
+      }
+    };
+
+    validateImage();
   }, [image]);
 
   return (

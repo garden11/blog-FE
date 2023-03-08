@@ -24,10 +24,10 @@ const usePost = (params?: Params): Return => {
 
   const dateUtil = new DateUtil();
 
-  const handleClickCreatePostButton = () => {
+  const handleClickCreatePostButton = async () => {
     if (!session) return;
 
-    (async () => {
+    try {
       const request = {
         username: session.username,
         createdAt: dateUtil.createUtcUnixString(),
@@ -39,7 +39,9 @@ const usePost = (params?: Params): Return => {
       });
 
       post && router.push(`/${session.username}/post/${post.id}/edit`);
-    })().catch((error) => alert("포스트 생성 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("포스트 생성 중 에러가 발생하였습니다.");
+    }
   };
 
   return { handleClickCreatePostButton };

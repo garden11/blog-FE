@@ -30,13 +30,13 @@ const ResetPassword = (props: Props) => {
 
   const [formStatus, setFormStatus] = useState<ResetPsswordFormStatus>();
 
-  const onSubmitForm: SubmitHandler<ResetPasswordFormValues> = (
+  const onSubmitForm: SubmitHandler<ResetPasswordFormValues> = async (
     form,
     event
   ) => {
     if (!id) return;
 
-    (async () => {
+    try {
       const request = {
         processToken: id,
         newPassword: form.password,
@@ -45,9 +45,9 @@ const ResetPassword = (props: Props) => {
       await authService.resetPassword({ request });
 
       setFormStatus("done");
-    })().catch((error) => {
+    } catch (error) {
       alert("비밀번호 재설정에 실패하였습니다.");
-    });
+    }
   };
 
   return (

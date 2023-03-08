@@ -25,8 +25,8 @@ const SignUp = (props: Props) => {
   const authService = new AuthService();
   const userService = new UserService();
 
-  const onSubmitForm: SubmitHandler<SignUpFormValues> = (form, event) => {
-    (async () => {
+  const onSubmitForm: SubmitHandler<SignUpFormValues> = async (form, event) => {
+    try {
       if (!(await userService.isUniqueUsername({ username: form.username }))) {
         alert("중복된 아이디입니다.");
         return;
@@ -48,7 +48,9 @@ const SignUp = (props: Props) => {
       event?.target.reset();
       router.replace("/sign-in");
       alert("회원가입이 완료되었습니다.");
-    })().catch((error) => alert("회원가입 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("회원가입 중 에러가 발생하였습니다.");
+    }
   };
 
   const onErrorSubmitForm: SubmitErrorHandler<SignUpFormValues> = (errors) => {

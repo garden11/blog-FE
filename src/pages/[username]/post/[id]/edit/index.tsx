@@ -71,20 +71,26 @@ const PostEdit = (props: Props) => {
   useAuth({ shouldRedirect: true });
 
   useEffect(() => {
-    (async () => {
+    const selectCategoryList = async () => {
       if (!session) return;
 
-      const categoryList = await categoryService.selectCategoryList({
-        username: session.username,
-      });
-      setCategoryList(categoryList);
-    })().catch((error) => alert("카테고리 목록을 불러올 수 없습니다."));
+      try {
+        const categoryList = await categoryService.selectCategoryList({
+          username: session.username,
+        });
+        setCategoryList(categoryList);
+      } catch (error) {
+        alert("카테고리 목록을 불러올 수 없습니다.");
+      }
+    };
+
+    selectCategoryList();
   }, [session]);
 
-  const onSubmitEditorImage = (image: File, editor: Editor | null) => {
+  const onSubmitEditorImage = async (image: File, editor: Editor | null) => {
     if (!session) return;
 
-    (async () => {
+    try {
       const request = {
         image,
         postId: post.id,
@@ -96,17 +102,19 @@ const PostEdit = (props: Props) => {
       });
 
       setTiptapEditorImage({ uri: postImage.uri, editor });
-    })().catch((error) => alert("이미지 저장 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("이미지 저장 중 에러가 발생하였습니다.");
+    }
   };
 
   const onErrorSubmitEditorImage = (error: ValidationError) => {
     alert(error.message);
   };
 
-  const onSubmitForm: SubmitHandler<PostFormValues> = (form, event) => {
+  const onSubmitForm: SubmitHandler<PostFormValues> = async (form, event) => {
     if (!session) return;
 
-    (async () => {
+    try {
       const postRequestDefault = {
         categoryId: form.categoryId,
         title: form.title,
@@ -147,7 +155,9 @@ const PostEdit = (props: Props) => {
       });
 
       router.replace(`/${post.username}/post/${post.id}`);
-    })().catch((error) => alert("포스트 저장 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("포스트 저장 중 에러가 발생하였습니다.");
+    }
   };
 
   const onErrorSubmitForm: SubmitErrorHandler<PostFormValues> = (errors) => {

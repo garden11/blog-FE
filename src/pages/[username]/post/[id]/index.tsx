@@ -65,46 +65,50 @@ const BlogPost = (props: Props) => {
   const [commentBoardPage, setCommentBoardPage] = useState<number>(1);
 
   useEffect(() => {
-    (async () => {
-      const { content, ...pageInfo } =
-        await commentService.selectCommentViewList({
-          postId: post.id,
-          page: commentBoardPage,
-        });
+    const selectCommentViewList = async () => {
+      try {
+        const { content, ...pageInfo } =
+          await commentService.selectCommentViewList({
+            postId: post.id,
+            page: commentBoardPage,
+          });
 
-      setCommentList(content);
-      setCommentListPageInfo(pageInfo);
-    })().catch((error) => alert("댓글 불러오기 중 에러가 발생하였습니다."));
+        setCommentList(content);
+        setCommentListPageInfo(pageInfo);
+      } catch (error) {
+        alert("댓글 불러오기 중 에러가 발생하였습니다.");
+      }
+    };
   }, [post, commentBoardPage]);
 
   const handleClickUpdatePostButton = () => {
     router.replace(`/${username}/post/${post.id}/edit`);
   };
 
-  const handleClickDeletePostButton = (postId: PostView["id"]) => {
+  const handleClickDeletePostButton = async (postId: PostView["id"]) => {
     if (!session) return;
 
-    const onConfirm = () => {
-      (async () => {
+    if (confirm("포스트를 삭제하시겠습니까?")) {
+      try {
         await postService.deletePost({
           accessToken: session.accessToken,
           id: postId,
         });
 
         router.replace(`/${username}`);
-      })().catch((error) => alert("포스트 삭제 중 에러가 발생하였습니다."));
-    };
-
-    confirm("포스트를 삭제하시겠습니까?", onConfirm);
+      } catch (error) {
+        alert("포스트 삭제 중 에러가 발생하였습니다.");
+      }
+    }
   };
 
-  const onSubmitCommentForm: SubmitHandler<CommentFormValues> = (
+  const onSubmitCommentForm: SubmitHandler<CommentFormValues> = async (
     form,
     event
   ) => {
     if (!session) return;
 
-    (async () => {
+    try {
       const request = {
         username: session.username,
         postId: post.id,
@@ -129,7 +133,9 @@ const BlogPost = (props: Props) => {
       setCommentListPageInfo(pageInfo);
 
       event?.target.reset();
-    })().catch((error) => alert("댓글 저장 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("댓글 저장 중 에러가 발생하였습니다.");
+    }
   };
 
   const onErrorSubmitCommentForm: SubmitErrorHandler<CommentFormValues> = (
@@ -139,11 +145,13 @@ const BlogPost = (props: Props) => {
     errorList[0].message && alert(errorList[0].message);
   };
 
-  const handleClickDeleteCommentButton = (commentId: CommentView["id"]) => {
+  const handleClickDeleteCommentButton = async (
+    commentId: CommentView["id"]
+  ) => {
     if (!session) return;
 
-    const onConfirm = () => {
-      (async () => {
+    if (confirm("댓글을 삭제하시겠습니까?")) {
+      try {
         await commentService.deleteComment({
           accessToken: session.accessToken,
           id: commentId,
@@ -156,13 +164,13 @@ const BlogPost = (props: Props) => {
 
         setCommentList(content);
         setCommentListPageInfo(pageInfo);
-      })().catch((error) => alert("댓글 삭제 중 에러가 발생하였습니다."));
-    };
-
-    confirm("댓글을 삭제하시겠습니까?", onConfirm);
+      } catch (error) {
+        alert("댓글 삭제 중 에러가 발생하였습니다.");
+      }
+    }
   };
 
-  const handleClickCommentBoardPageNavigationButton = async (page: number) => {
+  const handleClickCommentBoardPageNavigationButton = (page: number) => {
     setCommentBoardPage(page);
   };
 

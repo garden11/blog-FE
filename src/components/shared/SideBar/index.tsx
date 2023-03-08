@@ -39,26 +39,39 @@ const SideBar = (props: Props) => {
   const [profile, setProfile] = useState<ProfileView>({} as ProfileView);
 
   useEffect(() => {
-    if (!username) return;
+    const selectCategoryList = async () => {
+      if (!username) return;
 
-    (async () => {
-      const categoryList = await categoryService.selectCategoryList({
-        username,
-      });
-      setCategoryList(categoryList);
-    })().catch((error) => "카테고리 목록을 불러올 수 없습니다.");
-
-    (async () => {
-      const profile = await profileService.selectProfileView({
-        username,
-      });
-      if (profile) {
-        setProfile(profile);
-      } else {
-        alert("유효하지 않은 유저입니다.");
-        router.replace("/404");
+      try {
+        const categoryList = await categoryService.selectCategoryList({
+          username,
+        });
+        setCategoryList(categoryList);
+      } catch (error) {
+        alert("카테고리 목록을 불러올 수 없습니다.");
       }
-    })().catch((error) => alert("유저 정보를 불러올 수 없습니다."));
+    };
+
+    const selectProfileView = async () => {
+      if (!username) return;
+
+      try {
+        const profile = await profileService.selectProfileView({
+          username,
+        });
+        if (profile) {
+          setProfile(profile);
+        } else {
+          alert("유효하지 않은 유저입니다.");
+          router.replace("/404");
+        }
+      } catch (error) {
+        alert("유저 정보를 불러올 수 없습니다.");
+      }
+    };
+
+    selectCategoryList();
+    selectProfileView();
   }, [username]);
 
   return (

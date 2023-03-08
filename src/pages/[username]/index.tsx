@@ -42,18 +42,24 @@ const BlogBoard = (props: Props) => {
   );
 
   useEffect(() => {
-    if (!username) return;
+    const selectPostViewList = async () => {
+      if (!username) return;
 
-    (async () => {
-      const { content, ...pageInfo } = await postService.selectPostViewList({
-        username,
-        categoryId,
-        page,
-      });
+      try {
+        const { content, ...pageInfo } = await postService.selectPostViewList({
+          username,
+          categoryId,
+          page,
+        });
 
-      setPostList(content);
-      setPostListPageInfo(pageInfo);
-    })().catch((error) => alert("포스트를 불러올 수 없습니다."));
+        setPostList(content);
+        setPostListPageInfo(pageInfo);
+      } catch (error) {
+        alert("포스트를 불러올 수 없습니다.");
+      }
+    };
+
+    selectPostViewList();
   }, [username, categoryId, page]);
 
   const handleClickPostBoardListItem = (postId: PostView["id"]) => {
