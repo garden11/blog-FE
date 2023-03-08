@@ -11,19 +11,19 @@ import ProfilePicture from "src/components/image/ProfilePicture";
 
 type Props = {
   profile: ProfileView;
-  onClickPostEditButton: () => void;
+  onClickCreatePostButton: () => void;
 };
 
 const Profile = (props: Props) => {
-  const { profile, onClickPostEditButton } = props;
+  const { profile, onClickCreatePostButton } = props;
 
   const { isSignedIn } = useAuth();
 
-  const PostEditButton = () => {
+  const PostButton = () => {
     return (
       <button
         className="main-button d-block ml-auto mr-auto"
-        onClick={onClickPostEditButton}
+        onClick={onClickCreatePostButton}
       >
         POST
       </button>
@@ -52,7 +52,7 @@ const Profile = (props: Props) => {
       {/*  블로그 사용자인 경우 포스트 버튼, 블로그 관리 버튼 추가 */}
       {isSignedIn(profile.username) && (
         <>
-          <PostEditButton />
+          <PostButton />
           <BlogManageButton />
         </>
       )}

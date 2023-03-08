@@ -2,11 +2,7 @@ type Params = {};
 
 type Return = {
   alert: (message: string) => void;
-  confirm: (
-    message: string,
-    onConfirm: () => void,
-    onCancel?: () => void
-  ) => void;
+  confirm: (message: string) => boolean;
 };
 
 const useAlertOrConfirm = (params?: Params): Return => {
@@ -16,17 +12,15 @@ const useAlertOrConfirm = (params?: Params): Return => {
     }
   };
 
-  const confirm = (
-    message: string,
-    onConfirm: () => void,
-    onCancel?: () => void
-  ) => {
+  const confirm = (message: string) => {
     if (typeof window !== undefined) {
       if (window.confirm(message)) {
-        onConfirm();
+        return true;
       } else {
-        onCancel && onCancel();
+        return false;
       }
+    } else {
+      return false;
     }
   };
 

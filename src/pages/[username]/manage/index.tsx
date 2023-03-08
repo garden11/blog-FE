@@ -8,7 +8,7 @@ import ProfileArticle from "src/components/manage/ProfileArticle";
 import CategoryArticle from "src/components/manage/CategoryArticle";
 
 // models
-import { Profile, ProfileImage, ProfileView } from "src/models/profile";
+import { ProfileView } from "src/models/profile";
 import { Category } from "src/models/category";
 import { CategoryFormValues } from "src/models/forms/categoryForm";
 import { ImageFormValues } from "src/models/forms/imageForm";
@@ -33,7 +33,7 @@ const BlogManage = (props: Props) => {
   const { data: session } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
-  const profileImageService = new ProfileService();
+  const profileService = new ProfileService();
   const categoryService = new CategoryService();
 
   const [profile, setProfile] = useState<ProfileView>({} as ProfileView);
@@ -44,36 +44,49 @@ const BlogManage = (props: Props) => {
   useAuth({ shouldRedirect: true });
 
   useEffect(() => {
-    if (!session) return;
+    const selectProfileView = async () => {
+      if (!session) return;
 
-    (async () => {
-      const profile = await profileImageService.selectProfileView({
-        username: session.username,
-      });
-      profile && setProfile(profile);
-    })().catch((error) => alert("프로필 정보를 불러올 수 없습니다."));
+      try {
+        const profile = await profileService.selectProfileView({
+          username: session.username,
+        });
+        profile && setProfile(profile);
+      } catch (error) {
+        alert("프로필 정보를 불러올 수 없습니다.");
+      }
+    };
 
-    (async () => {
-      const categoryList = await categoryService.selectCategoryList({
-        username: session.username,
-      });
-      setCategoryList(categoryList);
-    })().catch((error) => alert("카테고리 목록을 불러올 수 없습니다."));
+    const selectCategoryList = async () => {
+      if (!session) return;
+
+      try {
+        const categoryList = await categoryService.selectCategoryList({
+          username: session.username,
+        });
+        setCategoryList(categoryList);
+      } catch (error) {
+        alert("카테고리 목록을 불러올 수 없습니다.");
+      }
+    };
+
+    selectProfileView();
+    selectCategoryList();
   }, [session?.username]);
 
-  const onSubmitProfileImageForm: SubmitHandler<ImageFormValues> = (
+  const onSubmitProfileImageForm: SubmitHandler<ImageFormValues> = async (
     form,
     event
   ) => {
     if (!session) return;
 
-    (async () => {
+    try {
       const request = {
         image: form.image,
         profileId: profile.id,
       } as ProfileImageRequest;
 
-      const profileImage = await profileImageService.createProfileImage({
+      const profileImage = await profileService.createProfileImage({
         accessToken: session.accessToken,
         request,
       });
@@ -89,7 +102,9 @@ const BlogManage = (props: Props) => {
       event?.target.reset();
 
       alert("이미지가 변경되었습니다.");
-    })().catch((error) => alert("이미지 저장 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("이미지 저장 중 에러가 발생하였습니다.");
+    }
   };
 
   const onErrorSubmitProfileImageForm: SubmitErrorHandler<ImageFormValues> = (
@@ -99,14 +114,15 @@ const BlogManage = (props: Props) => {
     errorList[0].message && alert(errorList[0].message);
   };
 
-  const onSubmitCategoryForm: SubmitHandler<CategoryFormValues> = (
+  const onSubmitCategoryForm: SubmitHandler<CategoryFormValues> = async (
     form,
     event
   ) => {
-    if (!session) return;
+    try {
+      if (!session) return;
 
-    (async () => {
       let category: Category;
+
       const request = {
         username: session.username,
         name: form.name,
@@ -132,7 +148,9 @@ const BlogManage = (props: Props) => {
 
       setCategoryList(newCategoryList);
       !form.id && event?.target.reset();
-    })().catch((error) => alert("카테고리 저장 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("카테고리 저장 중 에러가 발생하였습니다.");
+    }
   };
 
   const onErrorSubmitCategoryForm: SubmitErrorHandler<CategoryFormValues> = (
@@ -144,11 +162,11 @@ const BlogManage = (props: Props) => {
     event?.target.reset();
   };
 
-  const handleClickCategoryFormDeleteButton = (id: Category["id"]) => {
+  const handleClickCategoryFormDeleteButton = async (id: Category["id"]) => {
     if (!session) return;
 
-    const onConfirm = () => {
-      (async () => {
+    if (confirm("카테고리를 삭제하시겠습니까?")) {
+      try {
         await categoryService.deleteCategory({
           accessToken: session?.accessToken,
           id,
@@ -158,10 +176,10 @@ const BlogManage = (props: Props) => {
           (listItem) => listItem.id !== id
         );
         setCategoryList(newCategoryList);
-      })().catch((error) => alert("카테고리 삭제 중 에러가 발생하였습니다."));
-    };
-
-    confirm("카테고리를 삭제하시겠습니까?", onConfirm);
+      } catch (error) {
+        alert("카테고리 삭제 중 에러가 발생하였습니다.");
+      }
+    }
   };
 
   return (

@@ -29,8 +29,8 @@ const SignIn = (props: Props) => {
 
   useAuth({ referer });
 
-  const onSubmitForm: SubmitHandler<SignInFormValues> = (form, event) => {
-    (async () => {
+  const onSubmitForm: SubmitHandler<SignInFormValues> = async (form, event) => {
+    try {
       const response = await signIn("credentials", {
         ...form,
         redirect: false,
@@ -47,7 +47,9 @@ const SignIn = (props: Props) => {
       if (error) {
         throw new Error();
       }
-    })().catch((error) => alert("아이디 또는 비밀번호가 일치하지 않습니다."));
+    } catch (error) {
+      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    }
   };
 
   return (

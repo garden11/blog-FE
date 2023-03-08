@@ -18,8 +18,8 @@ const FindPassword = (props: Props) => {
 
   const { alert } = useAlertOrConfirm();
 
-  const onSubmitForm: SubmitHandler<EmailFormValues> = (form, event) => {
-    (async () => {
+  const onSubmitForm: SubmitHandler<EmailFormValues> = async (form, event) => {
+    try {
       const processToken = uuidv4();
       const SUBJECT = "[BLOG] 비밀번호 재설정";
       const LINK = `${process.env.NEXT_PUBLIC_DOMAIN_URI}/reset-password/${processToken}`;
@@ -35,7 +35,9 @@ const FindPassword = (props: Props) => {
 
       await authService.sendResetPasswordMail({ request });
       alert("메일을 발송했습니다.");
-    })().catch((error) => alert("메일 발송 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("메일 발송 중 에러가 발생하였습니다.");
+    }
   };
 
   return (

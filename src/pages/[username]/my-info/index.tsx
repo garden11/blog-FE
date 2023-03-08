@@ -36,42 +36,47 @@ const MyInfo = (props: Props) => {
   useAuth({ shouldRedirect: true });
 
   useEffect(() => {
-    if (!session) return;
+    const selectUserInfo = async () => {
+      if (!session) return;
 
-    (async () => {
-      const userInfo = await userService.selectUserInfo({
-        accessToken: session.accessToken,
-        username: session.username,
-      });
-      setUserInfo(userInfo);
-    })().catch((error) =>
-      alert("유저 정보 불러오기 중 에러가 발생하였습니다.")
-    );
+      try {
+        const userInfo = await userService.selectUserInfo({
+          accessToken: session.accessToken,
+          username: session.username,
+        });
+        setUserInfo(userInfo);
+      } catch (error) {
+        alert("유저 정보 불러오기 중 에러가 발생하였습니다.");
+      }
+    };
+
+    selectUserInfo();
   }, [session?.username]);
 
   const handleClickWidthdrawalButton = async () => {
     if (!session) return;
 
-    const onConfirm = () => {
-      (async () => {
+    if (confirm("회원탈퇴 하시겠습니까?")) {
+      try {
         await authService.withdrawalUser({
           accessToken: session.accessToken,
           username: session.username,
         });
 
         signOut();
-      })().catch((error) => alert("회원 탈퇴 중 에러가 발생하였습니다."));
-    };
-    confirm("회원탈퇴 하시겠습니까?", onConfirm);
+      } catch (error) {
+        alert("회원 탈퇴 중 에러가 발생하였습니다.");
+      }
+    }
   };
 
-  const onSubmitUpdateEmailForm: SubmitHandler<EmailFormValues> = (
+  const onSubmitUpdateEmailForm: SubmitHandler<EmailFormValues> = async (
     form,
     event
   ) => {
     if (!session) return;
 
-    (async () => {
+    try {
       const request = {
         email: form.email,
       } as UserRequest;
@@ -83,31 +88,33 @@ const MyInfo = (props: Props) => {
       });
 
       alert("이메일이 수정되었습니다.");
-    })().catch((error) => alert("이메일 수정 중 에러가 발생하였습니다."));
+    } catch (error) {
+      alert("이메일 수정 중 에러가 발생하였습니다.");
+    }
   };
 
-  const onSubmitUpdatePasswordForm: SubmitHandler<UpdatePasswordFormValues> = (
-    form,
-    event
-  ) => {
-    if (!session) return;
+  const onSubmitUpdatePasswordForm: SubmitHandler<UpdatePasswordFormValues> =
+    async (form, event) => {
+      if (!session) return;
 
-    (async () => {
-      const request = {
-        username: session.username,
-        password: form.password,
-        newPassword: form.newPassword,
-      } as UpdatePasswordRequest;
+      try {
+        const request = {
+          username: session.username,
+          password: form.password,
+          newPassword: form.newPassword,
+        } as UpdatePasswordRequest;
 
-      await authService.updatePassword({
-        accessToken: session.accessToken,
-        request,
-      });
+        await authService.updatePassword({
+          accessToken: session.accessToken,
+          request,
+        });
 
-      event?.target.reset();
-      alert("비밀번호가 변경되었습니다.");
-    })().catch((error) => alert("비밀번호 변경 중 에러가 발생하였습니다."));
-  };
+        event?.target.reset();
+        alert("비밀번호가 변경되었습니다.");
+      } catch (error) {
+        alert("비밀번호 변경 중 에러가 발생하였습니다.");
+      }
+    };
 
   return (
     <Layout>

@@ -312,6 +312,17 @@ header .navbar {
   margin-top: 150px;
 }
 
+.blog-posts .post-edit {
+  display: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.blog-posts .post-edit svg {
+  color: #f48840;
+  border-bottom: 3px solid;
+}
+
 .blog-posts .blog-post {
   margin-bottom: 30px;
   background-color: #ffffff;
@@ -1104,6 +1115,13 @@ footer p a:hover {
 }
 
 /* Responsive Style */
+
+@media (max-width: 992px) {
+  .blog-posts .post-edit {
+    display: block;
+  }
+}
+
 @media (max-width: 992px) {
   .post-editor form .editor-container {
     width: 100%;
