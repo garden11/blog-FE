@@ -17,7 +17,7 @@ import { PageInfo } from "src/models/pageInfo";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
-import usePost from "src/hooks/usePost";
+import usePostActions from "src/hooks/usePostActions";
 
 type PageQuery = {
   username?: string;
@@ -32,7 +32,7 @@ const BlogBoard = (props: Props) => {
   const { username, categoryId, page = 1 } = router.query as PageQuery;
 
   const { isSignedIn } = useAuth();
-  const { handleClickCreatePostButton } = usePost();
+  const { handleClickCreatePostButton } = usePostActions();
 
   const postService = new PostService();
 
