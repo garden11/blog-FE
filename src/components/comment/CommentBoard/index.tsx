@@ -33,7 +33,7 @@ const CommentBoard = (props: Props) => {
   return (
     <div className="sidebar-item comments">
       <div className="sidebar-heading">
-        <h2>{commentListPageInfo.totalElements} comments</h2>
+        <h2>{commentListPageInfo.totalElements} COMMENTS</h2>
         <div className="content">
           <div className="row">
             <div className="col-lg-12">
