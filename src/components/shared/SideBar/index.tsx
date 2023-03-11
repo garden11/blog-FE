@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 // hooks
-import usePost from "src/hooks/usePost";
+import usePostActions from "src/hooks/usePostActions";
 
 // models
 import { Category } from "src/models/category";
@@ -31,7 +31,7 @@ const SideBar = (props: Props) => {
   const categoryService = new CategoryService();
   const profileService = new ProfileService();
 
-  const { handleClickCreatePostButton } = usePost();
+  const { handleClickCreatePostButton } = usePostActions();
 
   const [categoryList, setCategoryList] = useState<Category[]>(
     [] as Category[]

@@ -60,8 +60,6 @@ const PostForm = (props: Props) => {
     reset(props.defaultValues);
   }, [!!props.defaultValues]);
 
-  const contentByteLength = watch("contentByteLength");
-
   return (
     <form onSubmit={handleSubmit(onSubmit, onErrorSubmit)}>
       <input {...register("id")} hidden />
@@ -92,7 +90,7 @@ const PostForm = (props: Props) => {
         <input {...register("contentByteLength")} hidden />
         {/* 현재 bytes */}
         {/* <div className="d-flex justify-content-end">
-          <span>{`${contentByteLength}/100000bytes`}</span>
+          <span>{`${watch("contentByteLength")}/100000bytes`}</span>
         </div> */}
 
         <Controller

@@ -16,7 +16,7 @@ type Return = {
   handleClickCreatePostButton: () => void;
 };
 
-const usePost = (params?: Params): Return => {
+const usePostActions = (params?: Params): Return => {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -47,4 +47,4 @@ const usePost = (params?: Params): Return => {
   return { handleClickCreatePostButton };
 };
 
-export default usePost;
+export default usePostActions;
