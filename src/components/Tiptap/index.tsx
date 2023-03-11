@@ -3,6 +3,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import HardBreak from "@tiptap/extension-hard-break";
 import { ValidationError } from "yup";
+import { useEffect } from "react";
 
 // components
 import MenuBar from "./MenuBar";
@@ -18,33 +19,36 @@ type Props = {
 const Tiptap = (props: Props) => {
   const { value, onChange, onSubmitImage, onErrorSubmitImage } = props;
 
-  const editor = useEditor(
-    {
-      extensions: [
-        StarterKit,
-        HardBreak.extend({
-          addKeyboardShortcuts() {
-            return {
-              Enter: () => this.editor.commands.setHardBreak(),
-            };
-          },
-        }),
-        Image.configure({
-          inline: true,
-          HTMLAttributes: {
-            contentEditable: true,
-          },
-        }),
-      ],
-      autofocus: "end",
-      content: value,
-      onUpdate({ editor }) {
-        onChange(editor.getHTML());
-      },
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      HardBreak.extend({
+        addKeyboardShortcuts() {
+          return {
+            Enter: () => this.editor.commands.setHardBreak(),
+          };
+        },
+      }),
+      Image.configure({
+        inline: true,
+        HTMLAttributes: {
+          contentEditable: true,
+        },
+      }),
+    ],
+    autofocus: "end",
+    content: value,
+    onUpdate({ editor }) {
+      onChange(editor.getHTML());
     },
-    // value값이 있다면 반영함
-    [!!value]
-  );
+  });
+
+  // 상위 컴포넌트에서 value 값을 변경했을 때 반영
+  useEffect(() => {
+    if (editor && editor.getHTML() !== value) {
+      editor.commands.setContent(value);
+    }
+  }, [editor, value]);
 
   return (
     <>
