@@ -4,10 +4,10 @@ import appAxios from "src/lib/appAxios";
 // constants
 import { AUTHORIZATION_HEADER_KEY } from "src/constants";
 
-// models
-import { Category } from "src/models/category";
-import { UserInfo } from "src/models/user";
-import { Tokens } from "src/models/auth";
+// types
+import { Category } from "src/types/category";
+import { UserInfo } from "src/types/user";
+import { Tokens } from "src/types/auth";
 
 export type CategoryRequest = {
   username: Category["username"];

@@ -4,9 +4,9 @@ import { AUTHORIZATION_HEADER_KEY } from "src/constants";
 // lib
 import appAxios from "src/lib/appAxios";
 
-// models
-import { Tokens } from "src/models/auth";
-import { UserInfo } from "src/models/user";
+// types
+import { Tokens } from "src/types/auth";
+import { UserInfo } from "src/types/user";
 
 export type SignInRequest = {
   username: UserInfo["username"];

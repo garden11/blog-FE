@@ -5,8 +5,8 @@ import _ from "lodash";
 import UpdateEmailForm from "src/components/my-info/MyInfoArticle/UpdateEmailForm";
 import UpdatePasswordForm from "src/components/my-info/MyInfoArticle/UpdatePasswordForm";
 
-// models
-import { UserInfo } from "src/models/user";
+// types
+import { UserInfo } from "src/types/user";
 
 // forms
 import { EmailFormValues } from "src/forms/emailForm";

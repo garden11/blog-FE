@@ -3,8 +3,8 @@ import _ from "lodash";
 // constants
 import { PAGE_NUMBER_BUTTON_LENGTH } from "src/constants";
 
-// models
-import { PageInfo } from "src/models/pageInfo";
+// types
+import { PageInfo } from "src/types/pageInfo";
 
 // utils
 import PageUtil from "src/utils/PageUtil";

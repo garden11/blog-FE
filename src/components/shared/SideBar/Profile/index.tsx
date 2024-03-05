@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-// models
-import { ProfileView } from "src/models/profile";
+// types
+import { ProfileView } from "src/types/profile";
 
 // hooks
 import useAuth from "src/hooks/useAuth";

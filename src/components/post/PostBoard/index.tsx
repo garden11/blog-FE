@@ -1,9 +1,9 @@
 import _ from "lodash";
 import EditIcon from "@mui/icons-material/Edit";
 
-// models
-import { PageInfo } from "src/models/pageInfo";
-import { PostView } from "src/models/post";
+// types
+import { PageInfo } from "src/types/pageInfo";
+import { PostView } from "src/types/post";
 
 // components
 import PostList from "./PostList";

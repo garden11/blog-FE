@@ -3,8 +3,8 @@ import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 // components
 import ProfileImageForm from "src/components/manage/ProfileArticle/ProfileImageForm";
 
-// models
-import { ProfileView } from "src/models/profile";
+// types
+import { ProfileView } from "src/types/profile";
 
 // forms
 import { ImageFormValues } from "src/forms/imageForm";

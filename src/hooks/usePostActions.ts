@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-// models
-import { UserInfo } from "src/models/user";
+// types
+import { UserInfo } from "src/types/user";
 
 // services
 import PostService, { PostRequest } from "src/services/PostService";

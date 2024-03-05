@@ -1,12 +1,12 @@
 // lib
 import appAxios from "src/lib/appAxios";
 
-// models
-import { Post, PostImage, PostView } from "src/models/post";
-import { PageInfo } from "src/models/pageInfo";
-import { UserInfo } from "src/models/user";
-import { Category } from "src/models/category";
-import { Tokens } from "src/models/auth";
+// types
+import { Post, PostImage, PostView } from "src/types/post";
+import { PageInfo } from "src/types/pageInfo";
+import { UserInfo } from "src/types/user";
+import { Category } from "src/types/category";
+import { Tokens } from "src/types/auth";
 
 // constants
 import { AUTHORIZATION_HEADER_KEY } from "src/constants";

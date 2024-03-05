@@ -1,4 +1,4 @@
-// models
+// types
 import { Post } from "./post";
 import { ProfileView } from "./profile";
 import { UserInfo } from "./user";

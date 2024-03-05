@@ -10,8 +10,8 @@ import { ValidationError } from "yup";
 import { Editor } from "@tiptap/react";
 import { useEffect } from "react";
 
-// models
-import { Category } from "src/models/category";
+// types
+import { Category } from "src/types/category";
 
 // forms
 import {

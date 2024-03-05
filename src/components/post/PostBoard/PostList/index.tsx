@@ -1,7 +1,7 @@
 import _ from "lodash";
 
-// models
-import { PostView } from "src/models/post";
+// types
+import { PostView } from "src/types/post";
 import DateUtil from "src/utils/DateUtil";
 
 // components

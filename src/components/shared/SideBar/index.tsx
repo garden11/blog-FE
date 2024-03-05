@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 // hooks
 import usePostActions from "src/hooks/usePostActions";
 
-// models
-import { Category } from "src/models/category";
-import { ProfileView } from "src/models/profile";
-import { UserInfo } from "src/models/user";
+// types
+import { Category } from "src/types/category";
+import { ProfileView } from "src/types/profile";
+import { UserInfo } from "src/types/user";
 
 // services
 import CategoryService from "src/services/CategoryService";

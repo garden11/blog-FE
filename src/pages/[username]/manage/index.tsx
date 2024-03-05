@@ -7,9 +7,9 @@ import Layout from "src/components/shared/Layout";
 import ProfileArticle from "src/components/manage/ProfileArticle";
 import CategoryArticle from "src/components/manage/CategoryArticle";
 
-// models
-import { ProfileView } from "src/models/profile";
-import { Category } from "src/models/category";
+// types
+import { ProfileView } from "src/types/profile";
+import { Category } from "src/types/category";
 
 // forms
 import { CategoryFormValues } from "src/forms/categoryForm";

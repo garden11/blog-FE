@@ -4,10 +4,10 @@ import { AUTHORIZATION_HEADER_KEY } from "src/constants";
 // lib
 import appAxios from "src/lib/appAxios";
 
-// models
-import { Profile, ProfileImage, ProfileView } from "src/models/profile";
-import { UserInfo } from "src/models/user";
-import { Tokens } from "src/models/auth";
+// types
+import { Profile, ProfileImage, ProfileView } from "src/types/profile";
+import { UserInfo } from "src/types/user";
+import { Tokens } from "src/types/auth";
 
 export type ProfileImageRequest = {
   profileId: Profile["id"];

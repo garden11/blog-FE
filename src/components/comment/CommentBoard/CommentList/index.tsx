@@ -1,6 +1,6 @@
 import Link from "next/link";
-// models
-import { CommentView } from "src/models/comment";
+// types
+import { CommentView } from "src/types/comment";
 
 // hooks
 import useAuth from "src/hooks/useAuth";

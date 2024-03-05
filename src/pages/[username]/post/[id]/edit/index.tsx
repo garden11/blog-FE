@@ -17,10 +17,10 @@ import _ from "lodash";
 import useAuth from "src/hooks/useAuth";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-// models
-import { Post } from "src/models/post";
-import { UserInfo } from "src/models/user";
-import { Category } from "src/models/category";
+// types
+import { Post } from "src/types/post";
+import { UserInfo } from "src/types/user";
+import { Category } from "src/types/category";
 
 // forms
 import { PostFormValues } from "src/forms/postForm";

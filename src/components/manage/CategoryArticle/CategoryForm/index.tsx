@@ -9,8 +9,8 @@ import {
   CategoryFormValues as FormValues,
 } from "src/forms/categoryForm";
 
-// models
-import { Category } from "src/models/category";
+// types
+import { Category } from "src/types/category";
 
 type Props = {
   defaultValues?: FormValues;

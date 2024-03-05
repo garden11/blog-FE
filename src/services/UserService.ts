@@ -4,9 +4,9 @@ import appAxios from "src/lib/appAxios";
 // constants
 import { AUTHORIZATION_HEADER_KEY } from "src/constants";
 
-// models
-import { Tokens } from "src/models/auth";
-import { UserInfo } from "src/models/user";
+// types
+import { Tokens } from "src/types/auth";
+import { UserInfo } from "src/types/user";
 
 export type UserRequest = {
   email: UserInfo["email"];

@@ -6,9 +6,9 @@ import CommentForm from "../CommentForm";
 
 import CommentList from "./CommentList";
 
-// models
-import { CommentView } from "src/models/comment";
-import { PageInfo } from "src/models/pageInfo";
+// types
+import { CommentView } from "src/types/comment";
+import { PageInfo } from "src/types/pageInfo";
 
 // forms
 import { CommentFormValues } from "src/forms/commentForm";

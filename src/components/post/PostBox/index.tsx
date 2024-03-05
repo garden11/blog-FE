@@ -1,5 +1,5 @@
-// models
-import { PostView } from "src/models/post";
+// types
+import { PostView } from "src/types/post";
 
 // hooks
 import useAuth from "src/hooks/useAuth";

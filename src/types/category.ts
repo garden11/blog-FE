@@ -1,4 +1,4 @@
-// models
+// types
 import { UserInfo } from "./user";
 
 export type Category = {

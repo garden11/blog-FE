@@ -9,8 +9,8 @@ import Layout from "src/components/shared/Layout";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 import useAuth from "src/hooks/useAuth";
 
-// models
-import { UserInfo } from "src/models/user";
+// types
+import { UserInfo } from "src/types/user";
 
 // forms
 import { EmailFormValues } from "src/forms/emailForm";

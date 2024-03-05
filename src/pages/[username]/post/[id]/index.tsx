@@ -16,11 +16,11 @@ import SideBar from "src/components/shared/SideBar";
 import CommentBoard from "src/components/comment/CommentBoard";
 import PostBox from "src/components/post/PostBox";
 
-// models
-import { PostView } from "src/models/post";
-import { UserInfo } from "src/models/user";
-import { CommentView } from "src/models/comment";
-import { PageInfo } from "src/models/pageInfo";
+// types
+import { PostView } from "src/types/post";
+import { UserInfo } from "src/types/user";
+import { CommentView } from "src/types/comment";
+import { PageInfo } from "src/types/pageInfo";
 
 // forms
 import { CommentFormValues } from "src/forms/commentForm";

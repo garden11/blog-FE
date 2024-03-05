@@ -1,6 +1,6 @@
-// models
+// types
 import Link from "next/link";
-import { Category } from "src/models/category";
+import { Category } from "src/types/category";
 
 type Props = {
   categoryId?: Category["id"];

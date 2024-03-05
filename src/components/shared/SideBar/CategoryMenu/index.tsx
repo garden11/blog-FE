@@ -4,8 +4,8 @@ import _ from "lodash";
 import CategoryList from "./CategoryList";
 import MessageBox from "../../MessageBox";
 
-// models
-import { Category } from "src/models/category";
+// types
+import { Category } from "src/types/category";
 
 type Props = {
   categoryId?: Category["id"];

@@ -1,11 +1,11 @@
 // lib
 import appAxios from "src/lib/appAxios";
 
-// models
-import { Comment, CommentView } from "src/models/comment";
-import { PageInfo } from "src/models/pageInfo";
-import { PostView } from "src/models/post";
-import { Tokens } from "src/models/auth";
+// types
+import { Comment, CommentView } from "src/types/comment";
+import { PageInfo } from "src/types/pageInfo";
+import { PostView } from "src/types/post";
+import { Tokens } from "src/types/auth";
 
 // utils
 import PageUtil from "src/utils/PageUtil";

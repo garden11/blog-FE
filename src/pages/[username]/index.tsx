@@ -10,10 +10,10 @@ import Layout from "src/components/shared/Layout";
 import SideBar from "src/components/shared/SideBar";
 import PostBoard from "src/components/post/PostBoard";
 
-// models
-import { Category } from "src/models/category";
-import { PostView } from "src/models/post";
-import { PageInfo } from "src/models/pageInfo";
+// types
+import { Category } from "src/types/category";
+import { PostView } from "src/types/post";
+import { PageInfo } from "src/types/pageInfo";
 
 // hooks
 import useAuth from "src/hooks/useAuth";

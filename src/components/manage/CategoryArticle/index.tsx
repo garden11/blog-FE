@@ -1,7 +1,7 @@
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 
-// models
-import { Category } from "src/models/category";
+// types
+import { Category } from "src/types/category";
 
 // components
 import CategoryForm from "src/components/manage/CategoryArticle/CategoryForm";
