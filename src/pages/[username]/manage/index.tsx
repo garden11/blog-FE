@@ -10,8 +10,10 @@ import CategoryArticle from "src/components/manage/CategoryArticle";
 // models
 import { ProfileView } from "src/models/profile";
 import { Category } from "src/models/category";
-import { CategoryFormValues } from "src/models/forms/categoryForm";
-import { ImageFormValues } from "src/models/forms/imageForm";
+
+// forms
+import { CategoryFormValues } from "src/forms/categoryForm";
+import { ImageFormValues } from "src/forms/imageForm";
 
 // services
 import ProfileService, {

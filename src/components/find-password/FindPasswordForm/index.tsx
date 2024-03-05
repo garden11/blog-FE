@@ -2,11 +2,11 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// models
+// forms
 import {
   emailFormSchema as formSchema,
   EmailFormValues as FormValues,
-} from "src/models/forms/emailForm";
+} from "src/forms/emailForm";
 
 type Props = {
   onSubmit: SubmitHandler<FormValues>;

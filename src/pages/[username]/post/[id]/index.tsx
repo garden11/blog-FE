@@ -21,7 +21,9 @@ import { PostView } from "src/models/post";
 import { UserInfo } from "src/models/user";
 import { CommentView } from "src/models/comment";
 import { PageInfo } from "src/models/pageInfo";
-import { CommentFormValues } from "src/models/forms/commentForm";
+
+// forms
+import { CommentFormValues } from "src/forms/commentForm";
 
 // services
 import PostService from "src/services/PostService";

@@ -8,8 +8,8 @@ import ResetPasswordForm, {
 } from "src/components/reset-password/ResetPasswordForm";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-// models
-import { ResetPasswordFormValues } from "src/models/forms/passwordForm";
+// forms
+import { ResetPasswordFormValues } from "src/forms/passwordForm";
 
 // services
 import AuthService, { ResetPasswordRequest } from "src/services/AuthService";

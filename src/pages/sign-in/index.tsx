@@ -9,8 +9,8 @@ import SignInForm from "src/components/sign-in/SignInForm";
 import useAuth from "src/hooks/useAuth";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-// models
-import { SignInFormValues } from "src/models/forms/authForm";
+// forms
+import { SignInFormValues } from "src/forms/authForm";
 import { useRouter } from "next/router";
 
 type Props = {};

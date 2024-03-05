@@ -2,11 +2,11 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// models
+// forms
 import {
   resetPasswordFormSchema as formSchema,
   ResetPasswordFormValues as FormValues,
-} from "src/models/forms/passwordForm";
+} from "src/forms/passwordForm";
 import MessageBox from "src/components/shared/MessageBox";
 
 type FormStatus = "done" | "error" | undefined;

@@ -12,10 +12,12 @@ import { useEffect } from "react";
 
 // models
 import { Category } from "src/models/category";
+
+// forms
 import {
   postFormSchema as formSchema,
   PostFormValues as FormValues,
-} from "src/models/forms/postForm";
+} from "src/forms/postForm";
 
 // utils
 import ByteUtil from "src/utils/ByteUtil";

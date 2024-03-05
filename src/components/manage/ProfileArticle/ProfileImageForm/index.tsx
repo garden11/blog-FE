@@ -3,12 +3,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { ValidationError } from "yup";
 
-// models
+// forms
 import {
   imageFormSchema as formSchema,
   imageFormSchema,
   ImageFormValues as FormValues,
-} from "src/models/forms/imageForm";
+} from "src/forms/imageForm";
 
 // components
 import ProfilePicture from "src/components/image/ProfilePicture";

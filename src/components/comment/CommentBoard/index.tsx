@@ -9,7 +9,9 @@ import CommentList from "./CommentList";
 // models
 import { CommentView } from "src/models/comment";
 import { PageInfo } from "src/models/pageInfo";
-import { CommentFormValues } from "src/models/forms/commentForm";
+
+// forms
+import { CommentFormValues } from "src/forms/commentForm";
 
 type Props = {
   commentList: CommentView[];

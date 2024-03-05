@@ -3,8 +3,8 @@ import { Editor } from "@tiptap/react";
 import { ValidationError } from "yup";
 import { useMemo } from "react";
 
-// models
-import { imageFormSchema } from "src/models/forms/imageForm";
+// forms
+import { imageFormSchema } from "src/forms/imageForm";
 
 type Props = {
   editor: Editor | null;

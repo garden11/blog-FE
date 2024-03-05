@@ -1,13 +1,13 @@
 import { useForm, SubmitHandler, DefaultValues } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
+import _ from "lodash";
 
-// models
+// forms
 import {
   emailFormSchema as formSchema,
   EmailFormValues as FormValues,
-} from "src/models/forms/emailForm";
-import _ from "lodash";
+} from "src/forms/emailForm";
 
 type Props = {
   defaultValues?: DefaultValues<FormValues>;

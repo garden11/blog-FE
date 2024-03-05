@@ -11,8 +11,10 @@ import useAuth from "src/hooks/useAuth";
 
 // models
 import { UserInfo } from "src/models/user";
-import { EmailFormValues } from "src/models/forms/emailForm";
-import { UpdatePasswordFormValues } from "src/models/forms/passwordForm";
+
+// forms
+import { EmailFormValues } from "src/forms/emailForm";
+import { UpdatePasswordFormValues } from "src/forms/passwordForm";
 
 // sevices
 import AuthService, { UpdatePasswordRequest } from "src/services/AuthService";

@@ -8,8 +8,8 @@ import SignUpForm from "src/components/sign-up/SignUpForm";
 // hooks
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-// models
-import { SignUpFormValues } from "src/models/forms/authForm";
+// forms
+import { SignUpFormValues } from "src/forms/authForm";
 
 // services
 import AuthService, { SignUpRequest } from "src/services/AuthService";

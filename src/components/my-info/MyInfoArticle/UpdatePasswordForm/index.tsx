@@ -1,11 +1,11 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// models
+// forms
 import {
   updatePasswordFormSchema as formSchema,
   UpdatePasswordFormValues as FormValues,
-} from "src/models/forms/passwordForm";
+} from "src/forms/passwordForm";
 
 type Props = {
   onSubmit: SubmitHandler<FormValues>;

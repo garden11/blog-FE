@@ -6,8 +6,8 @@ import { Category } from "src/models/category";
 // components
 import CategoryForm from "src/components/manage/CategoryArticle/CategoryForm";
 
-// models
-import { CategoryFormValues } from "src/models/forms/categoryForm";
+// forms
+import { CategoryFormValues } from "src/forms/categoryForm";
 
 type Props = {
   categoryList: Category[];

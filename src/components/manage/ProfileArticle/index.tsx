@@ -5,7 +5,9 @@ import ProfileImageForm from "src/components/manage/ProfileArticle/ProfileImageF
 
 // models
 import { ProfileView } from "src/models/profile";
-import { ImageFormValues } from "src/models/forms/imageForm";
+
+// forms
+import { ImageFormValues } from "src/forms/imageForm";
 
 type Props = {
   profile: ProfileView;

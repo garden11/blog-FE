@@ -1,15 +1,16 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import _, { forEach, isEmpty } from "lodash";
 import { MouseEventHandler, useEffect, useState } from "react";
 
-// models
-import { Category } from "src/models/category";
+// forms
 import {
   categoryFormSchema as formSchema,
   CategoryFormValues as FormValues,
-} from "src/models/forms/categoryForm";
-import _, { forEach, isEmpty } from "lodash";
+} from "src/forms/categoryForm";
+
+// models
+import { Category } from "src/models/category";
 
 type Props = {
   defaultValues?: FormValues;

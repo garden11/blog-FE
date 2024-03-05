@@ -21,7 +21,9 @@ import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 import { Post } from "src/models/post";
 import { UserInfo } from "src/models/user";
 import { Category } from "src/models/category";
-import { PostFormValues } from "src/models/forms/postForm";
+
+// forms
+import { PostFormValues } from "src/forms/postForm";
 
 // auth
 import { authOptions } from "src/pages/api/auth/[...nextauth]";

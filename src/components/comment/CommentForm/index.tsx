@@ -4,11 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 // hooks
 import useAuth from "src/hooks/useAuth";
 
-// models
+// forms
 import {
   commentFormSchema as formSchema,
   CommentFormValues as FormValues,
-} from "src/models/forms/commentForm";
+} from "src/forms/commentForm";
 
 type Props = {
   onSubmit: SubmitHandler<FormValues>;

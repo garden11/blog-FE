@@ -7,8 +7,10 @@ import UpdatePasswordForm from "src/components/my-info/MyInfoArticle/UpdatePassw
 
 // models
 import { UserInfo } from "src/models/user";
-import { EmailFormValues } from "src/models/forms/emailForm";
-import { UpdatePasswordFormValues } from "src/models/forms/passwordForm";
+
+// forms
+import { EmailFormValues } from "src/forms/emailForm";
+import { UpdatePasswordFormValues } from "src/forms/passwordForm";
 
 type Props = {
   userInfo: UserInfo;

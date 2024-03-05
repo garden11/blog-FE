@@ -5,8 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import FindPasswordForm from "src/components/find-password/FindPasswordForm";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-// models
-import { EmailFormValues } from "src/models/forms/emailForm";
+// forms
+import { EmailFormValues } from "src/forms/emailForm";
 
 // services
 import AuthService, { MailRequest } from "src/services/AuthService";
