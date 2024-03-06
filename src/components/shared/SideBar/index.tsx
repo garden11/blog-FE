@@ -2,6 +2,9 @@ import _ from "lodash";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+// api
+import * as API from "src/api";
+
 // hooks
 import usePostActions from "src/hooks/usePostActions";
 
@@ -9,10 +12,6 @@ import usePostActions from "src/hooks/usePostActions";
 import { Category } from "src/types/category";
 import { ProfileView } from "src/types/profile";
 import { UserInfo } from "src/types/user";
-
-// services
-import CategoryService from "src/services/CategoryService";
-import ProfileService from "src/services/ProfileService";
 
 // components
 import CategoryMenu from "./CategoryMenu";
@@ -28,9 +27,6 @@ const SideBar = (props: Props) => {
 
   const router = useRouter();
 
-  const categoryService = new CategoryService();
-  const profileService = new ProfileService();
-
   const { handleClickCreatePostButton } = usePostActions();
 
   const [categoryList, setCategoryList] = useState<Category[]>(
@@ -43,7 +39,7 @@ const SideBar = (props: Props) => {
       if (!username) return;
 
       try {
-        const categoryList = await categoryService.selectCategoryList({
+        const categoryList = await API.selectCategoryList({
           username,
         });
         setCategoryList(categoryList);
@@ -56,7 +52,7 @@ const SideBar = (props: Props) => {
       if (!username) return;
 
       try {
-        const profile = await profileService.selectProfileView({
+        const profile = await API.selectProfileView({
           username,
         });
         if (profile) {

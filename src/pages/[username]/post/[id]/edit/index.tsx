@@ -13,6 +13,9 @@ import { Editor } from "@tiptap/react";
 import { parse } from "node-html-parser";
 import _ from "lodash";
 
+// api
+import * as API from "src/api";
+
 // hooks
 import useAuth from "src/hooks/useAuth";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
@@ -27,13 +30,6 @@ import { PostFormValues } from "src/forms/postForm";
 
 // auth
 import { authOptions } from "src/pages/api/auth/[...nextauth]";
-
-// services
-import PostService, {
-  PostImageRequest,
-  PostRequest,
-} from "src/services/PostService";
-import CategoryService from "src/services/CategoryService";
 
 // components
 import PostForm from "src/components/post/PostForm";
@@ -60,9 +56,6 @@ const PostEdit = (props: Props) => {
   const { data: session } = useSession();
   const { alert } = useAlertOrConfirm();
 
-  const postService = new PostService();
-  const categoryService = new CategoryService();
-
   const dateUtil = new DateUtil();
   const byteUtil = new ByteUtil();
 
@@ -77,7 +70,7 @@ const PostEdit = (props: Props) => {
       if (!session) return;
 
       try {
-        const categoryList = await categoryService.selectCategoryList({
+        const categoryList = await API.selectCategoryList({
           username: session.username,
         });
         setCategoryList(categoryList);
@@ -96,9 +89,9 @@ const PostEdit = (props: Props) => {
       const request = {
         image,
         postId: post.id,
-      } as PostImageRequest;
+      } as API.PostImageRequest;
 
-      const postImage = await postService.createPostImage({
+      const postImage = await API.createPostImage({
         accessToken: session.accessToken,
         request,
       });
@@ -121,9 +114,9 @@ const PostEdit = (props: Props) => {
         categoryId: form.categoryId,
         title: form.title,
         content: form.content,
-        imageUriList: [] as PostRequest["imageUriList"],
-      } as PostRequest;
-      let postRequest: PostRequest;
+        imageUriList: [] as API.PostRequest["imageUriList"],
+      } as API.PostRequest;
+      let postRequest: API.PostRequest;
 
       const imgNodeList = parse(form.content).querySelectorAll("img");
       let imageUriList = imgNodeList.map((listItem) =>
@@ -150,7 +143,7 @@ const PostEdit = (props: Props) => {
         };
       }
 
-      await postService.updatePost({
+      await API.updatePost({
         accessToken: session.accessToken,
         id: form.id,
         request: postRequest,
@@ -199,7 +192,6 @@ export const getServerSideProps: GetServerSideProps = async (
 ): Promise<GetServerSidePropsResult<Props>> => {
   const { query } = context;
   const { id } = query as PageQuery;
-  const postService = new PostService();
   const session = await getServerSession(
     context.req,
     context.res,
@@ -208,7 +200,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (!session || !id) return { notFound: true };
 
-  const post = await postService.selectPost({
+  const post = await API.selectPost({
     accessToken: session.accessToken,
     id,
   });

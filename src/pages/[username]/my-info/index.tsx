@@ -2,6 +2,9 @@ import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
+// api
+import * as API from "src/api";
+
 // components
 import MyInfoArticle from "src/components/my-info/MyInfoArticle";
 import WithdrawalArticle from "src/components/my-info/WithdrawalArticle";
@@ -16,10 +19,6 @@ import { UserInfo } from "src/types/user";
 import { EmailFormValues } from "src/forms/emailForm";
 import { UpdatePasswordFormValues } from "src/forms/passwordForm";
 
-// sevices
-import AuthService, { UpdatePasswordRequest } from "src/services/AuthService";
-import UserService, { UserRequest } from "src/services/UserService";
-
 type PageQuery = {
   username?: string;
 };
@@ -30,9 +29,6 @@ const MyInfo = (props: Props) => {
   const { data: session } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
-  const userService = new UserService();
-  const authService = new AuthService();
-
   const [userInfo, setUserInfo] = useState<UserInfo>({} as UserInfo);
 
   useAuth({ shouldRedirect: true });
@@ -42,7 +38,7 @@ const MyInfo = (props: Props) => {
       if (!session) return;
 
       try {
-        const userInfo = await userService.selectUserInfo({
+        const userInfo = await API.selectUserInfo({
           accessToken: session.accessToken,
           username: session.username,
         });
@@ -60,7 +56,7 @@ const MyInfo = (props: Props) => {
 
     if (confirm("회원탈퇴 하시겠습니까?")) {
       try {
-        await authService.withdrawalUser({
+        await API.withdrawalUser({
           accessToken: session.accessToken,
           username: session.username,
         });
@@ -81,9 +77,9 @@ const MyInfo = (props: Props) => {
     try {
       const request = {
         email: form.email,
-      } as UserRequest;
+      } as API.UserRequest;
 
-      await userService.updateUser({
+      await API.updateUser({
         accessToken: session.accessToken,
         username: session.username,
         request,
@@ -104,9 +100,9 @@ const MyInfo = (props: Props) => {
           username: session.username,
           password: form.password,
           newPassword: form.newPassword,
-        } as UpdatePasswordRequest;
+        } as API.UpdatePasswordRequest;
 
-        await authService.updatePassword({
+        await API.updatePassword({
           accessToken: session.accessToken,
           request,
         });

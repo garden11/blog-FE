@@ -2,8 +2,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-// services
-import PostService from "src/services/PostService";
+// api
+import * as API from "src/api";
 
 // components
 import Layout from "src/components/shared/Layout";
@@ -34,8 +34,6 @@ const BlogBoard = (props: Props) => {
   const { isSignedIn } = useAuth();
   const { handleClickCreatePostButton } = usePostActions();
 
-  const postService = new PostService();
-
   const [postList, setPostList] = useState<PostView[]>([] as PostView[]);
   const [postListPageInfo, setPostListPageInfo] = useState<PageInfo>(
     {} as PageInfo
@@ -46,7 +44,7 @@ const BlogBoard = (props: Props) => {
       if (!username) return;
 
       try {
-        const { content, ...pageInfo } = await postService.selectPostViewList({
+        const { content, ...pageInfo } = await API.selectPostViewList({
           username,
           categoryId,
           page,

@@ -10,6 +10,9 @@ import { useSession } from "next-auth/react";
 import { htmlToText } from "html-to-text";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 
+// api
+import * as API from "src/api";
+
 // components
 import Layout from "src/components/shared/Layout";
 import SideBar from "src/components/shared/SideBar";
@@ -24,10 +27,6 @@ import { PageInfo } from "src/types/pageInfo";
 
 // forms
 import { CommentFormValues } from "src/forms/commentForm";
-
-// services
-import PostService from "src/services/PostService";
-import CommentService, { CommentRequest } from "src/services/CommentService";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
@@ -50,9 +49,6 @@ const BlogPost = (props: Props) => {
   const { data: session } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
-  const postService = new PostService();
-  const commentService = new CommentService();
-
   const dateUtil = new DateUtil();
 
   const { post } = props;
@@ -69,11 +65,10 @@ const BlogPost = (props: Props) => {
   useEffect(() => {
     const selectCommentViewList = async () => {
       try {
-        const { content, ...pageInfo } =
-          await commentService.selectCommentViewList({
-            postId: post.id,
-            page: commentBoardPage,
-          });
+        const { content, ...pageInfo } = await API.selectCommentViewList({
+          postId: post.id,
+          page: commentBoardPage,
+        });
 
         setCommentList(content);
         setCommentListPageInfo(pageInfo);
@@ -92,7 +87,7 @@ const BlogPost = (props: Props) => {
 
     if (confirm("포스트를 삭제하시겠습니까?")) {
       try {
-        await postService.deletePost({
+        await API.deletePost({
           accessToken: session.accessToken,
           id: postId,
         });
@@ -116,20 +111,19 @@ const BlogPost = (props: Props) => {
         postId: post.id,
         content: form.content,
         registeredAt: dateUtil.createUtcUnixString(),
-      } as CommentRequest;
+      } as API.CommentRequest;
 
-      await commentService.createComment({
+      await API.createComment({
         accessToken: session.accessToken,
         request,
       });
 
       setCommentBoardPage(() => 1);
 
-      const { content, ...pageInfo } =
-        await commentService.selectCommentViewList({
-          postId: post.id,
-          page: commentBoardPage,
-        });
+      const { content, ...pageInfo } = await API.selectCommentViewList({
+        postId: post.id,
+        page: commentBoardPage,
+      });
 
       setCommentList(content);
       setCommentListPageInfo(pageInfo);
@@ -154,15 +148,14 @@ const BlogPost = (props: Props) => {
 
     if (confirm("댓글을 삭제하시겠습니까?")) {
       try {
-        await commentService.deleteComment({
+        await API.deleteComment({
           accessToken: session.accessToken,
           id: commentId,
         });
-        const { content, ...pageInfo } =
-          await commentService.selectCommentViewList({
-            postId: post.id,
-            page: commentBoardPage,
-          });
+        const { content, ...pageInfo } = await API.selectCommentViewList({
+          postId: post.id,
+          page: commentBoardPage,
+        });
 
         setCommentList(content);
         setCommentListPageInfo(pageInfo);
@@ -233,11 +226,10 @@ export const getServerSideProps: GetServerSideProps = async (
 ): Promise<GetServerSidePropsResult<Props>> => {
   const { query } = context;
   const { id } = query as PageQuery;
-  const postService = new PostService();
 
   if (!id) return { notFound: true };
 
-  const post = await postService.selectPostView({ id });
+  const post = await API.selectPostView({ id });
 
   if (!post) return { notFound: true };
 

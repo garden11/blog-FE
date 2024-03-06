@@ -1,6 +1,9 @@
 import { SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
+// api
+import * as API from "src/api";
+
 // components
 import FindPasswordForm from "src/components/find-password/FindPasswordForm";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
@@ -8,14 +11,9 @@ import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 // forms
 import { EmailFormValues } from "src/forms/emailForm";
 
-// services
-import AuthService, { MailRequest } from "src/services/AuthService";
-
 type Props = {};
 
 const FindPassword = (props: Props) => {
-  const authService = new AuthService();
-
   const { alert } = useAlertOrConfirm();
 
   const onSubmitForm: SubmitHandler<EmailFormValues> = async (form, event) => {
@@ -31,9 +29,9 @@ const FindPassword = (props: Props) => {
         subject: SUBJECT,
         message: MESSAGE,
         processToken,
-      } as MailRequest;
+      } as API.MailRequest;
 
-      await authService.sendResetPasswordMail({ request });
+      await API.sendResetPasswordMail({ request });
       alert("메일을 발송했습니다.");
     } catch (error) {
       alert("메일 발송 중 에러가 발생하였습니다.");

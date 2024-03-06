@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 
+// api
+import * as API from "src/api";
+
 // components
 import Layout from "src/components/shared/Layout";
 import ProfileArticle from "src/components/manage/ProfileArticle";
@@ -14,12 +17,6 @@ import { Category } from "src/types/category";
 // forms
 import { CategoryFormValues } from "src/forms/categoryForm";
 import { ImageFormValues } from "src/forms/imageForm";
-
-// services
-import ProfileService, {
-  ProfileImageRequest,
-} from "src/services/ProfileService";
-import CategoryService, { CategoryRequest } from "src/services/CategoryService";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
@@ -35,9 +32,6 @@ const BlogManage = (props: Props) => {
   const { data: session } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
-  const profileService = new ProfileService();
-  const categoryService = new CategoryService();
-
   const [profile, setProfile] = useState<ProfileView>({} as ProfileView);
   const [categoryList, setCategoryList] = useState<Category[]>(
     [] as Category[]
@@ -50,7 +44,7 @@ const BlogManage = (props: Props) => {
       if (!session) return;
 
       try {
-        const profile = await profileService.selectProfileView({
+        const profile = await API.selectProfileView({
           username: session.username,
         });
         profile && setProfile(profile);
@@ -63,7 +57,7 @@ const BlogManage = (props: Props) => {
       if (!session) return;
 
       try {
-        const categoryList = await categoryService.selectCategoryList({
+        const categoryList = await API.selectCategoryList({
           username: session.username,
         });
         setCategoryList(categoryList);
@@ -86,9 +80,9 @@ const BlogManage = (props: Props) => {
       const request = {
         image: form.image,
         profileId: profile.id,
-      } as ProfileImageRequest;
+      } as API.ProfileImageRequest;
 
-      const profileImage = await profileService.createProfileImage({
+      const profileImage = await API.createProfileImage({
         accessToken: session.accessToken,
         request,
       });
@@ -128,15 +122,15 @@ const BlogManage = (props: Props) => {
       const request = {
         username: session.username,
         name: form.name,
-      } as CategoryRequest;
+      } as API.CategoryRequest;
 
       if (!form.id) {
-        category = await categoryService.createCategory({
+        category = await API.createCategory({
           accessToken: session.accessToken,
           request,
         });
       } else {
-        category = await categoryService.updateCategory({
+        category = await API.updateCategory({
           accessToken: session.accessToken,
           id: form.id,
           request,
@@ -169,7 +163,7 @@ const BlogManage = (props: Props) => {
 
     if (confirm("카테고리를 삭제하시겠습니까?")) {
       try {
-        await categoryService.deleteCategory({
+        await API.deleteCategory({
           accessToken: session?.accessToken,
           id,
         });

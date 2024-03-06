@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import React from "react";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 
+// api
+import * as API from "src/api";
+
 // components
 import SignUpForm from "src/components/sign-up/SignUpForm";
 
@@ -11,10 +14,6 @@ import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 // forms
 import { SignUpFormValues } from "src/forms/authForm";
 
-// services
-import AuthService, { SignUpRequest } from "src/services/AuthService";
-import UserService from "src/services/UserService";
-
 type Props = {};
 
 const SignUp = (props: Props) => {
@@ -22,17 +21,14 @@ const SignUp = (props: Props) => {
 
   const { alert } = useAlertOrConfirm();
 
-  const authService = new AuthService();
-  const userService = new UserService();
-
   const onSubmitForm: SubmitHandler<SignUpFormValues> = async (form, event) => {
     try {
-      if (!(await userService.isUniqueUsername({ username: form.username }))) {
+      if (!(await API.isUniqueUsername({ username: form.username }))) {
         alert("중복된 아이디입니다.");
         return;
       }
 
-      if (!(await userService.isUniqueEmail({ email: form.email }))) {
+      if (!(await API.isUniqueEmail({ email: form.email }))) {
         alert("중복된 이메일 입니다.");
         return;
       }
@@ -41,9 +37,9 @@ const SignUp = (props: Props) => {
         email: form.email,
         username: form.username,
         password: form.password,
-      } as SignUpRequest;
+      } as API.SignUpRequest;
 
-      await authService.signUp({ request });
+      await API.signUp({ request });
 
       event?.target.reset();
       router.replace("/sign-in");

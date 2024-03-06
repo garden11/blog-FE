@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
+// api
+import * as API from "src/api";
+
 // components
 import ResetPasswordForm, {
   ResetPsswordFormStatus,
@@ -10,9 +13,6 @@ import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
 // forms
 import { ResetPasswordFormValues } from "src/forms/passwordForm";
-
-// services
-import AuthService, { ResetPasswordRequest } from "src/services/AuthService";
 
 type PageQuery = {
   id?: string;
@@ -23,8 +23,6 @@ type Props = {};
 const ResetPassword = (props: Props) => {
   const router = useRouter();
   const { id } = router.query as PageQuery;
-
-  const authService = new AuthService();
 
   const { alert } = useAlertOrConfirm();
 
@@ -40,9 +38,9 @@ const ResetPassword = (props: Props) => {
       const request = {
         processToken: id,
         newPassword: form.password,
-      } as ResetPasswordRequest;
+      } as API.ResetPasswordRequest;
 
-      await authService.resetPassword({ request });
+      await API.resetPassword({ request });
 
       setFormStatus("done");
     } catch (error) {
