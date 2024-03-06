@@ -76,6 +76,8 @@ const BlogPost = (props: Props) => {
         alert("댓글 불러오기 중 에러가 발생하였습니다.");
       }
     };
+
+    getCommentDetailList();
   }, [post, commentBoardPage]);
 
   const handleClickUpdatePostButton = () => {
