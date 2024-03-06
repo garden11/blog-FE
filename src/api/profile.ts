@@ -5,7 +5,7 @@ import { AUTHORIZATION_HEADER_KEY } from "src/constants";
 import appAxios from "src/lib/appAxios";
 
 // types
-import { Profile, ProfileImage, ProfileView } from "src/types/profile";
+import { Profile, ProfileImage, ProfileDetail } from "src/types/profile";
 import { UserInfo } from "src/types/user";
 import { Tokens } from "src/types/auth";
 
@@ -14,13 +14,13 @@ export type ProfileImageRequest = {
   image: File;
 };
 
-export const selectProfileView = async ({
+export const selectProfileDetail = async ({
   username,
 }: {
   username: UserInfo["username"];
-}): Promise<ProfileView | null> => {
+}): Promise<ProfileDetail | null> => {
   const response = await appAxios().get(
-    `/api/v1/user/${username}/profile-view`
+    `/api/v1/user/${username}/profile-detail`
   );
 
   return response.data;

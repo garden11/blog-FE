@@ -3,7 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 // types
 import { PageInfo } from "src/types/pageInfo";
-import { PostView } from "src/types/post";
+import { PostDetail } from "src/types/post";
 
 // components
 import PostList from "./PostList";
@@ -12,9 +12,9 @@ import MessageBox from "src/components/shared/MessageBox";
 
 type Props = {
   canPost?: boolean;
-  postList: PostView[];
+  postList: PostDetail[];
   postListPageInfo: PageInfo;
-  onClickPostListItem: (postId: PostView["id"]) => void;
+  onClickPostListItem: (postId: PostDetail["id"]) => void;
   onClickPageNavigationButton: (page: number) => void;
   onClickCreatePostButton: () => void;
 };

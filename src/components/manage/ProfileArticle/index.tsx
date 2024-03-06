@@ -4,13 +4,13 @@ import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import ProfileImageForm from "src/components/manage/ProfileArticle/ProfileImageForm";
 
 // types
-import { ProfileView } from "src/types/profile";
+import { ProfileDetail } from "src/types/profile";
 
 // forms
 import { ImageFormValues } from "src/forms/imageForm";
 
 type Props = {
-  profile: ProfileView;
+  profile: ProfileDetail;
   onSubmitProfileImageForm: SubmitHandler<ImageFormValues>;
   onErrorSubmitProfileImageForm: SubmitErrorHandler<ImageFormValues>;
 };

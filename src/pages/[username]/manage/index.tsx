@@ -11,7 +11,7 @@ import ProfileArticle from "src/components/manage/ProfileArticle";
 import CategoryArticle from "src/components/manage/CategoryArticle";
 
 // types
-import { ProfileView } from "src/types/profile";
+import { ProfileDetail } from "src/types/profile";
 import { Category } from "src/types/category";
 
 // forms
@@ -32,7 +32,7 @@ const BlogManage = (props: Props) => {
   const { data: session } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
-  const [profile, setProfile] = useState<ProfileView>({} as ProfileView);
+  const [profile, setProfile] = useState<ProfileDetail>({} as ProfileDetail);
   const [categoryList, setCategoryList] = useState<Category[]>(
     [] as Category[]
   );
@@ -40,11 +40,11 @@ const BlogManage = (props: Props) => {
   useAuth({ shouldRedirect: true });
 
   useEffect(() => {
-    const selectProfileView = async () => {
+    const selectProfileDetail = async () => {
       if (!session) return;
 
       try {
-        const profile = await API.selectProfileView({
+        const profile = await API.selectProfileDetail({
           username: session.username,
         });
         profile && setProfile(profile);
@@ -66,7 +66,7 @@ const BlogManage = (props: Props) => {
       }
     };
 
-    selectProfileView();
+    selectProfileDetail();
     selectCategoryList();
   }, [session?.username]);
 
@@ -87,7 +87,7 @@ const BlogManage = (props: Props) => {
         request,
       });
 
-      const newProfile: ProfileView = {
+      const newProfile: ProfileDetail = {
         ...profile,
         profileImageId: profileImage.id,
         profileImageUri: profileImage.uri,

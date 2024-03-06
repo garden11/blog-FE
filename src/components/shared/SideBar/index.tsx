@@ -10,7 +10,7 @@ import usePostActions from "src/hooks/usePostActions";
 
 // types
 import { Category } from "src/types/category";
-import { ProfileView } from "src/types/profile";
+import { ProfileDetail } from "src/types/profile";
 import { UserInfo } from "src/types/user";
 
 // components
@@ -32,7 +32,7 @@ const SideBar = (props: Props) => {
   const [categoryList, setCategoryList] = useState<Category[]>(
     [] as Category[]
   );
-  const [profile, setProfile] = useState<ProfileView>({} as ProfileView);
+  const [profile, setProfile] = useState<ProfileDetail>({} as ProfileDetail);
 
   useEffect(() => {
     const selectCategoryList = async () => {
@@ -48,11 +48,11 @@ const SideBar = (props: Props) => {
       }
     };
 
-    const selectProfileView = async () => {
+    const selectProfileDetail = async () => {
       if (!username) return;
 
       try {
-        const profile = await API.selectProfileView({
+        const profile = await API.selectProfileDetail({
           username,
         });
         if (profile) {
@@ -67,7 +67,7 @@ const SideBar = (props: Props) => {
     };
 
     selectCategoryList();
-    selectProfileView();
+    selectProfileDetail();
   }, [username]);
 
   return (

@@ -2,7 +2,7 @@
 import appAxios from "src/lib/appAxios";
 
 // types
-import { Post, PostImage, PostView } from "src/types/post";
+import { Post, PostImage, PostDetail } from "src/types/post";
 import { PageInfo } from "src/types/pageInfo";
 import { UserInfo } from "src/types/user";
 import { Category } from "src/types/category";
@@ -90,17 +90,17 @@ export const deletePost = async ({
   return response.data;
 };
 
-export const selectPostView = async ({
+export const selectPostDetail = async ({
   id,
 }: {
-  id: PostView["id"];
-}): Promise<PostView | null> => {
-  const response = await appAxios().get(`/api/v1/post-view/${id}`);
+  id: PostDetail["id"];
+}): Promise<PostDetail | null> => {
+  const response = await appAxios().get(`/api/v1/post-detail/${id}`);
 
   return response.data;
 };
 
-export const selectPostViewList = async ({
+export const selectPostDetailList = async ({
   username,
   categoryId,
   page,
@@ -108,12 +108,12 @@ export const selectPostViewList = async ({
   username: UserInfo["username"];
   categoryId?: Category["id"];
   page: number;
-}): Promise<{ content: PostView[] } & PageInfo> => {
+}): Promise<{ content: PostDetail[] } & PageInfo> => {
   const pageNumber = pageUtil.convertToNumberFromLabel(page);
 
   const uri = !categoryId
-    ? `/api/v1/user/${username}/post-views?page=${pageNumber}`
-    : `/api/v1/user/${username}/category/${categoryId}/post-views?page=${pageNumber}`;
+    ? `/api/v1/user/${username}/post-details?page=${pageNumber}`
+    : `/api/v1/user/${username}/category/${categoryId}/post-details?page=${pageNumber}`;
 
   const response = await appAxios().get(uri);
 

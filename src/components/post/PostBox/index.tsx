@@ -1,5 +1,5 @@
 // types
-import { PostView } from "src/types/post";
+import { PostDetail } from "src/types/post";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
@@ -8,9 +8,9 @@ import useAuth from "src/hooks/useAuth";
 import DateUtil from "src/utils/DateUtil";
 
 type Props = {
-  post: PostView;
+  post: PostDetail;
   onClickUpdatePostButton: () => void;
-  onClickDeletePostButton: (postId: PostView["id"]) => void;
+  onClickDeletePostButton: (postId: PostDetail["id"]) => void;
 };
 
 const PostBox = (props: Props) => {

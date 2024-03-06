@@ -1,6 +1,6 @@
 // types
 import { Post } from "./post";
-import { ProfileView } from "./profile";
+import { ProfileDetail } from "./profile";
 import { UserInfo } from "./user";
 
 export type Comment = {
@@ -11,13 +11,13 @@ export type Comment = {
   registeredAt: string;
 };
 
-export type CommentView = {
+export type CommentDetail = {
   id: Comment["id"];
   postId: Comment["postId"];
   username: UserInfo["username"];
   content: Comment["content"];
   registeredAt: Comment["registeredAt"];
-  profileId: ProfileView["id"];
-  profileImageId: ProfileView["profileImageId"];
-  profileImageUri: ProfileView["profileImageUri"];
+  profileId: ProfileDetail["id"];
+  profileImageId: ProfileDetail["profileImageId"];
+  profileImageUri: ProfileDetail["profileImageUri"];
 };

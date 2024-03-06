@@ -3,7 +3,7 @@ export type Profile = {
   username: string;
 };
 
-export type ProfileView = {
+export type ProfileDetail = {
   id: Profile["id"];
   username: Profile["username"];
   profileImageId: ProfileImage["id"];

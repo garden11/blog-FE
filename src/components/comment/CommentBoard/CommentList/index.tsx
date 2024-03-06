@@ -1,6 +1,6 @@
 import Link from "next/link";
 // types
-import { CommentView } from "src/types/comment";
+import { CommentDetail } from "src/types/comment";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
@@ -10,8 +10,8 @@ import CommentAuthorThumbnail from "../../../image/CommentAuthorThumbnail";
 import DateUtil from "src/utils/DateUtil";
 
 type Props = {
-  list: CommentView[];
-  onClickDeleteButton: (commentId: CommentView["id"]) => void;
+  list: CommentDetail[];
+  onClickDeleteButton: (commentId: CommentDetail["id"]) => void;
 };
 
 const CommentList = (props: Props) => {

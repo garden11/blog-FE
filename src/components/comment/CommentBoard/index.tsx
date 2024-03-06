@@ -7,18 +7,18 @@ import CommentForm from "../CommentForm";
 import CommentList from "./CommentList";
 
 // types
-import { CommentView } from "src/types/comment";
+import { CommentDetail } from "src/types/comment";
 import { PageInfo } from "src/types/pageInfo";
 
 // forms
 import { CommentFormValues } from "src/forms/commentForm";
 
 type Props = {
-  commentList: CommentView[];
+  commentList: CommentDetail[];
   commentListPageInfo: PageInfo;
   onSubmitCommentForm: SubmitHandler<CommentFormValues>;
   onErrorSubmitCommentForm: SubmitErrorHandler<CommentFormValues>;
-  onClickDeleteCommentButton: (comment: CommentView["id"]) => void;
+  onClickDeleteCommentButton: (comment: CommentDetail["id"]) => void;
   onClickPageNavigationButton: (page: number) => void;
 };
 

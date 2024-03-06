@@ -12,7 +12,7 @@ import PostBoard from "src/components/post/PostBoard";
 
 // types
 import { Category } from "src/types/category";
-import { PostView } from "src/types/post";
+import { PostDetail } from "src/types/post";
 import { PageInfo } from "src/types/pageInfo";
 
 // hooks
@@ -34,17 +34,17 @@ const BlogBoard = (props: Props) => {
   const { isSignedIn } = useAuth();
   const { handleClickCreatePostButton } = usePostActions();
 
-  const [postList, setPostList] = useState<PostView[]>([] as PostView[]);
+  const [postList, setPostList] = useState<PostDetail[]>([] as PostDetail[]);
   const [postListPageInfo, setPostListPageInfo] = useState<PageInfo>(
     {} as PageInfo
   );
 
   useEffect(() => {
-    const selectPostViewList = async () => {
+    const selectPostDetailList = async () => {
       if (!username) return;
 
       try {
-        const { content, ...pageInfo } = await API.selectPostViewList({
+        const { content, ...pageInfo } = await API.selectPostDetailList({
           username,
           categoryId,
           page,
@@ -57,10 +57,10 @@ const BlogBoard = (props: Props) => {
       }
     };
 
-    selectPostViewList();
+    selectPostDetailList();
   }, [username, categoryId, page]);
 
-  const handleClickPostBoardListItem = (postId: PostView["id"]) => {
+  const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {
     router.push(`/${username}/post/${postId}`);
   };
 

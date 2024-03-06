@@ -2,9 +2,9 @@
 import appAxios from "src/lib/appAxios";
 
 // types
-import { Comment, CommentView } from "src/types/comment";
+import { Comment, CommentDetail } from "src/types/comment";
 import { PageInfo } from "src/types/pageInfo";
-import { PostView } from "src/types/post";
+import { PostDetail } from "src/types/post";
 import { Tokens } from "src/types/auth";
 
 // utils
@@ -22,17 +22,17 @@ export type CommentRequest = {
 
 const pageUtil = new PageUtil();
 
-export const selectCommentViewList = async ({
+export const selectCommentDetailList = async ({
   postId,
   page,
 }: {
-  postId: PostView["id"];
+  postId: PostDetail["id"];
   page: number;
-}): Promise<{ content: CommentView[] } & PageInfo> => {
+}): Promise<{ content: CommentDetail[] } & PageInfo> => {
   const pageNumber = pageUtil.convertToNumberFromLabel(page);
 
   const response = await appAxios().get(
-    `/api/v1/post/${postId}/comment-views?page=${pageNumber}`
+    `/api/v1/post/${postId}/comment-details?page=${pageNumber}`
   );
 
   return response.data;

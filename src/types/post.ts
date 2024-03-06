@@ -17,7 +17,7 @@ export type PostImage = {
   uri: string;
 };
 
-export type PostView = {
+export type PostDetail = {
   id: Post["id"];
   username: Post["username"];
   categoryId: Post["categoryId"];

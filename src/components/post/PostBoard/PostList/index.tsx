@@ -1,15 +1,15 @@
 import _ from "lodash";
 
 // types
-import { PostView } from "src/types/post";
+import { PostDetail } from "src/types/post";
 import DateUtil from "src/utils/DateUtil";
 
 // components
 import PostThumbnail from "../../../image/PostThumbnail";
 
 type Props = {
-  list: PostView[];
-  onClickListItem: (postId: PostView["id"]) => void;
+  list: PostDetail[];
+  onClickListItem: (postId: PostDetail["id"]) => void;
 };
 
 const PostList = (props: Props) => {

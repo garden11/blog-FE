@@ -20,9 +20,9 @@ import CommentBoard from "src/components/comment/CommentBoard";
 import PostBox from "src/components/post/PostBox";
 
 // types
-import { PostView } from "src/types/post";
+import { PostDetail } from "src/types/post";
 import { UserInfo } from "src/types/user";
-import { CommentView } from "src/types/comment";
+import { CommentDetail } from "src/types/comment";
 import { PageInfo } from "src/types/pageInfo";
 
 // forms
@@ -35,12 +35,12 @@ import DateUtil from "src/utils/DateUtil";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
 type PageQuery = {
-  id?: PostView["id"];
+  id?: PostDetail["id"];
   username?: UserInfo["username"];
 };
 
 type Props = {
-  post: PostView;
+  post: PostDetail;
 };
 
 const BlogPost = (props: Props) => {
@@ -54,8 +54,8 @@ const BlogPost = (props: Props) => {
   const { post } = props;
   const { username } = router.query as PageQuery;
 
-  const [commentList, setCommentList] = useState<CommentView[]>(
-    [] as CommentView[]
+  const [commentList, setCommentList] = useState<CommentDetail[]>(
+    [] as CommentDetail[]
   );
   const [commentListPageInfo, setCommentListPageInfo] = useState<PageInfo>(
     {} as PageInfo
@@ -63,9 +63,9 @@ const BlogPost = (props: Props) => {
   const [commentBoardPage, setCommentBoardPage] = useState<number>(1);
 
   useEffect(() => {
-    const selectCommentViewList = async () => {
+    const selectCommentDetailList = async () => {
       try {
-        const { content, ...pageInfo } = await API.selectCommentViewList({
+        const { content, ...pageInfo } = await API.selectCommentDetailList({
           postId: post.id,
           page: commentBoardPage,
         });
@@ -82,7 +82,7 @@ const BlogPost = (props: Props) => {
     router.replace(`/${username}/post/${post.id}/edit`);
   };
 
-  const handleClickDeletePostButton = async (postId: PostView["id"]) => {
+  const handleClickDeletePostButton = async (postId: PostDetail["id"]) => {
     if (!session) return;
 
     if (confirm("포스트를 삭제하시겠습니까?")) {
@@ -120,7 +120,7 @@ const BlogPost = (props: Props) => {
 
       setCommentBoardPage(() => 1);
 
-      const { content, ...pageInfo } = await API.selectCommentViewList({
+      const { content, ...pageInfo } = await API.selectCommentDetailList({
         postId: post.id,
         page: commentBoardPage,
       });
@@ -142,7 +142,7 @@ const BlogPost = (props: Props) => {
   };
 
   const handleClickDeleteCommentButton = async (
-    commentId: CommentView["id"]
+    commentId: CommentDetail["id"]
   ) => {
     if (!session) return;
 
@@ -152,7 +152,7 @@ const BlogPost = (props: Props) => {
           accessToken: session.accessToken,
           id: commentId,
         });
-        const { content, ...pageInfo } = await API.selectCommentViewList({
+        const { content, ...pageInfo } = await API.selectCommentDetailList({
           postId: post.id,
           page: commentBoardPage,
         });
@@ -229,7 +229,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (!id) return { notFound: true };
 
-  const post = await API.selectPostView({ id });
+  const post = await API.selectPostDetail({ id });
 
   if (!post) return { notFound: true };
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 // types
-import { ProfileView } from "src/types/profile";
+import { ProfileDetail } from "src/types/profile";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
@@ -10,7 +10,7 @@ import useAuth from "src/hooks/useAuth";
 import ProfilePicture from "src/components/image/ProfilePicture";
 
 type Props = {
-  profile: ProfileView;
+  profile: ProfileDetail;
   onClickCreatePostButton: () => void;
 };
 
