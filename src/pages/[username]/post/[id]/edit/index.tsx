@@ -66,11 +66,11 @@ const PostEdit = (props: Props) => {
   useAuth({ shouldRedirect: true });
 
   useEffect(() => {
-    const selectCategoryList = async () => {
+    const getCategoryList = async () => {
       if (!session) return;
 
       try {
-        const categoryList = await API.selectCategoryList({
+        const categoryList = await API.getCategoryList({
           username: session.username,
         });
         setCategoryList(categoryList);
@@ -79,7 +79,7 @@ const PostEdit = (props: Props) => {
       }
     };
 
-    selectCategoryList();
+    getCategoryList();
   }, [session]);
 
   const onSubmitEditorImage = async (image: File, editor: Editor | null) => {
@@ -200,7 +200,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (!session || !id) return { notFound: true };
 
-  const post = await API.selectPost({
+  const post = await API.getPost({
     accessToken: session.accessToken,
     id,
   });

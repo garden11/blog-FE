@@ -22,7 +22,7 @@ export type CommentRequest = {
 
 const pageUtil = new PageUtil();
 
-export const selectCommentDetailList = async ({
+export const getCommentDetailList = async ({
   postId,
   page,
 }: {

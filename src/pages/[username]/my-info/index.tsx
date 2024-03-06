@@ -34,11 +34,11 @@ const MyInfo = (props: Props) => {
   useAuth({ shouldRedirect: true });
 
   useEffect(() => {
-    const selectUserInfo = async () => {
+    const getUserInfo = async () => {
       if (!session) return;
 
       try {
-        const userInfo = await API.selectUserInfo({
+        const userInfo = await API.getUserInfo({
           accessToken: session.accessToken,
           username: session.username,
         });
@@ -48,7 +48,7 @@ const MyInfo = (props: Props) => {
       }
     };
 
-    selectUserInfo();
+    getUserInfo();
   }, [session?.username]);
 
   const handleClickWidthdrawalButton = async () => {

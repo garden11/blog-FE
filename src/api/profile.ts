@@ -14,7 +14,7 @@ export type ProfileImageRequest = {
   image: File;
 };
 
-export const selectProfileDetail = async ({
+export const getProfileDetail = async ({
   username,
 }: {
   username: UserInfo["username"];

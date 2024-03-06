@@ -40,11 +40,11 @@ const BlogManage = (props: Props) => {
   useAuth({ shouldRedirect: true });
 
   useEffect(() => {
-    const selectProfileDetail = async () => {
+    const getProfileDetail = async () => {
       if (!session) return;
 
       try {
-        const profile = await API.selectProfileDetail({
+        const profile = await API.getProfileDetail({
           username: session.username,
         });
         profile && setProfile(profile);
@@ -53,11 +53,11 @@ const BlogManage = (props: Props) => {
       }
     };
 
-    const selectCategoryList = async () => {
+    const getCategoryList = async () => {
       if (!session) return;
 
       try {
-        const categoryList = await API.selectCategoryList({
+        const categoryList = await API.getCategoryList({
           username: session.username,
         });
         setCategoryList(categoryList);
@@ -66,8 +66,8 @@ const BlogManage = (props: Props) => {
       }
     };
 
-    selectProfileDetail();
-    selectCategoryList();
+    getProfileDetail();
+    getCategoryList();
   }, [session?.username]);
 
   const onSubmitProfileImageForm: SubmitHandler<ImageFormValues> = async (

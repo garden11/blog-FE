@@ -63,9 +63,9 @@ const BlogPost = (props: Props) => {
   const [commentBoardPage, setCommentBoardPage] = useState<number>(1);
 
   useEffect(() => {
-    const selectCommentDetailList = async () => {
+    const getCommentDetailList = async () => {
       try {
-        const { content, ...pageInfo } = await API.selectCommentDetailList({
+        const { content, ...pageInfo } = await API.getCommentDetailList({
           postId: post.id,
           page: commentBoardPage,
         });
@@ -120,7 +120,7 @@ const BlogPost = (props: Props) => {
 
       setCommentBoardPage(() => 1);
 
-      const { content, ...pageInfo } = await API.selectCommentDetailList({
+      const { content, ...pageInfo } = await API.getCommentDetailList({
         postId: post.id,
         page: commentBoardPage,
       });
@@ -152,7 +152,7 @@ const BlogPost = (props: Props) => {
           accessToken: session.accessToken,
           id: commentId,
         });
-        const { content, ...pageInfo } = await API.selectCommentDetailList({
+        const { content, ...pageInfo } = await API.getCommentDetailList({
           postId: post.id,
           page: commentBoardPage,
         });
@@ -229,7 +229,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (!id) return { notFound: true };
 
-  const post = await API.selectPostDetail({ id });
+  const post = await API.getPostDetail({ id });
 
   if (!post) return { notFound: true };
 

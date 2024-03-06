@@ -35,11 +35,11 @@ const SideBar = (props: Props) => {
   const [profile, setProfile] = useState<ProfileDetail>({} as ProfileDetail);
 
   useEffect(() => {
-    const selectCategoryList = async () => {
+    const getCategoryList = async () => {
       if (!username) return;
 
       try {
-        const categoryList = await API.selectCategoryList({
+        const categoryList = await API.getCategoryList({
           username,
         });
         setCategoryList(categoryList);
@@ -48,11 +48,11 @@ const SideBar = (props: Props) => {
       }
     };
 
-    const selectProfileDetail = async () => {
+    const getProfileDetail = async () => {
       if (!username) return;
 
       try {
-        const profile = await API.selectProfileDetail({
+        const profile = await API.getProfileDetail({
           username,
         });
         if (profile) {
@@ -66,8 +66,8 @@ const SideBar = (props: Props) => {
       }
     };
 
-    selectCategoryList();
-    selectProfileDetail();
+    getCategoryList();
+    getProfileDetail();
   }, [username]);
 
   return (

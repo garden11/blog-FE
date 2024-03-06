@@ -40,11 +40,11 @@ const BlogBoard = (props: Props) => {
   );
 
   useEffect(() => {
-    const selectPostDetailList = async () => {
+    const getPostDetailList = async () => {
       if (!username) return;
 
       try {
-        const { content, ...pageInfo } = await API.selectPostDetailList({
+        const { content, ...pageInfo } = await API.getPostDetailList({
           username,
           categoryId,
           page,
@@ -57,7 +57,7 @@ const BlogBoard = (props: Props) => {
       }
     };
 
-    selectPostDetailList();
+    getPostDetailList();
   }, [username, categoryId, page]);
 
   const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {

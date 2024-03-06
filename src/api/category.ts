@@ -14,7 +14,7 @@ export type CategoryRequest = {
   name: Category["name"];
 };
 
-export const selectCategoryList = async ({
+export const getCategoryList = async ({
   username,
 }: {
   username: UserInfo["username"];

@@ -12,7 +12,7 @@ export type UserRequest = {
   email: UserInfo["email"];
 };
 
-export const selectUserInfo = async ({
+export const getUserInfo = async ({
   accessToken,
   username,
 }: {

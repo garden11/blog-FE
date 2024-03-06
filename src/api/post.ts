@@ -32,7 +32,7 @@ export type PostImageRequest = {
 
 const pageUtil = new PageUtil();
 
-export const selectPost = async ({
+export const getPost = async ({
   accessToken,
   id,
 }: {
@@ -90,7 +90,7 @@ export const deletePost = async ({
   return response.data;
 };
 
-export const selectPostDetail = async ({
+export const getPostDetail = async ({
   id,
 }: {
   id: PostDetail["id"];
@@ -100,7 +100,7 @@ export const selectPostDetail = async ({
   return response.data;
 };
 
-export const selectPostDetailList = async ({
+export const getPostDetailList = async ({
   username,
   categoryId,
   page,
