@@ -1,18 +1,24 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 // api
 import * as API from "src/api";
 
 // components
+import CenteredLayout from "src/components/system-design/layout/centered-layout";
 import ResetPasswordForm, {
   ResetPsswordFormStatus,
-} from "src/components/reset-password/ResetPasswordForm";
-import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
+} from "src/components/system-design/auth/reset-password-form";
 
 // forms
 import { ResetPasswordFormValues } from "src/forms/passwordForm";
+
+// hooks
+import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
+
+// types
+import { Page } from "src/pages/types";
 
 type PageQuery = {
   id?: string;
@@ -20,7 +26,7 @@ type PageQuery = {
 
 type Props = {};
 
-const ResetPassword = (props: Props) => {
+const ResetPassword: Page<Props> = (props) => {
   const router = useRouter();
   const { id } = router.query as PageQuery;
 
@@ -28,10 +34,7 @@ const ResetPassword = (props: Props) => {
 
   const [formStatus, setFormStatus] = useState<ResetPsswordFormStatus>();
 
-  const onSubmitForm: SubmitHandler<ResetPasswordFormValues> = async (
-    form,
-    event
-  ) => {
+  const onSubmitForm: SubmitHandler<ResetPasswordFormValues> = async (form) => {
     if (!id) return;
 
     try {
@@ -48,11 +51,11 @@ const ResetPassword = (props: Props) => {
     }
   };
 
-  return (
-    <div className="auth">
-      <ResetPasswordForm onSubmit={onSubmitForm} status={formStatus} />
-    </div>
-  );
+  return <ResetPasswordForm onSubmit={onSubmitForm} status={formStatus} />;
+};
+
+ResetPassword.layout = (page: ReactNode) => {
+  return <CenteredLayout>{page}</CenteredLayout>;
 };
 
 export default ResetPassword;

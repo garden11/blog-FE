@@ -1,19 +1,26 @@
 import { SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
+import { ReactNode } from "react";
 
 // api
 import * as API from "src/api";
 
 // components
-import FindPasswordForm from "src/components/find-password/FindPasswordForm";
-import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
+import CenteredLayout from "src/components/system-design/layout/centered-layout";
+import FindPasswordForm from "src/components/system-design/auth/find-password-form";
 
 // forms
 import { EmailFormValues } from "src/forms/emailForm";
 
+// hooks
+import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
+
+// types
+import { Page } from "../types";
+
 type Props = {};
 
-const FindPassword = (props: Props) => {
+const FindPassword: Page<Props> = (props) => {
   const { alert } = useAlertOrConfirm();
 
   const onSubmitForm: SubmitHandler<EmailFormValues> = async (form, event) => {
@@ -38,11 +45,11 @@ const FindPassword = (props: Props) => {
     }
   };
 
-  return (
-    <div className="auth">
-      <FindPasswordForm onSubmit={onSubmitForm} />
-    </div>
-  );
+  return <FindPasswordForm onSubmit={onSubmitForm} />;
+};
+
+FindPassword.layout = (page: ReactNode) => {
+  return <CenteredLayout>{page}</CenteredLayout>;
 };
 
 export default FindPassword;

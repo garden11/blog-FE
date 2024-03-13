@@ -1,17 +1,21 @@
-import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { signIn, SignInResponse } from "next-auth/react";
+import { useRouter } from "next/router";
+import { ReactNode } from "react";
 
 // components
-import SignInForm from "src/components/sign-in/SignInForm";
+import CenteredLayout from "src/components/system-design/layout/centered-layout";
+import SignInForm from "src/components/system-design/auth/sign-in-form";
+
+// forms
+import { SignInFormValues } from "src/forms/authForm";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-// forms
-import { SignInFormValues } from "src/forms/authForm";
-import { useRouter } from "next/router";
+// types
+import { Page } from "../types";
 
 type Props = {};
 
@@ -19,7 +23,7 @@ type PageQuery = {
   referer?: string | undefined;
 };
 
-const SignIn = (props: Props) => {
+const SignIn: Page<Props> = (props) => {
   const router = useRouter();
 
   const { alert } = useAlertOrConfirm();
@@ -52,11 +56,11 @@ const SignIn = (props: Props) => {
     }
   };
 
-  return (
-    <div className="auth">
-      <SignInForm onSubmit={onSubmitForm} />
-    </div>
-  );
+  return <SignInForm onSubmit={onSubmitForm} />;
+};
+
+SignIn.layout = (page: ReactNode) => {
+  return <CenteredLayout>{page}</CenteredLayout>;
 };
 
 export default SignIn;

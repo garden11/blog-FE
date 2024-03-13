@@ -1,31 +1,35 @@
 import { signOut, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 // api
 import * as API from "src/api";
 
 // components
-import MyInfoArticle from "src/components/my-info/MyInfoArticle";
-import WithdrawalArticle from "src/components/my-info/WithdrawalArticle";
-import Layout from "src/components/shared/Layout";
+import BlogLayout from "src/components/system-design/layout/blog-layout";
+import MyInfoArticle from "src/components/system-design/my-info/my-info-article";
+import WithdrawalArticle from "src/components/system-design/my-info/withdrawal-article";
+import Stack from "src/components/design-system/stack";
+
+// hooks
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 import useAuth from "src/hooks/useAuth";
-
-// types
-import { UserInfo } from "src/types/user";
 
 // forms
 import { EmailFormValues } from "src/forms/emailForm";
 import { UpdatePasswordFormValues } from "src/forms/passwordForm";
 
-type PageQuery = {
-  username?: string;
-};
+// styles
+import { spacing } from "src/styles/spacing";
+
+// types
+import { UserInfo } from "src/types/user";
+import { Page } from "src/pages/types";
+import Flex from "src/components/design-system/flex";
 
 type Props = {};
 
-const MyInfo = (props: Props) => {
+const MyInfo: Page<Props> = (props: Props) => {
   const { data: session } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
@@ -69,8 +73,7 @@ const MyInfo = (props: Props) => {
   };
 
   const onSubmitUpdateEmailForm: SubmitHandler<EmailFormValues> = async (
-    form,
-    event
+    form
   ) => {
     if (!session) return;
 
@@ -115,35 +118,22 @@ const MyInfo = (props: Props) => {
     };
 
   return (
-    <Layout>
-      <div className="my-info">
-        <div className="col-lg-12">
-          <div className="main-box">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-8 mr-auto ml-auto">
-                  <div className="main-box-items info mb-5">
-                    <MyInfoArticle
-                      userInfo={userInfo}
-                      onSubmitUpdateEmailForm={onSubmitUpdateEmailForm}
-                      onSubmitUpdatePasswordForm={onSubmitUpdatePasswordForm}
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-8 mr-auto ml-auto">
-                  <div className="main-box-items withdrawl">
-                    <WithdrawalArticle
-                      onClickWidthdrawalButton={handleClickWidthdrawalButton}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Layout>
+    <Stack.Vertical spacing={spacing.unit30}>
+      <MyInfoArticle
+        userInfo={userInfo}
+        onSubmitUpdateEmailForm={onSubmitUpdateEmailForm}
+        onSubmitUpdatePasswordForm={onSubmitUpdatePasswordForm}
+      />
+
+      <WithdrawalArticle
+        onClickWidthdrawalButton={handleClickWidthdrawalButton}
+      />
+    </Stack.Vertical>
   );
+};
+
+MyInfo.layout = (page: ReactElement) => {
+  return <BlogLayout hasSideBar={false}>{page}</BlogLayout>;
 };
 
 export default MyInfo;

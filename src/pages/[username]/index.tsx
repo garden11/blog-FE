@@ -1,14 +1,13 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 // api
 import * as API from "src/api";
 
 // components
-import Layout from "src/components/shared/Layout";
-import SideBar from "src/components/shared/SideBar";
-import PostBoard from "src/components/post/PostBoard";
+import BlogLayout from "src/components/system-design/layout/blog-layout";
+import PostBoard from "src/components/system-design/post/post-board";
 
 // types
 import { Category } from "src/types/category";
@@ -19,6 +18,9 @@ import { PageInfo } from "src/types/pageInfo";
 import useAuth from "src/hooks/useAuth";
 import usePostActions from "src/hooks/usePostActions";
 
+// types
+import { Page } from "../types";
+
 type PageQuery = {
   username?: string;
   categoryId?: Category["id"] | undefined;
@@ -27,7 +29,7 @@ type PageQuery = {
 
 type Props = {};
 
-const BlogBoard = (props: Props) => {
+const BlogBoard: Page<Props> = (props) => {
   const router = useRouter();
   const { username, categoryId, page = 1 } = router.query as PageQuery;
 
@@ -77,31 +79,20 @@ const BlogBoard = (props: Props) => {
         <title>{username} 블로그</title>
       </Head>
 
-      <Layout>
-        <section className="blog-posts">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-8">
-                <PostBoard
-                  canPost={isSignedIn(username)}
-                  postList={postList}
-                  postListPageInfo={postListPageInfo}
-                  onClickPostListItem={handleClickPostBoardListItem}
-                  onClickPageNavigationButton={
-                    handleClickPostBoardPageNavigationButton
-                  }
-                  onClickCreatePostButton={handleClickCreatePostButton}
-                />
-              </div>
-              <div className="col-lg-4">
-                <SideBar username={username} categoryId={categoryId} />
-              </div>
-            </div>
-          </div>
-        </section>
-      </Layout>
+      <PostBoard
+        canPost={isSignedIn(username)}
+        postList={postList}
+        postListPageInfo={postListPageInfo}
+        onClickPostListItem={handleClickPostBoardListItem}
+        onClickPageNavigationButton={handleClickPostBoardPageNavigationButton}
+        onClickCreatePostButton={handleClickCreatePostButton}
+      />
     </>
   );
+};
+
+BlogBoard.layout = (page: ReactElement) => {
+  return <BlogLayout>{page}</BlogLayout>;
 };
 
 export default BlogBoard;

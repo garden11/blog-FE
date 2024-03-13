@@ -4,7 +4,7 @@ import {
   GetServerSidePropsResult,
 } from "next";
 import { getServerSession } from "next-auth";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
@@ -15,6 +15,9 @@ import _ from "lodash";
 
 // api
 import * as API from "src/api";
+
+// components
+import EditorLayout from "src/components/system-design/layout/editor-layout";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
@@ -32,8 +35,11 @@ import { PostFormValues } from "src/forms/postForm";
 import { authOptions } from "src/pages/api/auth/[...nextauth]";
 
 // components
-import PostForm from "src/components/post/PostForm";
-import { setTiptapEditorImage } from "src/components/Tiptap";
+import PostForm from "src/components/system-design/post/post-form";
+import { setEditorImage } from "src/components/design-system/editor";
+
+// types
+import { Page } from "src/pages/types";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
@@ -48,7 +54,7 @@ type Props = {
   post: Post;
 };
 
-const PostEdit = (props: Props) => {
+const PostEdit: Page<Props> = (props) => {
   const { post } = props;
 
   const router = useRouter();
@@ -96,7 +102,7 @@ const PostEdit = (props: Props) => {
         request,
       });
 
-      setTiptapEditorImage({ uri: postImage.uri, editor });
+      setEditorImage({ uri: postImage.uri, editor });
     } catch (error) {
       alert("이미지 저장 중 에러가 발생하였습니다.");
     }
@@ -161,29 +167,27 @@ const PostEdit = (props: Props) => {
   };
 
   return (
-    <div className="post-editor">
-      <PostForm
-        defaultValues={
-          _.isEmpty(post)
-            ? undefined
-            : {
-                id: post.id,
-                categoryId: post.categoryId,
-                title: post.title,
-                content: post.content,
-                contentByteLength: byteUtil.getByteLengthOfUtf8String(
-                  post.content
-                ),
-                registerYN: post.registerYN,
-              }
-        }
-        categoryList={categoryList}
-        onSubmit={onSubmitForm}
-        onErrorSubmit={onErrorSubmitForm}
-        onSubmitImage={onSubmitEditorImage}
-        onErrorSubmitImage={onErrorSubmitEditorImage}
-      />
-    </div>
+    <PostForm
+      defaultValues={
+        _.isEmpty(post)
+          ? undefined
+          : {
+              id: post.id,
+              categoryId: post.categoryId,
+              title: post.title,
+              content: post.content,
+              contentByteLength: byteUtil.getByteLengthOfUtf8String(
+                post.content
+              ),
+              registerYN: post.registerYN,
+            }
+      }
+      categoryList={categoryList}
+      onSubmit={onSubmitForm}
+      onErrorSubmit={onErrorSubmitForm}
+      onSubmitImage={onSubmitEditorImage}
+      onErrorSubmitImage={onErrorSubmitEditorImage}
+    />
   );
 };
 
@@ -212,6 +216,10 @@ export const getServerSideProps: GetServerSideProps = async (
       post,
     },
   };
+};
+
+PostEdit.layout = (page: ReactElement) => {
+  return <EditorLayout>{page}</EditorLayout>;
 };
 
 export default PostEdit;

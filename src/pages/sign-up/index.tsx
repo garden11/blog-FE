@@ -1,22 +1,26 @@
 import { useRouter } from "next/router";
-import React from "react";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 
 // api
 import * as API from "src/api";
 
 // components
-import SignUpForm from "src/components/sign-up/SignUpForm";
-
-// hooks
-import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
+import CenteredLayout from "src/components/system-design/layout/centered-layout";
+import SignUpForm from "src/components/system-design/auth/sign-up-form";
 
 // forms
 import { SignUpFormValues } from "src/forms/authForm";
 
+// hooks
+import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
+
+// types
+import { Page } from "../types";
+import { ReactElement } from "react";
+
 type Props = {};
 
-const SignUp = (props: Props) => {
+const SignUp: Page<Props> = (props) => {
   const router = useRouter();
 
   const { alert } = useAlertOrConfirm();
@@ -55,10 +59,12 @@ const SignUp = (props: Props) => {
   };
 
   return (
-    <div className="auth">
-      <SignUpForm onSubmit={onSubmitForm} onErrorSubmit={onErrorSubmitForm} />
-    </div>
+    <SignUpForm onSubmit={onSubmitForm} onErrorSubmit={onErrorSubmitForm} />
   );
+};
+
+SignUp.layout = (page: ReactElement) => {
+  return <CenteredLayout>{page}</CenteredLayout>;
 };
 
 export default SignUp;

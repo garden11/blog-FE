@@ -5,7 +5,7 @@ import {
 } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { htmlToText } from "html-to-text";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
@@ -14,10 +14,10 @@ import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import * as API from "src/api";
 
 // components
-import Layout from "src/components/shared/Layout";
-import SideBar from "src/components/shared/SideBar";
-import CommentBoard from "src/components/comment/CommentBoard";
-import PostBox from "src/components/post/PostBox";
+import BlogLayout from "src/components/system-design/layout/blog-layout";
+import CommentBoard from "src/components/system-design/comment/comment-board";
+import PostBox from "src/components/system-design/post/post-box";
+import Stack from "src/components/design-system/stack";
 
 // types
 import { PostDetail } from "src/types/post";
@@ -28,11 +28,17 @@ import { PageInfo } from "src/types/pageInfo";
 // forms
 import { CommentFormValues } from "src/forms/commentForm";
 
-// utils
-import DateUtil from "src/utils/DateUtil";
-
 // hooks
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
+
+// styles
+import { spacing } from "src/styles/spacing";
+
+// types
+import { Page } from "src/pages/types";
+
+// utils
+import DateUtil from "src/utils/DateUtil";
 
 type PageQuery = {
   id?: PostDetail["id"];
@@ -43,7 +49,7 @@ type Props = {
   post: PostDetail;
 };
 
-const BlogPost = (props: Props) => {
+const BlogPost: Page<Props> = (props: Props) => {
   const router = useRouter();
 
   const { data: session } = useSession();
@@ -180,47 +186,30 @@ const BlogPost = (props: Props) => {
         )}
       </Head>
 
-      <Layout>
-        <section className="blog-posts grid-system">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-8">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <PostBox
-                      post={post}
-                      onClickUpdatePostButton={handleClickUpdatePostButton}
-                      onClickDeletePostButton={handleClickDeletePostButton}
-                    />
-                  </div>
-                  <div className="col-lg-12">
-                    <CommentBoard
-                      commentList={commentList}
-                      commentListPageInfo={commentListPageInfo}
-                      onSubmitCommentForm={onSubmitCommentForm}
-                      onErrorSubmitCommentForm={onErrorSubmitCommentForm}
-                      onClickDeleteCommentButton={
-                        handleClickDeleteCommentButton
-                      }
-                      onClickPageNavigationButton={
-                        handleClickCommentBoardPageNavigationButton
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <SideBar
-                  username={username}
-                  categoryId={post?.categoryId ? post.categoryId : undefined}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </Layout>
+      <Stack.Vertical spacing={spacing.unit30}>
+        <PostBox
+          post={post}
+          onClickUpdatePostButton={handleClickUpdatePostButton}
+          onClickDeletePostButton={handleClickDeletePostButton}
+        />
+
+        <CommentBoard
+          commentList={commentList}
+          commentListPageInfo={commentListPageInfo}
+          onSubmitCommentForm={onSubmitCommentForm}
+          onErrorSubmitCommentForm={onErrorSubmitCommentForm}
+          onClickDeleteCommentButton={handleClickDeleteCommentButton}
+          onClickPageNavigationButton={
+            handleClickCommentBoardPageNavigationButton
+          }
+        />
+      </Stack.Vertical>
     </>
   );
+};
+
+BlogPost.layout = (page: ReactElement) => {
+  return <BlogLayout>{page}</BlogLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (

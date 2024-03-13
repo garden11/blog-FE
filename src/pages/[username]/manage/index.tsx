@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
+import { css } from "@emotion/react";
 
 // api
 import * as API from "src/api";
 
 // components
-import Layout from "src/components/shared/Layout";
-import ProfileArticle from "src/components/manage/ProfileArticle";
-import CategoryArticle from "src/components/manage/CategoryArticle";
-
-// types
-import { ProfileDetail } from "src/types/profile";
-import { Category } from "src/types/category";
+import BlogLayout from "src/components/system-design/layout/blog-layout";
+import CategoryArticle from "src/components/system-design/manage/category-article";
+import ProfileArticle from "src/components/system-design/manage/profile-article";
+import Stack from "src/components/design-system/stack";
 
 // forms
 import { CategoryFormValues } from "src/forms/categoryForm";
@@ -22,13 +20,17 @@ import { ImageFormValues } from "src/forms/imageForm";
 import useAuth from "src/hooks/useAuth";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-type PageQuery = {
-  username?: string;
-};
+// types
+import { ProfileDetail } from "src/types/profile";
+import { Category } from "src/types/category";
+import { Page } from "src/pages/types";
+
+// styles
+import { spacing } from "src/styles/spacing";
 
 type Props = {};
 
-const BlogManage = (props: Props) => {
+const BlogManage: Page<Props> = (props) => {
   const { data: session } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
@@ -178,43 +180,30 @@ const BlogManage = (props: Props) => {
     }
   };
 
+  const styles = {
+    container: css``,
+  };
+
   return (
-    <Layout>
-      <div className="manage">
-        <div className="col-lg-12">
-          <div className="main-box">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-8 mr-auto ml-auto">
-                  <div className="main-box-items  profile mb-5">
-                    <ProfileArticle
-                      profile={profile}
-                      onSubmitProfileImageForm={onSubmitProfileImageForm}
-                      onErrorSubmitProfileImageForm={
-                        onErrorSubmitProfileImageForm
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-8 mr-auto ml-auto">
-                  <div className="main-box-items category">
-                    <CategoryArticle
-                      categoryList={categoryList}
-                      onSubmitCategoryForm={onSubmitCategoryForm}
-                      onErrorSubmitCategoryForm={onErrorSubmitCategoryForm}
-                      onClickCategoryFormDeleteButton={
-                        handleClickCategoryFormDeleteButton
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Layout>
+    <Stack.Vertical css={styles.container} spacing={spacing.unit30}>
+      <ProfileArticle
+        profile={profile}
+        onSubmitProfileImageForm={onSubmitProfileImageForm}
+        onErrorSubmitProfileImageForm={onErrorSubmitProfileImageForm}
+      />
+
+      <CategoryArticle
+        categoryList={categoryList}
+        onSubmitCategoryForm={onSubmitCategoryForm}
+        onErrorSubmitCategoryForm={onErrorSubmitCategoryForm}
+        onClickCategoryFormDeleteButton={handleClickCategoryFormDeleteButton}
+      />
+    </Stack.Vertical>
   );
+};
+
+BlogManage.layout = (page: ReactElement) => {
+  return <BlogLayout hasSideBar={false}>{page}</BlogLayout>;
 };
 
 export default BlogManage;
