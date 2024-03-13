@@ -13,9 +13,8 @@ type Props = {
 
 type SpacingComponent = (props: Props) => JSX.Element;
 
-const createSpacingComponent =
-  (options: Options): SpacingComponent =>
-  (props: Props) => {
+const createSpacingComponent = (options: Options): SpacingComponent =>
+  function SpacingComponent(props: Props) {
     const { direction = "horizontal" } = options;
 
     const styles = {

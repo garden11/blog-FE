@@ -8,9 +8,8 @@ type Props = {};
 
 type LineComponent = (props: Props) => JSX.Element;
 
-const createLineComponent =
-  (options: Options): LineComponent =>
-  (props: Props) => {
+const createLineComponent = (options: Options): LineComponent =>
+  function LineComponent(props: Props) {
     const { direction = "horizontal" } = options;
 
     const styles = {
