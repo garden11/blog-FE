@@ -38,7 +38,13 @@ const FormComponent: FormComponent = forwardRef(function FormComponent(
     itemHeight: props.itemHeight || form.itemHeight,
   };
 
-  const { variant: _variant, labelWidth: _labelWidth, ...restProps } = props;
+  const {
+    variant: _variant,
+    labelWidth: _labelWidth,
+    itemWidth: _itemWidth,
+    itemHeight: _itemHeight,
+    ...restProps
+  } = props;
 
   return (
     <Context.Provider
