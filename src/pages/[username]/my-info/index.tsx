@@ -24,8 +24,7 @@ import { spacing } from "src/styles/spacing";
 
 // types
 import { UserInfo } from "src/types/user";
-import { Page } from "src/pages/types";
-import Flex from "src/components/design-system/flex";
+import { Page } from "src/types/common";
 
 type Props = {};
 

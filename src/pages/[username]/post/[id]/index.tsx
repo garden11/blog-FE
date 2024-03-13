@@ -35,7 +35,7 @@ import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 import { spacing } from "src/styles/spacing";
 
 // types
-import { Page } from "src/pages/types";
+import { Page } from "src/types/common";
 
 // utils
 import DateUtil from "src/utils/DateUtil";

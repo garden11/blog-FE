@@ -15,7 +15,7 @@ import useAuth from "src/hooks/useAuth";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
 // types
-import { Page } from "../types";
+import { Page } from "src/types/common";
 
 type Props = {};
 

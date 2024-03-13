@@ -10,7 +10,7 @@ import Stack from "src/components/design-system/stack";
 import { spacing } from "src/styles/spacing";
 
 // types
-import { Page } from "../types";
+import { Page } from "src/types/common";
 
 type Props = {};
 

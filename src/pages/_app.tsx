@@ -13,7 +13,7 @@ import ReissueTokensHandler from "src/components/system-design/handler/reissue-t
 import { globalStyles } from "src/styles/global";
 
 // types
-import { Page } from "./types";
+import { Page } from "src/types/common";
 
 const App = ({
   Component,

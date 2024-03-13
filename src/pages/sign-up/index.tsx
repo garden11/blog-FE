@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
+import { ReactElement } from "react";
 
 // api
 import * as API from "src/api";
@@ -15,8 +16,7 @@ import { SignUpFormValues } from "src/forms/authForm";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
 // types
-import { Page } from "../types";
-import { ReactElement } from "react";
+import { Page } from "src/types/common";
 
 type Props = {};
 

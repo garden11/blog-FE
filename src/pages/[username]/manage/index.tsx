@@ -23,7 +23,7 @@ import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 // types
 import { ProfileDetail } from "src/types/profile";
 import { Category } from "src/types/category";
-import { Page } from "src/pages/types";
+import { Page } from "src/types/common";
 
 // styles
 import { spacing } from "src/styles/spacing";

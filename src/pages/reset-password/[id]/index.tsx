@@ -18,7 +18,7 @@ import { ResetPasswordFormValues } from "src/forms/passwordForm";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
 // types
-import { Page } from "src/pages/types";
+import { Page } from "src/types/common";
 
 type PageQuery = {
   id?: string;

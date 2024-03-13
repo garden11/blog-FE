@@ -19,7 +19,7 @@ import useAuth from "src/hooks/useAuth";
 import usePostActions from "src/hooks/usePostActions";
 
 // types
-import { Page } from "../types";
+import { Page } from "src/types/common";
 
 type PageQuery = {
   username?: string;

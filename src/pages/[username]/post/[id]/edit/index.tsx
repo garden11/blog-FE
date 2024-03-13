@@ -39,7 +39,7 @@ import PostForm from "src/components/system-design/post/post-form";
 import { setEditorImage } from "src/components/design-system/editor";
 
 // types
-import { Page } from "src/pages/types";
+import { Page } from "src/types/common";
 
 // utils
 import DateUtil from "src/utils/DateUtil";

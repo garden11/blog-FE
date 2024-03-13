@@ -16,7 +16,7 @@ import { EmailFormValues } from "src/forms/emailForm";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
 // types
-import { Page } from "../types";
+import { Page } from "src/types/common";
 
 type Props = {};
 
