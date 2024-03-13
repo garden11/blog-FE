@@ -19,6 +19,6 @@
     "typeRoots": ["./types", "./node_modules/@types"],
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "modules.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules, types"]
 }
