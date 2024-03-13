@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { ValidationError } from "yup";
-import { Editor } from "@tiptap/react";
+import dynamic from "next/dynamic";
 import { parse } from "node-html-parser";
 import _ from "lodash";
 
@@ -34,10 +34,6 @@ import { PostFormValues } from "src/forms/postForm";
 // auth
 import { authOptions } from "src/pages/api/auth/[...nextauth]";
 
-// components
-import PostForm from "src/components/system-design/post/post-form";
-import { setEditorImage } from "src/components/design-system/editor";
-
 // types
 import { Page } from "src/types/common";
 
@@ -53,6 +49,13 @@ type PageQuery = {
 type Props = {
   post: Post;
 };
+
+const PostForm = dynamic(
+  () => import("src/components/system-design/post/post-form"),
+  {
+    ssr: false,
+  }
+);
 
 const PostEdit: Page<Props> = (props) => {
   const { post } = props;
@@ -88,7 +91,7 @@ const PostEdit: Page<Props> = (props) => {
     getCategoryList();
   }, [session]);
 
-  const onSubmitEditorImage = async (image: File, editor: Editor | null) => {
+  const onSubmitEditorImage = async (image: File) => {
     if (!session) return;
 
     try {
@@ -102,7 +105,7 @@ const PostEdit: Page<Props> = (props) => {
         request,
       });
 
-      setEditorImage({ uri: postImage.uri, editor });
+      return postImage.uri;
     } catch (error) {
       alert("이미지 저장 중 에러가 발생하였습니다.");
     }

@@ -7,13 +7,13 @@ import {
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ValidationError } from "yup";
-import { Editor } from "@tiptap/react";
-import { useEffect } from "react";
+import { Editor } from "@toast-ui/react-editor";
+import { useEffect, useRef } from "react";
 import { cx } from "@emotion/css";
+import dynamic from "next/dynamic";
 
 // components
 import Button from "src/components/design-system/button";
-import EditorComponent from "../../../design-system/editor";
 import Form from "src/components/design-system/form";
 import Flex from "src/components/design-system/flex";
 import Input from "src/components/design-system/input";
@@ -25,6 +25,7 @@ import {
   postFormSchema as formSchema,
   PostFormValues as FormValues,
 } from "src/forms/postForm";
+import { imageFormSchema } from "src/forms/imageForm";
 
 // styles
 import { spacing } from "src/styles/spacing";
@@ -35,27 +36,46 @@ import { Category } from "src/types/category";
 // utils
 import ByteUtil from "src/utils/ByteUtil";
 
+const EditorComponent = dynamic(
+  () => import("src/components/design-system/editor"),
+  {
+    ssr: false,
+  }
+);
+
 type Props = {
   defaultValues?: DefaultValues<FormValues>;
   categoryList: Category[];
   onSubmit: SubmitHandler<FormValues>;
   onErrorSubmit: SubmitErrorHandler<FormValues>;
-  onSubmitImage: (image: File, editor: Editor | null) => void;
+  onSubmitImage: (image: File) => Promise<string | undefined>;
   onErrorSubmitImage: (error: ValidationError) => void;
 };
 
 const PostForm = (props: Props) => {
   const byteUtil = new ByteUtil();
 
-  const { register, control, watch, handleSubmit, setValue, reset } =
-    useForm<FormValues>({
-      mode: "onSubmit",
-      resolver: yupResolver(formSchema),
-    });
+  const editorRef = useRef<Editor>(null);
+
+  const { register, handleSubmit, setValue, reset } = useForm<FormValues>({
+    mode: "onSubmit",
+    resolver: yupResolver(formSchema),
+  });
 
   useEffect(() => {
     reset(props.defaultValues);
   }, [!!props.defaultValues]);
+
+  const onUploadImage = async (image: File) => {
+    try {
+      await imageFormSchema.validate({ image });
+      const uri = props.onSubmitImage(image);
+
+      return uri;
+    } catch (error) {
+      error instanceof ValidationError && props.onErrorSubmitImage(error);
+    }
+  };
 
   return (
     <Form
@@ -86,7 +106,6 @@ const PostForm = (props: Props) => {
             <Stack.Horizontal.Item>
               <Input
                 {...register("title")}
-                type="text"
                 className="title-input"
                 placeholder="TITLE"
                 width={"100%"}
@@ -96,36 +115,36 @@ const PostForm = (props: Props) => {
         </Stack.Vertical.Item>
 
         <Input {...register("contentByteLength")} hidden />
-        {/* 현재 bytes */}
-        {/* <div className="d-flex justify-content-end">
-          <span>{`${watch("contentByteLength")}/100000bytes`}</span>
-        </div> */}
 
+        <Input name={"content"} hidden />
         <Stack.Vertical.Item overflow="hidden">
-          <Controller
-            control={control}
-            name="content"
-            render={({ field }) => (
-              <EditorComponent
-                height={"100%"}
-                value={field.value}
-                onChange={(value) => {
-                  field.onChange(value);
-                  setValue(
-                    "contentByteLength",
-                    byteUtil.getByteLengthOfUtf8String(value)
-                  );
-                }}
-                onSubmitImage={props.onSubmitImage}
-                onErrorSubmitImage={props.onErrorSubmitImage}
-              />
-            )}
-          />
+          {editorRef && (
+            <EditorComponent
+              editorRef={editorRef}
+              height={"100%"}
+              defaultValue={props.defaultValues?.content}
+              onUploadImage={onUploadImage}
+            />
+          )}
         </Stack.Vertical.Item>
 
         <Stack.Vertical.Item flex={"none"}>
           <Flex justifyContent="flex-end">
-            <Button type="submit">SUBMIT</Button>
+            <Button
+              type="submit"
+              onClick={() => {
+                const content =
+                  editorRef.current?.getInstance().getHTML() ?? "";
+
+                setValue("content", content);
+                setValue(
+                  "contentByteLength",
+                  byteUtil.getByteLengthOfUtf8String(content)
+                );
+              }}
+            >
+              SUBMIT
+            </Button>
           </Flex>
         </Stack.Vertical.Item>
       </Stack.Vertical>

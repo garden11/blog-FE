@@ -1,5 +1,6 @@
 import { cx } from "@emotion/css";
 import { css } from "@emotion/react";
+import dynamic from "next/dynamic";
 
 //components
 import Card from "src/components/design-system/card";
@@ -11,7 +12,6 @@ import Stack from "src/components/design-system/stack";
 import useAuth from "src/hooks/useAuth";
 
 // styles
-import { gutter } from "src/styles/gutter";
 import { spacing } from "src/styles/spacing";
 
 // types
@@ -19,6 +19,8 @@ import { PostDetail } from "src/types/post";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
+
+const PostContent = dynamic(() => import("./post-content"), { ssr: false });
 
 type Props = {
   post: PostDetail;
@@ -65,19 +67,6 @@ const PostBox = (props: Props) => {
           :last-child::after {
             display: none;
           }
-        }
-      }
-
-      .post-content {
-        p {
-          padding: 0px;
-          margin: 0px;
-          border-top: 0px;
-          border-bottom: 0px;
-        }
-
-        img {
-          max-width: 100%;
         }
       }
 
@@ -129,12 +118,7 @@ const PostBox = (props: Props) => {
             <Line.Horizontal />
             <Spacing.Vertical size={spacing.unit20} />
 
-            <div
-              className={cx("post-content")}
-              dangerouslySetInnerHTML={{
-                __html: props.post.content ? props.post.content : "",
-              }}
-            />
+            <PostContent value={props.post.content} />
 
             <div className={cx("post-options")}>
               {/* 블로그 주인인 경우 수정, 삭제 버튼 추가 */}
