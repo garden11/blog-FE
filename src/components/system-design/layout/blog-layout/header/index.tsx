@@ -101,6 +101,7 @@ const Header = () => {
             color: #1e1e1e;
             font-size: 24px;
             font-weight: 900;
+            cursor: pointer;
 
             > em {
               font-size: 24px;
@@ -164,7 +165,7 @@ const Header = () => {
     <header css={styles.container}>
       <nav className={cx("nav-bar")}>
         <div className={cx("content")}>
-          <div className={cx("brand")}>
+          <div className={cx("brand")} onClick={() => router.push("/")}>
             BLOG<em>.</em>
           </div>
 
