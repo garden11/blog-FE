@@ -100,7 +100,7 @@ const BlogPost: Page<Props> = (props: Props) => {
           id: postId,
         });
 
-        router.replace(`/${username}`);
+        router.back();
       } catch (error) {
         alert("포스트 삭제 중 에러가 발생하였습니다.");
       }
