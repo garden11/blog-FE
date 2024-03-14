@@ -33,11 +33,11 @@ const BlogLayout = (props: Props) => {
         }
 
         @media (min-width: 992px) {
-          max-width: 960px;
+          max-width: 780px;
         }
 
         @media (min-width: 1200px) {
-          max-width: 1140px;
+          max-width: 960px;
         }
       }
     `,

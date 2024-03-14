@@ -3,9 +3,10 @@ import { cx } from "@emotion/css";
 import { css } from "@emotion/react";
 
 // components
-import Card from "src/components/design-system/card";
 import PostThumbnail from "../../../image/post-thumbnail";
 import Stack from "src/components/design-system/stack";
+import Spacing from "src/components/design-system/spacing";
+import Line from "src/components/design-system/line";
 
 // styles
 import { spacing } from "src/styles/spacing";
@@ -26,13 +27,8 @@ const PostList = (props: Props) => {
 
   const styles = {
     container: css`
-      .down-content {
-        padding: 40px;
-        border-right: 1px solid #eee;
-        border-left: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-
-        > .title {
+      > .item {
+        .title {
           font-size: 24px;
           letter-spacing: 0.5px;
           font-weight: 900;
@@ -40,65 +36,72 @@ const PostList = (props: Props) => {
           ${spacing.margin.y10};
         }
 
-        > .others {
-          ${spacing.margin.top10};
-
-          > .item {
-            display: inline-block;
-            font-size: 14px;
-            color: #aaa;
-            font-weight: 400;
-
-            :after {
-              content: "|";
-              color: #aaa;
-              ${spacing.margin.x8};
-            }
-
-            :last-child::after {
-              display: none;
-            }
-          }
+        .content {
+          height: 54px;
+          line-height: 18px;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     `,
   };
 
+  console.log(props.list);
+
   return (
-    <Stack.Vertical css={styles.container} spacing={spacing.unit30}>
-      {props.list.map((listItem) => {
+    <Stack.Vertical css={styles.container}>
+      {props.list.map((listItem, index) => {
         return (
-          <div
-            key={listItem.id}
-            onClick={() => props.onClickListItem(listItem.id)}
-          >
-            <Card>
-              <PostThumbnail
-                image={{
-                  uri: listItem.thumbnailImageUri ?? undefined,
-                }}
-              />
+          <>
+            <Stack.Horizontal
+              spacing={spacing.unit10}
+              key={listItem.id}
+              className={cx("item")}
+              onClick={() => props.onClickListItem(listItem.id)}
+            >
+              <Stack.Horizontal.Item overflow="hidden">
+                <Stack.Vertical className={cx("full-height")}>
+                  <Stack.Vertical.Item className={cx("title")} flex={"none"}>
+                    {listItem.title}
+                  </Stack.Vertical.Item>
 
-              <div className={cx("down-content")}>
-                <a className={cx("title")}>{listItem.title}</a>
+                  <Stack.Vertical.Item overflow="hidden">
+                    <div className={cx("content")}>
+                      {/** HTML 태그를 공백으로 치환 */}
+                      {listItem.content.replace(/<[^>]+>/g, " ")}
+                    </div>
+                  </Stack.Vertical.Item>
 
-                <ul className={cx("others")}>
-                  <li className={cx("item")}>
-                    <a className={cx("username")}>{listItem.username}</a>
-                  </li>
+                  <Stack.Vertical.Item
+                    className={cx("registered-at")}
+                    flex={"none"}
+                  >
+                    {listItem.registeredAt &&
+                      dateUtil.utcUnixStringToDateString(listItem.registeredAt)}
+                  </Stack.Vertical.Item>
+                </Stack.Vertical>
+              </Stack.Horizontal.Item>
 
-                  <li className={cx("item")}>
-                    <a className={cx("registered-at")}>
-                      {listItem.registeredAt &&
-                        dateUtil.utcUnixStringToDateString(
-                          listItem.registeredAt
-                        )}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </Card>
-          </div>
+              <Stack.Horizontal.Item flex={"none"}>
+                <PostThumbnail
+                  image={{
+                    uri: listItem.thumbnailImageUri ?? undefined,
+                  }}
+                />
+              </Stack.Horizontal.Item>
+            </Stack.Horizontal>
+
+            {index !== props.list.length - 1 && (
+              <>
+                <Spacing.Vertical size={spacing.unit30} />
+                <Line.Horizontal />
+                <Spacing.Vertical size={spacing.unit30} />
+              </>
+            )}
+          </>
         );
       })}
     </Stack.Vertical>

@@ -3,6 +3,12 @@ import { css } from "@emotion/react";
 // constants
 import { DEFAULT_POST_THUMBNAIL_IMAGE_URI } from "src/constants";
 
+// styles
+import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
+
+// types
+import { CssPixelValue } from "src/styles/types";
+
 type Props = {
   image: {
     uri?: string;
@@ -15,7 +21,8 @@ const PostThumbnail = (props: Props) => {
   const styles = {
     continaer: css`
       position: relative;
-      padding-top: 60%;
+      width: 200px;
+      padding-top: 150px;
 
       > img {
         position: absolute;
