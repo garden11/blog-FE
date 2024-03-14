@@ -10,7 +10,6 @@ import BlogLayout from "src/components/system-design/layout/blog-layout";
 import PostBoard from "src/components/system-design/post/post-board";
 
 // types
-import { Category } from "src/types/category";
 import { PostDetail } from "src/types/post";
 import { PageInfo } from "src/types/pageInfo";
 
@@ -23,7 +22,6 @@ import { Page } from "src/types/common";
 
 type PageQuery = {
   username?: string;
-  categoryId?: Category["id"] | undefined;
   page?: number | undefined;
 };
 
@@ -31,7 +29,7 @@ type Props = {};
 
 const BlogBoard: Page<Props> = (props) => {
   const router = useRouter();
-  const { username, categoryId, page = 1 } = router.query as PageQuery;
+  const { username, page = 1 } = router.query as PageQuery;
 
   const { isSignedIn } = useAuth();
   const { handleClickCreatePostButton } = usePostActions();
@@ -48,7 +46,6 @@ const BlogBoard: Page<Props> = (props) => {
       try {
         const { content, ...pageInfo } = await API.getPostDetailList({
           username,
-          categoryId,
           page,
         });
 
@@ -60,7 +57,7 @@ const BlogBoard: Page<Props> = (props) => {
     };
 
     getPostDetailList();
-  }, [username, categoryId, page]);
+  }, [username, page]);
 
   const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {
     router.push(`/${username}/post/${postId}`);

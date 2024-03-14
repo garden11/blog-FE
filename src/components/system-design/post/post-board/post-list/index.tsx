@@ -32,20 +32,12 @@ const PostList = (props: Props) => {
         border-left: 1px solid #eee;
         border-bottom: 1px solid #eee;
 
-        > .category {
-          font-size: 18px;
-          letter-spacing: 0.5px;
-          font-weight: 900;
-          color: #f48840;
-        }
-
         > .title {
           font-size: 24px;
           letter-spacing: 0.5px;
           font-weight: 900;
           color: #20232e;
           ${spacing.margin.y10};
-          ${spacing.margin.left20};
         }
 
         > .others {
@@ -88,7 +80,6 @@ const PostList = (props: Props) => {
               />
 
               <div className={cx("down-content")}>
-                <span className={cx("category")}>{listItem.categoryName}</span>
                 <a className={cx("title")}>{listItem.title}</a>
 
                 <ul className={cx("others")}>

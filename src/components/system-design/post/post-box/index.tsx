@@ -36,13 +36,6 @@ const PostBox = (props: Props) => {
   const styles = {
     contianer: css`
       .down-content {
-        .category {
-          font-size: 18px;
-          letter-spacing: 0.5px;
-          font-weight: 900;
-          color: #f48840;
-        }
-
         .title {
           font-size: 20px;
           letter-spacing: 0.25px;
@@ -93,7 +86,6 @@ const PostBox = (props: Props) => {
         <Card.Content>
           <div className={cx("down-content")}>
             <Stack.Vertical spacing={spacing.unit20}>
-              <div className={cx("category")}>{props.post.categoryName}</div>
               <div className={cx("title")}>{props.post.title}</div>
 
               <ul className={cx("post-info")}>

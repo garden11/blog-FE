@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import * as API from "src/api";
 
 // components
-import CategoryMenu from "./category-menu";
 import Profile from "./profile";
 import Stack from "src/components/design-system/stack";
 
@@ -14,7 +13,6 @@ import Stack from "src/components/design-system/stack";
 import usePostActions from "src/hooks/usePostActions";
 
 // types
-import { Category } from "src/types/category";
 import { ProfileDetail } from "src/types/profile";
 
 // styles
@@ -22,7 +20,6 @@ import { spacing } from "src/styles/spacing";
 
 type PageQuery = {
   username?: string;
-  categoryId?: Category["id"] | undefined;
 };
 
 type Props = {};
@@ -30,29 +27,13 @@ type Props = {};
 const SideBar = (props: Props) => {
   const router = useRouter();
 
-  const { username, categoryId } = router.query as PageQuery;
+  const { username } = router.query as PageQuery;
 
   const { handleClickCreatePostButton } = usePostActions();
 
-  const [categoryList, setCategoryList] = useState<Category[]>(
-    [] as Category[]
-  );
   const [profile, setProfile] = useState<ProfileDetail>({} as ProfileDetail);
 
   useEffect(() => {
-    const getCategoryList = async () => {
-      if (!username) return;
-
-      try {
-        const categoryList = await API.getCategoryList({
-          username,
-        });
-        setCategoryList(categoryList);
-      } catch (error) {
-        alert("카테고리 목록을 불러올 수 없습니다.");
-      }
-    };
-
     const getProfileDetail = async () => {
       if (!username) return;
 
@@ -71,7 +52,6 @@ const SideBar = (props: Props) => {
       }
     };
 
-    getCategoryList();
     getProfileDetail();
   }, [username]);
 
@@ -81,8 +61,6 @@ const SideBar = (props: Props) => {
         profile={profile}
         onClickCreatePostButton={handleClickCreatePostButton}
       />
-
-      <CategoryMenu categoryList={categoryList} categoryId={categoryId} />
     </Stack.Vertical>
   );
 };

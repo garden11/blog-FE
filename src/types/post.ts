@@ -1,9 +1,7 @@
-import { Category } from "./category";
 import { UserInfo } from "./user";
 
 export type Post = {
   id: string;
-  categoryId: Category["id"];
   username: UserInfo["username"];
   title: string;
   content: string;
@@ -20,8 +18,6 @@ export type PostImage = {
 export type PostDetail = {
   id: Post["id"];
   username: Post["username"];
-  categoryId: Post["categoryId"];
-  categoryName: Category["name"];
   title: Post["title"];
   content: Post["content"];
   registeredAt: Post["registeredAt"];

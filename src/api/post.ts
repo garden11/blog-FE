@@ -5,7 +5,6 @@ import appAxios from "src/lib/appAxios";
 import { Post, PostImage, PostDetail } from "src/types/post";
 import { PageInfo } from "src/types/pageInfo";
 import { UserInfo } from "src/types/user";
-import { Category } from "src/types/category";
 import { Tokens } from "src/types/auth";
 
 // constants
@@ -16,7 +15,6 @@ import PageUtil from "src/utils/PageUtil";
 
 export type PostRequest = {
   username: Post["username"];
-  categoryId: Post["categoryId"];
   title: Post["title"];
   content: Post["content"];
   createdAt: string;
@@ -102,20 +100,16 @@ export const getPostDetail = async ({
 
 export const getPostDetailList = async ({
   username,
-  categoryId,
   page,
 }: {
   username: UserInfo["username"];
-  categoryId?: Category["id"];
   page: number;
 }): Promise<{ content: PostDetail[] } & PageInfo> => {
   const pageNumber = pageUtil.convertToNumberFromLabel(page);
 
-  const uri = !categoryId
-    ? `/api/v1/user/${username}/post-details?page=${pageNumber}`
-    : `/api/v1/user/${username}/category/${categoryId}/post-details?page=${pageNumber}`;
-
-  const response = await appAxios().get(uri);
+  const response = await appAxios().get(
+    `/api/v1/user/${username}/post-details?page=${pageNumber}`
+  );
 
   return response.data;
 };

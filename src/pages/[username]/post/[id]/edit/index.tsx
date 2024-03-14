@@ -4,7 +4,7 @@ import {
   GetServerSidePropsResult,
 } from "next";
 import { getServerSession } from "next-auth";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
@@ -16,26 +16,23 @@ import _ from "lodash";
 // api
 import * as API from "src/api";
 
+// auth
+import { authOptions } from "src/pages/api/auth/[...nextauth]";
+
 // components
 import EditorLayout from "src/components/system-design/layout/editor-layout";
+
+// forms
+import { PostFormValues } from "src/forms/postForm";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
 // types
+import { Page } from "src/types/common";
 import { Post } from "src/types/post";
 import { UserInfo } from "src/types/user";
-import { Category } from "src/types/category";
-
-// forms
-import { PostFormValues } from "src/forms/postForm";
-
-// auth
-import { authOptions } from "src/pages/api/auth/[...nextauth]";
-
-// types
-import { Page } from "src/types/common";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
@@ -68,28 +65,7 @@ const PostEdit: Page<Props> = (props) => {
   const dateUtil = new DateUtil();
   const byteUtil = new ByteUtil();
 
-  const [categoryList, setCategoryList] = useState<Category[]>(
-    [] as Category[]
-  );
-
   useAuth({ shouldRedirect: true });
-
-  useEffect(() => {
-    const getCategoryList = async () => {
-      if (!session) return;
-
-      try {
-        const categoryList = await API.getCategoryList({
-          username: session.username,
-        });
-        setCategoryList(categoryList);
-      } catch (error) {
-        alert("카테고리 목록을 불러올 수 없습니다.");
-      }
-    };
-
-    getCategoryList();
-  }, [session]);
 
   const onSubmitEditorImage = async (image: File) => {
     if (!session) return;
@@ -120,7 +96,6 @@ const PostEdit: Page<Props> = (props) => {
 
     try {
       const postRequestDefault = {
-        categoryId: form.categoryId,
         title: form.title,
         content: form.content,
         imageUriList: [] as API.PostRequest["imageUriList"],
@@ -176,7 +151,6 @@ const PostEdit: Page<Props> = (props) => {
           ? undefined
           : {
               id: post.id,
-              categoryId: post.categoryId,
               title: post.title,
               content: post.content,
               contentByteLength: byteUtil.getByteLengthOfUtf8String(
@@ -185,7 +159,6 @@ const PostEdit: Page<Props> = (props) => {
               registerYN: post.registerYN,
             }
       }
-      categoryList={categoryList}
       onSubmit={onSubmitForm}
       onErrorSubmit={onErrorSubmitForm}
       onSubmitImage={onSubmitEditorImage}

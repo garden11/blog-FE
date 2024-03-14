@@ -2,7 +2,6 @@ import * as yup from "yup";
 
 export const postFormSchema = yup.object({
   id: yup.string().required(),
-  categoryId: yup.string().required("카테고리는 필수 입력 항목입니다."),
   title: yup
     .string()
     .required("제목은 필수 입력 항목입니다.")

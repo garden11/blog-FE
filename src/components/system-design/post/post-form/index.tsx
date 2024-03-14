@@ -2,7 +2,6 @@ import {
   SubmitHandler,
   SubmitErrorHandler,
   useForm,
-  Controller,
   DefaultValues,
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,7 +16,6 @@ import Button from "src/components/design-system/button";
 import Form from "src/components/design-system/form";
 import Flex from "src/components/design-system/flex";
 import Input from "src/components/design-system/input";
-import Select from "src/components/design-system/select";
 import Stack from "src/components/design-system/stack";
 
 // forms
@@ -29,9 +27,6 @@ import { imageFormSchema } from "src/forms/imageForm";
 
 // styles
 import { spacing } from "src/styles/spacing";
-
-// types
-import { Category } from "src/types/category";
 
 // utils
 import ByteUtil from "src/utils/ByteUtil";
@@ -45,7 +40,6 @@ const EditorComponent = dynamic(
 
 type Props = {
   defaultValues?: DefaultValues<FormValues>;
-  categoryList: Category[];
   onSubmit: SubmitHandler<FormValues>;
   onErrorSubmit: SubmitErrorHandler<FormValues>;
   onSubmitImage: (image: File) => Promise<string | undefined>;
@@ -87,31 +81,12 @@ const PostForm = (props: Props) => {
 
       <Stack.Vertical spacing={spacing.unit10} className={cx("full-height")}>
         <Stack.Vertical.Item flex={"none"}>
-          <Stack.Horizontal spacing={spacing.unit10}>
-            <Stack.Horizontal.Item flex={"none"}>
-              <Select {...register("categoryId")}>
-                <option value="" disabled>
-                  CATEGORY
-                </option>
-                {props.categoryList.map((listItem) => {
-                  return (
-                    <option key={listItem.id} value={listItem.id}>
-                      {listItem.name}
-                    </option>
-                  );
-                })}
-              </Select>
-            </Stack.Horizontal.Item>
-
-            <Stack.Horizontal.Item>
-              <Input
-                {...register("title")}
-                className="title-input"
-                placeholder="TITLE"
-                width={"100%"}
-              />
-            </Stack.Horizontal.Item>
-          </Stack.Horizontal>
+          <Input
+            {...register("title")}
+            className="title-input"
+            placeholder="TITLE"
+            width={"100%"}
+          />
         </Stack.Vertical.Item>
 
         <Input {...register("contentByteLength")} hidden />
