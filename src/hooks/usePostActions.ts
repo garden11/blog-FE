@@ -36,7 +36,7 @@ const usePostActions = (params?: Params): Return => {
         request,
       });
 
-      post && router.push(`/${session.username}/post/${post.id}/edit`);
+      post && router.push(`/post/${post.id}/edit`);
     } catch (error) {
       alert("포스트 생성 중 에러가 발생하였습니다.");
     }

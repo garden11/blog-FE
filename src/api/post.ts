@@ -102,14 +102,16 @@ export const getPostDetailList = async ({
   username,
   page,
 }: {
-  username: UserInfo["username"];
+  username?: UserInfo["username"];
   page: number;
 }): Promise<{ content: PostDetail[] } & PageInfo> => {
   const pageNumber = pageUtil.convertToNumberFromLabel(page);
 
-  const response = await appAxios().get(
-    `/api/v1/user/${username}/post-details?page=${pageNumber}`
-  );
+  const uri = username
+    ? `/api/v1/user/${username}/post-details?page=${pageNumber}`
+    : `/api/v1/post-details?page=${pageNumber}`;
+
+  const response = await appAxios().get(uri);
 
   return response.data;
 };

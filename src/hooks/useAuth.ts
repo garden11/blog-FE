@@ -25,7 +25,7 @@ const useAuth = (params?: Params): Return => {
 
   useEffect(() => {
     if (session?.error) {
-      signOut({ callbackUrl: "/sign-in", redirect: true });
+      signOut();
     }
   }, [session]);
 
@@ -34,13 +34,16 @@ const useAuth = (params?: Params): Return => {
       if (router.route !== "/sign-in") {
         shouldRedirect && router.replace("/sign-in");
       }
+
       setHasSessionStarted(false);
-    } else if (session) {
+    }
+
+    if (session) {
       if (router.route === "/sign-in") {
         if (referer) {
           router.replace(`${referer}`);
         } else {
-          router.replace(`/${session.username}`);
+          router.replace(`/`);
         }
       }
       setHasSessionStarted(true);

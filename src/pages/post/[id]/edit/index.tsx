@@ -32,14 +32,12 @@ import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 // types
 import { Page } from "src/types/common";
 import { Post } from "src/types/post";
-import { UserInfo } from "src/types/user";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
 import ByteUtil from "src/utils/ByteUtil";
 
 type PageQuery = {
-  username?: UserInfo["username"];
   id?: Post["id"];
 };
 
@@ -133,7 +131,7 @@ const PostEdit: Page<Props> = (props) => {
         request: postRequest,
       });
 
-      router.replace(`/${post.username}/post/${post.id}`);
+      router.replace(`/post/${post.id}`);
     } catch (error) {
       alert("포스트 저장 중 에러가 발생하였습니다.");
     }

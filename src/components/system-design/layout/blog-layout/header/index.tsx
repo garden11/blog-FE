@@ -27,7 +27,7 @@ const Header = () => {
   const handleClickMyInfo = () => {
     if (!session) return;
 
-    router.push(`/${session.username}/my-info`);
+    router.push(`/my-info`);
   };
   const handleClickSignInButton = () => {
     const referer = router.asPath;
@@ -42,7 +42,7 @@ const Header = () => {
   const handleClickSignOutButton = () => {
     signOut();
   };
-  const handleClickMyBlogButton = () => {
+  const handleClickMyPostsButton = () => {
     if (!session) return;
 
     router.push(`/${session.username}`);
@@ -186,7 +186,10 @@ const Header = () => {
             <ul className={cx("nav")}>
               {isSignedIn() ? (
                 <>
-                  <NavLink value="MY BLOG" onClick={handleClickMyBlogButton} />
+                  <NavLink
+                    value="MY POSTS"
+                    onClick={handleClickMyPostsButton}
+                  />
                   <NavLink value="MY INFO" onClick={handleClickMyInfo} />
                   <NavButton
                     value="SIGN OUT"

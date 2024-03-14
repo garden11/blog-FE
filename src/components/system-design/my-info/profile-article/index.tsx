@@ -3,7 +3,7 @@ import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 // components
 import Card from "src/components/design-system/card";
 import Flex from "src/components/design-system/flex";
-import ProfilePictureForm from "src/components/system-design/manage/profile-article/profile-picture-form";
+import ProfilePictureForm from "src/components/system-design/my-info/profile-article/profile-picture-form";
 import Heading from "src/components/design-system/heading";
 
 // types

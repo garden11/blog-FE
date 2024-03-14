@@ -27,7 +27,7 @@ type PageQuery = {
 
 type Props = {};
 
-const BlogBoard: Page<Props> = (props) => {
+const UserBlogBoard: Page<Props> = (props) => {
   const router = useRouter();
   const { username, page = 1 } = router.query as PageQuery;
 
@@ -60,7 +60,7 @@ const BlogBoard: Page<Props> = (props) => {
   }, [username, page]);
 
   const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {
-    router.push(`/${username}/post/${postId}`);
+    router.push(`/post/${postId}`);
   };
 
   const handleClickPostBoardPageNavigationButton = (page: number) => {
@@ -88,8 +88,8 @@ const BlogBoard: Page<Props> = (props) => {
   );
 };
 
-BlogBoard.layout = (page: ReactElement) => {
+UserBlogBoard.layout = (page: ReactElement) => {
   return <BlogLayout>{page}</BlogLayout>;
 };
 
-export default BlogBoard;
+export default UserBlogBoard;
