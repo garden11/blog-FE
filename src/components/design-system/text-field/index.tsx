@@ -39,6 +39,7 @@ const TextField = forwardRef(function TextField(
   const styles = {
     container: css`
       position: relative;
+
       ${props.height
         ? css`
             height: ${coerceCssPixelValue(props.height)};
@@ -77,9 +78,10 @@ const TextField = forwardRef(function TextField(
         }
 
         > input {
+          box-sizing: border-box;
+          ${spacing.padding.left20};
           outline: none;
           font-size: 17px;
-          ${spacing.padding.left20};
           border-width: 1px;
           border-style: solid;
           border-color: ${props.isError ? "#c91b1b" : "lightGray"};
