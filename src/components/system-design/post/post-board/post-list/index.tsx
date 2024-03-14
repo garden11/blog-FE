@@ -49,8 +49,6 @@ const PostList = (props: Props) => {
     `,
   };
 
-  console.log(props.list);
-
   return (
     <Stack.Vertical css={styles.container}>
       {props.list.map((listItem, index) => {
