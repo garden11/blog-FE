@@ -1,29 +1,33 @@
 import { css } from "@emotion/react";
+import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
+
+// types
+import { CssPixelValue } from "src/styles/types";
 
 type Options = {
   direction: "vertical" | "horizontal";
 };
 
-type Props = {};
+type Props = { size?: CssPixelValue };
 
 type LineComponent = (props: Props) => JSX.Element;
 
 const createLineComponent = (options: Options): LineComponent =>
-  function LineComponent(props: Props) {
+  function LineComponent({ size = "100%", ...props }: Props) {
     const { direction = "horizontal" } = options;
 
     const styles = {
       contianer: css`
-        border-bottom: 1px solid #eee;
+        border: 1px solid #eee;
 
         ${direction === "horizontal" &&
         css`
-          width: 100%;
+          width: ${coerceCssPixelValue(size)};
         `};
 
         ${direction === "vertical" &&
         css`
-          height: 100%;
+          height: ${coerceCssPixelValue(size)};
         `};
       `,
     };
