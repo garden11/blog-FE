@@ -45,6 +45,13 @@ const PostList = (props: Props) => {
           overflow: hidden;
           text-overflow: ellipsis;
         }
+
+        > .thumbnail {
+          width: 30%;
+          min-width: 150px;
+          max-width: 200px;
+          aspect-ratio: 10 / 7;
+        }
       }
     `,
   };
@@ -83,7 +90,7 @@ const PostList = (props: Props) => {
                 </Stack.Vertical>
               </Stack.Horizontal.Item>
 
-              <Stack.Horizontal.Item flex={"none"}>
+              <Stack.Horizontal.Item flex={"none"} className={cx("thumbnail")}>
                 <PostThumbnail
                   image={{
                     uri: listItem.thumbnailImageUri ?? undefined,

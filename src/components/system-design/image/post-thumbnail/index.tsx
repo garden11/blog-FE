@@ -16,13 +16,11 @@ type Props = {
 };
 
 const PostThumbnail = (props: Props) => {
-  const defaultUri = DEFAULT_POST_THUMBNAIL_IMAGE_URI;
-
   const styles = {
     continaer: css`
       position: relative;
-      width: 200px;
-      padding-top: 150px;
+      width: 100%;
+      height: 100%;
 
       > img {
         position: absolute;
@@ -38,7 +36,11 @@ const PostThumbnail = (props: Props) => {
 
   return (
     <div css={styles.continaer}>
-      <img src={props.image.uri ? props.image.uri : defaultUri} />
+      <img
+        src={
+          props.image.uri ? props.image.uri : DEFAULT_POST_THUMBNAIL_IMAGE_URI
+        }
+      />
     </div>
   );
 };
