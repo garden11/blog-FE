@@ -74,7 +74,7 @@ const FindPasswordForm = (props: Props) => {
               <Form.Item>
                 <Button
                   type="submit"
-                  variant="rounded"
+                  rounded
                   size="large"
                   width={"100%"}
                   height={"100%"}

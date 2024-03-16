@@ -1,6 +1,10 @@
 import { css } from "@emotion/react";
 import { ButtonHTMLAttributes } from "react";
 
+// components
+import StandardButton from "./standard-button";
+import OutlinedButton from "./outlined-button";
+
 // styles
 import {
   CssPixelValue,
@@ -8,13 +12,26 @@ import {
 } from "src/styles/coerceCssPixelValue";
 import { spacing } from "src/styles/spacing";
 
-type Props = {
-  variant?: "standard" | "rounded";
-  size?: "medium" | "large";
+type PropsDefault = {
   color?: "primary" | "neutral";
+  size?: "small" | "medium" | "large";
   width?: CssPixelValue;
   height?: CssPixelValue;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
+
+type PropsStandard = {
+  variant?: "standard";
+  rounded?: boolean;
+  selected?: never;
+};
+
+type PropsOutlined = {
+  variant: "outlined";
+  rounded?: never;
+  selected?: boolean;
+};
+
+type Props = PropsDefault & (PropsStandard | PropsOutlined);
 
 const Button = ({
   variant = "standard",
@@ -24,14 +41,12 @@ const Button = ({
 }: Props) => {
   const styles = {
     contianer: css`
-      color: #fff;
-      border: none;
       font-weight: 500;
       cursor: pointer;
-      background-color: ${{ primary: "#f48840", neutral: "#aaaaaa" }[color]};
       transition: all 0.3s ease;
 
       font-size: ${{
+        small: "10px",
         medium: "13px",
         large: "20px",
       }[size]};
@@ -42,7 +57,11 @@ const Button = ({
           `
         : css`
             width: fit-content;
-            ${spacing.padding.x20};
+            ${{
+              small: spacing.padding.x10,
+              medium: spacing.padding.x20,
+              large: spacing.padding.x20,
+            }[size]};
           `};
 
       ${props.height
@@ -51,13 +70,12 @@ const Button = ({
           `
         : css`
             height: auto;
-            ${spacing.padding.y10};
+            ${{
+              small: spacing.padding.y4,
+              medium: spacing.padding.y10,
+              large: spacing.padding.y10,
+            }[size]};
           `}
-
-      ${variant === "rounded" &&
-      css`
-        border-radius: 25px;
-      `};
 
       :active {
         transform: scale(0.95);
@@ -65,7 +83,15 @@ const Button = ({
     `,
   };
 
-  return <button css={styles.contianer} {...props} />;
+  if (variant === "standard") {
+    return <StandardButton css={styles.contianer} {...props} />;
+  }
+
+  if (variant === "outlined") {
+    return <OutlinedButton css={styles.contianer} {...props} />;
+  }
+
+  return <></>;
 };
 
 export default Button;
