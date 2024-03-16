@@ -1,3 +1,5 @@
+// types
+import { Profile, ProfileImage } from "./profile";
 import { UserInfo } from "./user";
 
 export type Post = {
@@ -24,4 +26,7 @@ export type PostDetail = {
   updatedAt: Post["updatedAt"];
   thumbnailImageId: PostImage["id"];
   thumbnailImageUri: PostImage["uri"];
+  profileId: Profile["id"];
+  profileImageId: ProfileImage["id"];
+  profileImageUri: ProfileImage["uri"];
 };

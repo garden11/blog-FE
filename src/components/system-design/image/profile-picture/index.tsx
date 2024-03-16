@@ -10,13 +10,13 @@ import { CssPixelValue } from "src/styles/types";
 type Props = { image: { uri?: string }; size?: CssPixelValue };
 
 const ProfilePicture = ({ size = "100%", ...props }: Props) => {
-  const defaultUri = DEFAULT_PROFILE_IMAGE_URI;
-
   const styles = {
     container: css`
       position: relative;
       width: ${coerceCssPixelValue(size)};
-      padding-top: ${coerceCssPixelValue(size)};
+      height: ${coerceCssPixelValue(size)};
+      overflow: hidden;
+      border-radius: 50%;
 
       > img {
         position: absolute;
@@ -32,7 +32,9 @@ const ProfilePicture = ({ size = "100%", ...props }: Props) => {
 
   return (
     <div css={styles.container}>
-      <img src={props.image?.uri ? props.image.uri : defaultUri} />
+      <img
+        src={props.image?.uri ? props.image.uri : DEFAULT_PROFILE_IMAGE_URI}
+      />
     </div>
   );
 };

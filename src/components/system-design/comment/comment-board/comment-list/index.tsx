@@ -3,11 +3,11 @@ import { css } from "@emotion/react";
 import { cx } from "@emotion/css";
 
 // components
-import CommentAuthorProfilePicture from "../../../image/comment-author-profile-picture";
 import Flex from "src/components/design-system/flex";
 import Line from "src/components/design-system/line";
 import Spacing from "src/components/design-system/spacing";
 import Stack from "src/components/design-system/stack";
+import ProfilePicture from "src/components/system-design/image/profile-picture";
 
 // styles
 import { spacing } from "src/styles/spacing";
@@ -78,10 +78,11 @@ const CommentList = (props: Props) => {
             <li key={listItem.id} className={cx("item")}>
               <Stack.Horizontal spacing={spacing.unit30}>
                 <Stack.Horizontal.Item flex={"none"}>
-                  <CommentAuthorProfilePicture
+                  <ProfilePicture
                     image={{
                       uri: listItem.profileImageUri ?? undefined,
                     }}
+                    size={"100px"}
                   />
                 </Stack.Horizontal.Item>
 

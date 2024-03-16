@@ -19,6 +19,7 @@ import { PostDetail } from "src/types/post";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
+import ProfilePicture from "../../image/profile-picture";
 
 const PostContent = dynamic(() => import("./post-content"), { ssr: false });
 
@@ -46,20 +47,9 @@ const PostBox = (props: Props) => {
 
       .post-info {
         > .item {
-          display: inline-block;
           font-size: 14px;
           color: #aaa;
           font-weight: 400;
-
-          :after {
-            content: "|";
-            color: #aaa;
-            ${spacing.margin.x8};
-          }
-
-          :last-child::after {
-            display: none;
-          }
         }
       }
 
@@ -88,22 +78,43 @@ const PostBox = (props: Props) => {
             <Stack.Vertical spacing={spacing.unit20}>
               <div className={cx("title")}>{props.post.title}</div>
 
-              <ul className={cx("post-info")}>
-                <li className={cx("item")}>{props.post.username}</li>
-                <li className={cx("item")}>
+              <Stack.Horizontal
+                className={cx("post-info")}
+                alignItems="center"
+                spacing={spacing.unit8}
+              >
+                <Stack.Horizontal
+                  className={cx("item")}
+                  alignItems="center"
+                  spacing={spacing.unit8}
+                >
+                  <ProfilePicture
+                    image={{ uri: props.post.profileImageUri }}
+                    size={"20px"}
+                  />
+                  <div>{props.post.username}</div>
+                </Stack.Horizontal>
+
+                <Line.Vertical size={"10px"} />
+
+                <div className={cx("item")}>
                   {props.post.registeredAt &&
                     dateUtil.utcUnixStringToDateString(
                       props.post.registeredAt
                     )}{" "}
                   작성
-                </li>
+                </div>
+
                 {props.post.updatedAt && (
-                  <li className={cx("item")}>
-                    {dateUtil.utcUnixStringToDateString(props.post.updatedAt)}{" "}
-                    수정
-                  </li>
+                  <>
+                    <Line.Vertical size={"10px"} />
+                    <div className={cx("item")}>
+                      {dateUtil.utcUnixStringToDateString(props.post.updatedAt)}{" "}
+                      수정
+                    </div>
+                  </>
                 )}
-              </ul>
+              </Stack.Horizontal>
             </Stack.Vertical>
 
             <Spacing.Vertical size={spacing.unit20} />

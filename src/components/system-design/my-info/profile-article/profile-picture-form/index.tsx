@@ -86,8 +86,12 @@ const ProfilePictureForm = (props: Props) => {
   };
 
   return (
-    <Stack.Vertical css={styles.container} spacing={spacing.unit20}>
-      <ProfilePicture image={previewImage} />
+    <Stack.Vertical
+      css={styles.container}
+      spacing={spacing.unit20}
+      alignItems="center"
+    >
+      <ProfilePicture image={previewImage} size={"200px"} />
 
       <Form onSubmit={handleSubmit(onSubmit, onErrorSubmit)}>
         <Input {...register("image")} hidden />
