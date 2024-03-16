@@ -12,6 +12,7 @@ import { AUTHORIZATION_HEADER_KEY } from "src/constants";
 
 // utils
 import PageUtil from "src/utils/PageUtil";
+import { Tag } from "src/types/tag";
 
 export type PostRequest = {
   username: Post["username"];
@@ -99,17 +100,27 @@ export const getPostDetail = async ({
 };
 
 export const getPostDetailList = async ({
-  username,
   page,
-}: {
-  username?: UserInfo["username"];
-  page: number;
-}): Promise<{ content: PostDetail[] } & PageInfo> => {
+  username,
+  tagId,
+}: { page: number } & (
+  | {
+      username?: UserInfo["username"];
+      tagId?: never;
+    }
+  | { username?: never; tagId?: Tag["id"] }
+)): Promise<{ content: PostDetail[] } & PageInfo> => {
   const pageNumber = pageUtil.convertToNumberFromLabel(page);
 
-  const uri = username
-    ? `/api/v1/user/${username}/post-details?page=${pageNumber}`
-    : `/api/v1/post-details?page=${pageNumber}`;
+  let uri: string = `/api/v1/post-details?page=${pageNumber}`;
+
+  if (username) {
+    uri = `/api/v1/user/${username}/post-details?page=${pageNumber}`;
+  }
+
+  if (tagId) {
+    uri = `/api/v1/tag/${tagId}/post-details?page=${pageNumber}`;
+  }
 
   const response = await appAxios().get(uri);
 

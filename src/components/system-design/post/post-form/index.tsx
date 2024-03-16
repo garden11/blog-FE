@@ -50,15 +50,30 @@ const PostForm = (props: Props) => {
   const byteUtil = new ByteUtil();
 
   const editorRef = useRef<Editor>(null);
+  const tagRef = useRef<HTMLInputElement>(null);
 
-  const { register, handleSubmit, setValue, reset } = useForm<FormValues>({
-    mode: "onSubmit",
-    resolver: yupResolver(formSchema),
-  });
+  const { register, handleSubmit, setValue, reset, watch } =
+    useForm<FormValues>({
+      mode: "onSubmit",
+      resolver: yupResolver(formSchema),
+      defaultValues: {
+        tagList: [],
+      },
+    });
+
+  const watchs = {
+    tagList: watch("tagList"),
+  };
 
   useEffect(() => {
     reset(props.defaultValues);
   }, [!!props.defaultValues]);
+
+  useEffect(() => {
+    if (!tagRef.current) return;
+
+    tagRef.current.value = watchs.tagList.join(", ");
+  }, [watchs.tagList]);
 
   const onUploadImage = async (image: File) => {
     try {
@@ -81,12 +96,13 @@ const PostForm = (props: Props) => {
 
       <Stack.Vertical spacing={spacing.unit10} className={cx("full-height")}>
         <Stack.Vertical.Item flex={"none"}>
-          <Input
-            {...register("title")}
-            className="title-input"
-            placeholder="TITLE"
-            width={"100%"}
-          />
+          <Input {...register("title")} placeholder="TITLE" width={"100%"} />
+        </Stack.Vertical.Item>
+
+        <Stack.Vertical.Item flex={"none"}>
+          <Input {...register("tagList")} hidden />
+
+          <Input placeholder="TAGS" width={"100%"} ref={tagRef} />
         </Stack.Vertical.Item>
 
         <Input {...register("contentByteLength")} hidden />
@@ -111,6 +127,12 @@ const PostForm = (props: Props) => {
                 const content =
                   editorRef.current?.getInstance().getHTML() ?? "";
 
+                // 공백 제거, 쉼표로 구분
+                const tagList = tagRef.current?.value
+                  .replace(/\s+/g, "")
+                  .split(",");
+
+                tagList && setValue("tagList", tagList);
                 setValue("content", content);
                 setValue(
                   "contentByteLength",

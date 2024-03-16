@@ -32,6 +32,7 @@ import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 // types
 import { Page } from "src/types/common";
 import { Post } from "src/types/post";
+import { Tag } from "src/types/tag";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
@@ -43,6 +44,7 @@ type PageQuery = {
 
 type Props = {
   post: Post;
+  tagList: Tag[];
 };
 
 const PostForm = dynamic(
@@ -125,10 +127,20 @@ const PostEdit: Page<Props> = (props) => {
         };
       }
 
-      await API.updatePost({
+      const post = await API.updatePost({
         accessToken: session.accessToken,
         id: form.id,
         request: postRequest,
+      });
+
+      const postTagListRequest: API.PostTagListRequest = {
+        postId: post.id,
+        tagList: form.tagList,
+      };
+
+      await API.postTagList({
+        accessToken: session.accessToken,
+        request: postTagListRequest,
       });
 
       router.replace(`/post/${post.id}`);
@@ -154,6 +166,7 @@ const PostEdit: Page<Props> = (props) => {
               contentByteLength: byteUtil.getByteLengthOfUtf8String(
                 post.content
               ),
+              tagList: props.tagList.map((tag) => tag.name),
               registerYN: post.registerYN,
             }
       }
@@ -185,9 +198,14 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (!post) return { notFound: true };
 
+  const tagList = await API.getTagList({
+    postId: post.id,
+  });
+
   return {
     props: {
       post,
+      tagList,
     },
   };
 };
