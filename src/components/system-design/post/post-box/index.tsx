@@ -29,7 +29,10 @@ import { Tag } from "src/types/tag";
 // utils
 import DateUtil from "src/utils/DateUtil";
 
-const PostContent = dynamic(() => import("./post-content"), { ssr: false });
+const PostContent = dynamic(
+  () => import("src/components/design-system/viewer"),
+  { ssr: false }
+);
 
 type Props = {
   post: PostDetail;
