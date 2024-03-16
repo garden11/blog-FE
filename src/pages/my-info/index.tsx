@@ -198,7 +198,7 @@ const MyInfo: Page<Props> = (props: Props) => {
 };
 
 MyInfo.layout = (page: ReactElement) => {
-  return <BlogLayout hasSideBar={false}>{page}</BlogLayout>;
+  return <BlogLayout>{page}</BlogLayout>;
 };
 
 export default MyInfo;
