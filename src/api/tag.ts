@@ -11,7 +11,7 @@ import { Tokens } from "src/types/auth";
 
 export type PostTagListRequest = {
   postId: string;
-  tagList: string[];
+  tagList: string[] | undefined;
 };
 
 export const getTagList = async ({

@@ -56,9 +56,7 @@ const PostForm = (props: Props) => {
     useForm<FormValues>({
       mode: "onSubmit",
       resolver: yupResolver(formSchema),
-      defaultValues: {
-        tagList: [],
-      },
+      defaultValues: {},
     });
 
   const watchs = {
@@ -70,9 +68,9 @@ const PostForm = (props: Props) => {
   }, [!!props.defaultValues]);
 
   useEffect(() => {
-    if (!tagRef.current) return;
+    if (!tagRef.current || !watchs.tagList) return;
 
-    tagRef.current.value = watchs.tagList.join(", ");
+    tagRef.current.value = watchs.tagList?.join(", ");
   }, [watchs.tagList]);
 
   const onUploadImage = async (image: File) => {
