@@ -21,6 +21,7 @@ import { authOptions } from "src/pages/api/auth/[...nextauth]";
 
 // components
 import EditorLayout from "src/components/system-design/layout/editor-layout";
+import PostForm from "src/components/system-design/post/post-form";
 
 // forms
 import { PostFormValues } from "src/forms/postForm";
@@ -46,13 +47,6 @@ type Props = {
   post: Post;
   tagList: Tag[];
 };
-
-const PostForm = dynamic(
-  () => import("src/components/system-design/post/post-form"),
-  {
-    ssr: false,
-  }
-);
 
 const PostEdit: Page<Props> = (props) => {
   const { post } = props;
