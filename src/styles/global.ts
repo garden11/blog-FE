@@ -4,7 +4,16 @@ import { css } from "@emotion/react";
 import { colors } from "./colors";
 
 export const globalStyles = css`
+  @font-face {
+    font-family: "Pretendard";
+    src: url("/fonts/Pretendard-Thin.woff2") format("woff2");
+  }
+
   :root {
+  }
+
+  * {
+    font-family: "Pretendard", sans-serif;
   }
 
   *:focus {
@@ -13,7 +22,6 @@ export const globalStyles = css`
 
   body {
     margin: 0px;
-    font-family: "Roboto", sans-serif;
     background-color: ${colors.background};
   }
 
