@@ -31,7 +31,7 @@ import { spacing } from "src/styles/spacing";
 type Props = {};
 
 const MyInfo: Page<Props> = (props: Props) => {
-  const { data: session } = useSession();
+  const { data: session, update: updateSession } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
   const [userInfo, setUserInfo] = useState<UserInfo>({} as UserInfo);
@@ -162,6 +162,8 @@ const MyInfo: Page<Props> = (props: Props) => {
       setProfile(() => newProfile);
 
       event?.target.reset();
+
+      updateSession();
 
       alert("이미지가 변경되었습니다.");
     } catch (error) {
