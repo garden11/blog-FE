@@ -41,7 +41,7 @@ const SignIn: Page<Props> = (props) => {
       });
 
       let ok: SignInResponse["ok"] = false,
-        error: SignInResponse["error"] = undefined;
+        error: SignInResponse["error"] = null;
       response && ({ ok, error } = response);
 
       if (ok) {
