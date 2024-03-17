@@ -12,6 +12,8 @@ type Props = {
 const Viewer = (props: Props) => {
   const styles = {
     container: css`
+      line-height: 30px;
+
       img {
         max-width: 100%;
       }

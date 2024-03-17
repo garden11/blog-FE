@@ -50,6 +50,8 @@ const Item = (props: Props) => {
 
   const styles = {
     container: css`
+      cursor: pointer;
+
       .title {
         font-size: 24px;
         letter-spacing: 0.5px;
@@ -58,8 +60,8 @@ const Item = (props: Props) => {
       }
 
       .content {
-        height: 54px;
-        line-height: 18px;
+        height: 90px;
+        line-height: 30px;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
