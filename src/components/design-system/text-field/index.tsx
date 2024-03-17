@@ -7,6 +7,7 @@ import {
 
 // styles
 import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 // types
@@ -69,7 +70,7 @@ const TextField = forwardRef(function TextField(
           position: absolute;
           top: 50%;
           left: 20px;
-          color: ${props.isError ? "#c91b1b" : "#999999"};
+          color: ${props.isError ? colors.invalid : colors.neutral};
           font-weight: 400;
           font-size: 17px;
           pointer-events: none;
@@ -84,12 +85,17 @@ const TextField = forwardRef(function TextField(
           font-size: 17px;
           border-width: 1px;
           border-style: solid;
-          border-color: ${props.isError ? "#c91b1b" : "lightGray"};
+          border-color: ${colors.neutral};
           border-radius: ${props.rounded ? "25px" : "0px"};
           transition: all 0.3s ease;
 
+          ${props.isError &&
+          css`
+            border-color: ${colors.invalid};
+          `}
+
           :focus {
-            border-color: ${props.isError ? "#c91b1b" : "#4158d0"};
+            border-color: ${props.isError ? colors.invalid : colors.valid};
           }
         }
 
@@ -97,12 +103,12 @@ const TextField = forwardRef(function TextField(
         > input:not(:placeholder-shown) ~ label {
           top: 0%;
           font-size: 16px;
-          background: #fff;
+          background: ${colors.white};
           transform: translateY(-50%);
         }
 
         > input:focus ~ label {
-          color: ${props.isError ? "#c91b1b" : "#4158d0"};
+          color: ${props.isError ? colors.invalid : colors.valid};
         }
       `}
     `,

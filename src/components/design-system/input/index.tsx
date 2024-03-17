@@ -7,6 +7,7 @@ import {
 
 // styles
 import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 // types
@@ -30,7 +31,7 @@ const Input = forwardRef(function Input(
       border-left-width: 0px;
       border-right-width: 0px;
       border-bottom-width: 1px;
-      border-bottom-color: #d4d4d4;
+      border-bottom-color: ${colors.border};
     `,
   };
 

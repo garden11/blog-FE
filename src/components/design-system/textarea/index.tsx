@@ -5,7 +5,8 @@ import {
   forwardRef,
 } from "react";
 
-// tyles
+// styles
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 type Props = {} & ComponentPropsWithoutRef<"textarea">;
@@ -21,16 +22,16 @@ const TextArea = forwardRef(function TextArea(
       min-height: 100px;
       max-height: 220px;
       box-sizing: border-box;
-      border: 1px solid #eee;
+      border: 1px solid ${colors.borderLight};
       font-size: 13px;
       font-weight: 500;
-      color: #7a7a7a;
+      color: ${colors.grayDark};
       outline: none;
       ${spacing.padding.y10};
       ${spacing.padding.x16};
 
       ::placeholder {
-        color: #aaa;
+        color: ${colors.gray};
       }
     `,
   };

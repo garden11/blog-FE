@@ -1,5 +1,8 @@
 import { css } from "@emotion/react";
 
+// styles
+import { colors } from "src/styles/colors";
+
 type Props = {
   value: string;
 };
@@ -11,12 +14,12 @@ const Heading = (props: Props) => {
       font-weight: 600;
       text-align: center;
       line-height: 100px;
-      color: #fff;
+      color: ${colors.white};
       user-select: none;
       border-radius: inherit;
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;
-      background: #f48840;
+      background: ${colors.primary};
     `,
   };
 

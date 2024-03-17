@@ -1,10 +1,14 @@
 import { css } from "@emotion/react";
 import { ButtonHTMLAttributes } from "react";
 
+// styles
+import { colors } from "src/styles/colors";
+
 type Props = {
   color?: "primary" | "neutral";
   selected?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
+
 const OutlinedButton = ({
   color = "primary",
   selected = false,
@@ -14,21 +18,21 @@ const OutlinedButton = ({
     container: css`
       box-sizing: border-box;
       color: ${{
-        primary: "#f48840",
-        neutral: "#aaaaaa",
+        primary: colors.primary,
+        neutral: colors.neutral,
       }[color]};
-      background-color: #fff;
+      background-color: ${colors.white};
       border: 1px solid
         ${{
-          primary: "#f48840",
-          neutral: "#aaaaaa",
+          primary: colors.primary,
+          neutral: colors.neutral,
         }[color]};
       border-radius: 5px;
 
       ${selected &&
       css`
-        color: #fff;
-        background-color: #f48840;
+        color: ${colors.white};
+        background-color: ${colors.primary};
       `}
     `,
   };

@@ -17,6 +17,7 @@ import Menu from "./menu";
 import useAuth from "src/hooks/useAuth";
 
 // styles
+import { colors } from "src/styles/colors";
 import { flex } from "src/styles/flex";
 import { spacing } from "src/styles/spacing";
 
@@ -64,7 +65,7 @@ const Header = () => {
       width: 100%;
       height: 60px;
       top: 0px;
-      background-color: #ffffff;
+      background-color: ${colors.white};
       box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
 
       > .nav-bar {
@@ -102,7 +103,7 @@ const Header = () => {
 
           > .brand {
             float: left;
-            color: #1e1e1e;
+            color: ${colors.heading};
             font-size: 24px;
             font-weight: 900;
             cursor: pointer;
@@ -110,7 +111,7 @@ const Header = () => {
             > em {
               font-size: 24px;
               font-style: normal;
-              color: #f48840;
+              color: ${colors.primary};
             }
           }
         }

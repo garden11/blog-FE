@@ -20,6 +20,7 @@ import useAuth from "src/hooks/useAuth";
 
 // styles
 import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 // types
@@ -65,13 +66,13 @@ const PostBox = (props: Props) => {
         font-size: 20px;
         letter-spacing: 0.25px;
         font-weight: 900;
-        color: #20232e;
+        color: ${colors.heading};
       }
 
       .post-info {
         > .item {
           font-size: 14px;
-          color: #aaa;
+          color: ${colors.gray};
           font-weight: 400;
         }
       }
@@ -83,8 +84,8 @@ const PostBox = (props: Props) => {
           > .item {
             display: inline-block;
 
-            > .button {
-              color: #4158d0;
+            > a {
+              color: ${colors.link};
               cursor: pointer;
             }
           }

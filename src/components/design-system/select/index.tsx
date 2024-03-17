@@ -4,6 +4,9 @@ import {
   ComponentPropsWithoutRef,
   forwardRef,
 } from "react";
+
+// styles
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 type Props = {} & ComponentPropsWithoutRef<"select">;
@@ -21,7 +24,7 @@ const Select = forwardRef(function Select(
       border-left-width: 0px;
       border-right-width: 0px;
       border-bottom-width: 1px;
-      border-bottom-color: #d4d4d4;
+      border-bottom-color: ${colors.border};
 
       :first-of-type[disabled] {
         display: none;

@@ -9,6 +9,7 @@ import Card from "src/components/design-system/card";
 import Form from "src/components/design-system/form";
 import Flex from "src/components/design-system/flex";
 import Stack from "src/components/design-system/stack";
+import TextField from "src/components/design-system/text-field";
 
 // forms
 import {
@@ -17,11 +18,11 @@ import {
 } from "src/forms/passwordForm";
 
 // styles
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 // types
 import { ResetPsswordFormStatus as FormStatus } from "./types";
-import TextField from "src/components/design-system/text-field";
 
 type Props = {
   onSubmit: SubmitHandler<FormValues>;
@@ -49,7 +50,7 @@ const ResetPasswordForm = (props: Props) => {
           text-align: center;
 
           > a {
-            color: #4158d0;
+            color: ${colors.link};
           }
         }
       }

@@ -4,6 +4,9 @@ import _ from "lodash";
 
 // constants
 import { PAGE_NUMBER_BUTTON_LENGTH } from "src/constants";
+
+// styles
+import { colors } from "src/styles/colors";
 import { flex } from "src/styles/flex";
 import { spacing } from "src/styles/spacing";
 
@@ -34,24 +37,24 @@ const Pagination = (props: Props) => {
         ${spacing.margin.x4};
         text-align: center;
         line-height: 50px;
-        background-color: #fff;
+        background-color: ${colors.white};
         font-size: 15px;
-        color: #7a7a7a;
-        border: 1px solid #eee;
+        color: ${colors.grayDark};
+        border: 1px solid ${colors.borderLight};
         font-weight: 500;
         transition: all 0.3s;
 
         :hover {
-          color: #f48840;
+          color: ${colors.primary};
         }
 
         &.active {
-          background-color: #f48840;
-          border-color: #f48840;
-          color: #fff;
+          background-color: ${colors.primary};
+          border-color: ${colors.primary};
+          color: ${colors.white};
 
           :hover {
-            color: #fff;
+            color: ${colors.white};
           }
         }
       }

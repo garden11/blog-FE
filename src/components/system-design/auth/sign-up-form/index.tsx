@@ -18,6 +18,7 @@ import {
 } from "src/forms/authForm";
 
 // styles
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 type Props = {
@@ -43,7 +44,7 @@ const SignUpForm = (props: Props) => {
         text-align: center;
 
         > a {
-          color: #4158d0;
+          color: ${colors.link};
         }
       }
     `,

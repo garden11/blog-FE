@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import * as API from "src/api";
 
 // components
-import Button from "src/components/design-system/button";
 import Flex from "src/components/design-system/flex";
 import Stack from "src/components/design-system/stack";
 import PostThumbnail from "src/components/system-design/image/post-thumbnail";
@@ -15,6 +14,7 @@ import TagButton from "src/components/system-design/tag/tag-button";
 
 // styles
 import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 // types
@@ -54,7 +54,7 @@ const Item = (props: Props) => {
         font-size: 24px;
         letter-spacing: 0.5px;
         font-weight: 900;
-        color: #20232e;
+        color: ${colors.heading};
       }
 
       .content {

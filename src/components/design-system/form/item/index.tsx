@@ -9,6 +9,7 @@ import Stack from "../../stack";
 import { Context } from "../contexts";
 
 // styles
+import { colors } from "src/styles/colors";
 import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
 import { spacing } from "src/styles/spacing";
 
@@ -26,7 +27,7 @@ const Item = (props: Props) => {
         font-size: 12px;
         font-weight: 500;
         letter-spacing: 0.3px;
-        color: #20232e;
+        color: ${colors.heading};
         margin: 0px;
       }
 
@@ -36,7 +37,7 @@ const Item = (props: Props) => {
         }
 
         > .error {
-          color: #c91b1b;
+          color: ${colors.invalid};
           font-size: 10px;
           ${spacing.margin.left10};
         }

@@ -5,6 +5,7 @@ import Spacing from "../spacing";
 import Line from "../line";
 
 // styles
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 type Props = {
@@ -18,7 +19,7 @@ const Heading = ({ variant = "primary", ...props }: Props) => {
       font-size: ${{ primary: "18px", secondary: "15px" }[variant]};
       font-weight: 900;
       letter-spacing: 0.5px;
-      color: #20232e;
+      color: ${colors.heading};
     `,
   };
 

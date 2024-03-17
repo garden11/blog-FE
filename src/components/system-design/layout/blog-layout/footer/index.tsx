@@ -4,21 +4,24 @@ import { css } from "@emotion/react";
 // components
 import Flex from "src/components/design-system/flex";
 
+// styles
+import { colors } from "src/styles/colors";
+
 type Props = {};
 
 const Footer = (props: Props) => {
   const styles = {
     container: css`
-      background-color: #20232e;
+      background-color: ${colors.footer};
       height: 250px;
 
       .copyright {
         font-size: 13px;
         text-transform: uppercase;
-        color: #fff;
+        color: ${colors.white};
 
         > .link {
-          color: #f48840;
+          color: ${colors.primary};
         }
       }
     `,

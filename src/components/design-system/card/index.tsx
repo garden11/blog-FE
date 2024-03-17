@@ -6,6 +6,7 @@ import Heading from "./heading";
 import Content from "./content";
 
 // styles
+import { colors } from "src/styles/colors";
 import {
   CssPixelValue,
   coerceCssPixelValue,
@@ -28,7 +29,7 @@ const CardComponent = ({
   const styles = {
     container: css`
       width: ${coerceCssPixelValue(width)};
-      background-color: #fff;
+      background-color: ${colors.white};
 
       ${variant === "standard" && css``};
 

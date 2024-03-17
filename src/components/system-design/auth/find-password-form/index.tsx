@@ -18,6 +18,7 @@ import {
 } from "src/forms/emailForm";
 
 // styles
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 type Props = {
@@ -42,7 +43,7 @@ const FindPasswordForm = (props: Props) => {
         text-align: center;
 
         > a {
-          color: #4158d0;
+          color: ${colors.link};
         }
       }
     `,

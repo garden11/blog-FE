@@ -9,14 +9,15 @@ import Spacing from "src/components/design-system/spacing";
 import Stack from "src/components/design-system/stack";
 import ProfilePicture from "src/components/system-design/image/profile-picture";
 
+// hooks
+import useAuth from "src/hooks/useAuth";
+
 // styles
+import { colors } from "src/styles/colors";
 import { spacing } from "src/styles/spacing";
 
 // types
 import { CommentDetail } from "src/types/comment";
-
-// hooks
-import useAuth from "src/hooks/useAuth";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
@@ -39,7 +40,7 @@ const CommentList = (props: Props) => {
         .comment-info-content {
           > .info {
             > .username {
-              color: #20232e;
+              color: ${colors.heading};
               font-size: 19px;
               font-weight: 900;
               letter-spacing: 0.5px;
@@ -47,7 +48,7 @@ const CommentList = (props: Props) => {
 
             > .registered-at {
               font-size: 14px;
-              color: #aaa;
+              color: ${colors.gray};
               font-weight: 400;
               letter-spacing: 0.25px;
               margin-left: 20px;
@@ -61,7 +62,7 @@ const CommentList = (props: Props) => {
         .comment-deal {
           .delete-button {
             background-color: transparent;
-            color: #aaa;
+            color: ${colors.gray};
             border: none;
             cursor: pointer;
           }

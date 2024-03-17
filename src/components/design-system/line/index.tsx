@@ -1,5 +1,8 @@
 import { css } from "@emotion/react";
+
+//styles
 import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
+import { colors } from "src/styles/colors";
 
 // types
 import { CssPixelValue } from "src/styles/types";
@@ -18,7 +21,7 @@ const createLineComponent = (options: Options): LineComponent =>
 
     const styles = {
       contianer: css`
-        border: 1px solid #eee;
+        border: 1px solid ${colors.borderLight};
 
         ${direction === "horizontal" &&
         css`

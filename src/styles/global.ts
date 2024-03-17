@@ -1,5 +1,8 @@
 import { css } from "@emotion/react";
 
+// styles
+import { colors } from "./colors";
+
 export const globalStyles = css`
   :root {
   }
@@ -11,7 +14,7 @@ export const globalStyles = css`
   body {
     margin: 0px;
     font-family: "Roboto", sans-serif;
-    background-color: #f7f7f7;
+    background-color: ${colors.background};
   }
 
   p {

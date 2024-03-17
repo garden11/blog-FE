@@ -1,6 +1,9 @@
 import { css } from "@emotion/react";
 import { ButtonHTMLAttributes } from "react";
 
+// styles
+import { colors } from "src/styles/colors";
+
 type Props = {
   color?: "primary" | "neutral";
   rounded?: boolean;
@@ -13,11 +16,11 @@ const StandardButton = ({
 }: Props) => {
   const styles = {
     container: css`
-      color: #fff;
+      color: ${colors.white};
       border: none;
       background-color: ${{
-        primary: "#f48840",
-        neutral: "#aaaaaa",
+        primary: colors.primary,
+        neutral: colors.neutral,
       }[color]};
 
       ${rounded &&

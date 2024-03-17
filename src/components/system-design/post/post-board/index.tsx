@@ -10,6 +10,7 @@ import Pagination from "src/components/design-system/pagination";
 import Stack from "src/components/design-system/stack";
 
 // styles
+import { colors } from "src/styles/colors";
 import { flex } from "src/styles/flex";
 import { spacing } from "src/styles/spacing";
 
@@ -39,7 +40,7 @@ const PostBoard = (props: Props) => {
           border: 0px;
 
           svg {
-            color: #f48840;
+            color: ${colors.primary};
             border-bottom: 3px solid;
           }
         }
