@@ -127,12 +127,15 @@ const PostForm = (props: Props) => {
                 const content =
                   editorRef.current?.getInstance().getHTML() ?? "";
 
-                // 공백 제거, 쉼표로 구분
-                const tagList = tagRef.current?.value
-                  .replace(/\s+/g, "")
-                  .split(",");
+                if (tagRef.current?.value) {
+                  const tagList = tagRef.current.value
+                    .replace(/\s+/g, "")
+                    .split(",");
 
-                tagList && setValue("tagList", tagList);
+                  // 공백 제거, 쉼표로 구분
+                  tagList && setValue("tagList", tagList);
+                }
+
                 setValue("content", content);
                 setValue(
                   "contentByteLength",
