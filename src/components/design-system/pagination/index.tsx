@@ -71,7 +71,8 @@ const Pagination = (props: Props) => {
           );
         }}
       >
-        <i className="fa fa-angle-double-left" />
+        {/** < */}
+        &lt;
       </li>
     );
   };
@@ -126,7 +127,8 @@ const Pagination = (props: Props) => {
           )
         }
       >
-        <i className="fa fa-angle-double-right" />
+        {/** > */}
+        &gt;
       </li>
     );
   };
