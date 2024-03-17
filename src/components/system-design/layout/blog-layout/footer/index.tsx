@@ -15,13 +15,17 @@ const Footer = (props: Props) => {
       background-color: ${colors.footer};
       height: 250px;
 
-      .copyright {
+      .info {
         font-size: 13px;
-        text-transform: uppercase;
-        color: ${colors.white};
 
         > .link {
-          color: ${colors.primary};
+          color: ${colors.white};
+          cursor: pointer;
+        }
+
+        > .name {
+          text-transform: uppercase;
+          color: ${colors.primaryContrast};
         }
       }
     `,
@@ -30,16 +34,19 @@ const Footer = (props: Props) => {
   return (
     <footer css={styles.container}>
       <Flex.Center className={cx("full-height")}>
-        <div className={cx("copyright")}>
-          Copyright 2020 Stand Blog Co. | Design:{" "}
-          <a
+        <div className={cx("info")}>
+          <span
             className={cx("link")}
-            rel="nofollow"
-            href="https://templatemo.com"
-            target="_parent"
+            onClick={() =>
+              window.open(process.env.NEXT_PUBLIC_CREATOR_GIT_LINK)
+            }
           >
-            TemplateMo
-          </a>
+            {process.env.NEXT_PUBLIC_CREATOR_GIT_LINK}
+          </span>
+          <span className={cx("name")}>
+            {" "}
+            {process.env.NEXT_PUBLIC_CREATOR_NAME}
+          </span>
         </div>
       </Flex.Center>
     </footer>
