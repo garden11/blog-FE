@@ -1,21 +1,26 @@
 import { SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
+import { ReactNode } from "react";
+
+// api
+import * as API from "src/api";
 
 // components
-import FindPasswordForm from "src/components/find-password/FindPasswordForm";
+import CenteredLayout from "src/components/system-design/layout/centered-layout";
+import FindPasswordForm from "src/components/system-design/auth/find-password-form";
+
+// forms
+import { EmailFormValues } from "src/forms/emailForm";
+
+// hooks
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-// models
-import { EmailFormValues } from "src/models/forms/emailForm";
-
-// services
-import AuthService, { MailRequest } from "src/services/AuthService";
+// types
+import { Page } from "src/types/common";
 
 type Props = {};
 
-const FindPassword = (props: Props) => {
-  const authService = new AuthService();
-
+const FindPassword: Page<Props> = (props) => {
   const { alert } = useAlertOrConfirm();
 
   const onSubmitForm: SubmitHandler<EmailFormValues> = async (form, event) => {
@@ -31,20 +36,20 @@ const FindPassword = (props: Props) => {
         subject: SUBJECT,
         message: MESSAGE,
         processToken,
-      } as MailRequest;
+      } as API.MailRequest;
 
-      await authService.sendResetPasswordMail({ request });
+      await API.sendResetPasswordMail({ request });
       alert("메일을 발송했습니다.");
     } catch (error) {
       alert("메일 발송 중 에러가 발생하였습니다.");
     }
   };
 
-  return (
-    <div className="auth">
-      <FindPasswordForm onSubmit={onSubmitForm} />
-    </div>
-  );
+  return <FindPasswordForm onSubmit={onSubmitForm} />;
+};
+
+FindPassword.layout = (page: ReactNode) => {
+  return <CenteredLayout>{page}</CenteredLayout>;
 };
 
 export default FindPassword;

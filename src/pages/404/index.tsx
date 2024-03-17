@@ -1,11 +1,20 @@
 import { useRouter } from "next/router";
+import { ReactElement } from "react";
 
 // components
-import MessageBox from "src/components/shared/MessageBox";
+import Button from "src/components/design-system/button";
+import CenteredLayout from "src/components/system-design/layout/centered-layout";
+import Stack from "src/components/design-system/stack";
+
+// styles
+import { spacing } from "src/styles/spacing";
+
+// types
+import { Page } from "src/types/common";
 
 type Props = {};
 
-const App404 = (props: Props) => {
+const App404: Page<Props> = (props) => {
   const router = useRouter();
 
   const handleClickGoBackButton = () => {
@@ -13,21 +22,15 @@ const App404 = (props: Props) => {
   };
 
   return (
-    <div className="not-found">
-      <div className="d-flex h-100">
-        <MessageBox className="m-auto  text-center">
-          <p>페이지를 찾을 수 없습니다.</p>
-          <button
-            type="button"
-            onClick={handleClickGoBackButton}
-            className="main-button"
-          >
-            GO BACK
-          </button>
-        </MessageBox>
-      </div>
-    </div>
+    <Stack.Vertical spacing={spacing.unit20} alignItems="center">
+      <div>페이지를 찾을 수 없습니다.</div>
+      <Button onClick={handleClickGoBackButton}>GO BACK</Button>
+    </Stack.Vertical>
   );
+};
+
+App404.layout = (page: ReactElement) => {
+  return <CenteredLayout>{page}</CenteredLayout>;
 };
 
 export default App404;

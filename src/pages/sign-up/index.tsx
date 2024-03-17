@@ -1,38 +1,38 @@
 import { useRouter } from "next/router";
-import React from "react";
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
+import { ReactElement } from "react";
+
+// api
+import * as API from "src/api";
 
 // components
-import SignUpForm from "src/components/sign-up/SignUpForm";
+import CenteredLayout from "src/components/system-design/layout/centered-layout";
+import SignUpForm from "src/components/system-design/auth/sign-up-form";
+
+// forms
+import { SignUpFormValues } from "src/forms/authForm";
 
 // hooks
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 
-// models
-import { SignUpFormValues } from "src/models/forms/authForm";
-
-// services
-import AuthService, { SignUpRequest } from "src/services/AuthService";
-import UserService from "src/services/UserService";
+// types
+import { Page } from "src/types/common";
 
 type Props = {};
 
-const SignUp = (props: Props) => {
+const SignUp: Page<Props> = (props) => {
   const router = useRouter();
 
   const { alert } = useAlertOrConfirm();
 
-  const authService = new AuthService();
-  const userService = new UserService();
-
   const onSubmitForm: SubmitHandler<SignUpFormValues> = async (form, event) => {
     try {
-      if (!(await userService.isUniqueUsername({ username: form.username }))) {
+      if (!(await API.isUniqueUsername({ username: form.username }))) {
         alert("중복된 아이디입니다.");
         return;
       }
 
-      if (!(await userService.isUniqueEmail({ email: form.email }))) {
+      if (!(await API.isUniqueEmail({ email: form.email }))) {
         alert("중복된 이메일 입니다.");
         return;
       }
@@ -41,9 +41,9 @@ const SignUp = (props: Props) => {
         email: form.email,
         username: form.username,
         password: form.password,
-      } as SignUpRequest;
+      } as API.SignUpRequest;
 
-      await authService.signUp({ request });
+      await API.signUp({ request });
 
       event?.target.reset();
       router.replace("/sign-in");
@@ -59,10 +59,12 @@ const SignUp = (props: Props) => {
   };
 
   return (
-    <div className="auth">
-      <SignUpForm onSubmit={onSubmitForm} onErrorSubmit={onErrorSubmitForm} />
-    </div>
+    <SignUpForm onSubmit={onSubmitForm} onErrorSubmit={onErrorSubmitForm} />
   );
+};
+
+SignUp.layout = (page: ReactElement) => {
+  return <CenteredLayout>{page}</CenteredLayout>;
 };
 
 export default SignUp;

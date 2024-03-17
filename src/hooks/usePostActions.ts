@@ -1,11 +1,11 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-// models
-import { UserInfo } from "src/models/user";
+// api
+import * as API from "src/api";
 
-// services
-import PostService, { PostRequest } from "src/services/PostService";
+// types
+import { UserInfo } from "src/types/user";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
@@ -20,8 +20,6 @@ const usePostActions = (params?: Params): Return => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const postService = new PostService();
-
   const dateUtil = new DateUtil();
 
   const handleClickCreatePostButton = async () => {
@@ -31,14 +29,14 @@ const usePostActions = (params?: Params): Return => {
       const request = {
         username: session.username,
         createdAt: dateUtil.createUtcUnixString(),
-      } as PostRequest;
+      } as API.PostRequest;
 
-      const post = await postService.createPost({
+      const post = await API.createPost({
         accessToken: session.accessToken,
         request,
       });
 
-      post && router.push(`/${session.username}/post/${post.id}/edit`);
+      post && router.push(`/posts/${post.id}/edit`);
     } catch (error) {
       alert("포스트 생성 중 에러가 발생하였습니다.");
     }

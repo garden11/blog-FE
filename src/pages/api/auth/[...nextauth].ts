@@ -8,18 +8,13 @@ import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// services
-import AuthService, {
-  ReissueTokensRequest,
-  SignInRequest,
-} from "src/services/AuthService";
+// api
+import * as API from "src/api";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
 
 export const authOptions = (request?: NextApiRequest): NextAuthOptions => {
-  const authService = new AuthService();
-
   const dateUtil = new DateUtil();
 
   const authOptions = {
@@ -41,12 +36,12 @@ export const authOptions = (request?: NextApiRequest): NextAuthOptions => {
 
           const { username, password } = credentials;
 
-          const signInRequest: SignInRequest = {
+          const signInRequest: API.SignInRequest = {
             username,
             password,
           };
 
-          const { userInfo, tokens } = await authService.signIn({
+          const { userInfo, tokens } = await API.signIn({
             request: signInRequest,
           });
 
@@ -90,11 +85,11 @@ export const authOptions = (request?: NextApiRequest): NextAuthOptions => {
 
         if (shouldReissueTokens) {
           try {
-            const reissueTokensRequest: ReissueTokensRequest = {
+            const reissueTokensRequest: API.ReissueTokensRequest = {
               refreshToken: token.refreshToken,
             };
 
-            const reissuedTokens = await authService.reissueTokens({
+            const reissuedTokens = await API.reissueTokens({
               accessToken: token.accessToken,
               request: reissueTokensRequest,
             });
