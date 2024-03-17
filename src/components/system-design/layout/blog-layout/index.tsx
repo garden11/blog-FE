@@ -23,6 +23,7 @@ const BlogLayout = (props: Props) => {
 
       > .content {
         width: 100%;
+        min-height: 1000px;
 
         @media (min-width: 576px) {
           max-width: 540px;
