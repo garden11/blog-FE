@@ -111,7 +111,6 @@ const Header = () => {
             > em {
               font-size: 24px;
               font-style: normal;
-              color: ${colors.primary};
             }
           }
         }
