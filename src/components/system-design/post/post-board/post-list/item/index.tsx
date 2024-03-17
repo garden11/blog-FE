@@ -71,7 +71,6 @@ const Item = (props: Props) => {
         width: 30%;
         min-width: 150px;
         max-width: 200px;
-        aspect-ratio: 10 / 7;
       }
     `,
   };

@@ -20,7 +20,7 @@ const PostThumbnail = (props: Props) => {
     continaer: css`
       position: relative;
       width: 100%;
-      height: 100%;
+      aspect-ratio: 10 / 7;
 
       > img {
         position: absolute;
