@@ -18,6 +18,7 @@ const StandardButton = ({
     container: css`
       color: ${colors.white};
       border: none;
+      border-radius: 5px;
       background-color: ${{
         primary: colors.primary,
         neutral: colors.neutral,
