@@ -46,8 +46,8 @@ const Button = ({
       transition: all 0.3s ease;
 
       font-size: ${{
-        small: "10px",
-        medium: "13px",
+        small: "12px",
+        medium: "14px",
         large: "20px",
       }[size]};
 
@@ -71,7 +71,7 @@ const Button = ({
         : css`
             height: auto;
             ${{
-              small: spacing.padding.y4,
+              small: spacing.padding.y6,
               medium: spacing.padding.y10,
               large: spacing.padding.y10,
             }[size]};
