@@ -11,6 +11,9 @@ import WithdrawalArticle from "src/components/system-design/my-info/withdrawal-a
 import ProfileArticle from "src/components/system-design/my-info/profile-article";
 import Stack from "src/components/design-system/stack";
 
+// constants
+import { eventListeners } from "src/constants";
+
 // hooks
 import useAlertOrConfirm from "src/hooks/useAlertOrConfirm";
 import useAuth from "src/hooks/useAuth";
@@ -31,7 +34,7 @@ import { spacing } from "src/styles/spacing";
 type Props = {};
 
 const MyInfo: Page<Props> = (props: Props) => {
-  const { data: session, update: updateSession } = useSession();
+  const { data: session } = useSession();
   const { alert, confirm } = useAlertOrConfirm();
 
   const [userInfo, setUserInfo] = useState<UserInfo>({} as UserInfo);
@@ -163,7 +166,7 @@ const MyInfo: Page<Props> = (props: Props) => {
 
       event?.target.reset();
 
-      updateSession();
+      window.dispatchEvent(new CustomEvent(eventListeners.PROFILE_UPDATE));
 
       alert("이미지가 변경되었습니다.");
     } catch (error) {
