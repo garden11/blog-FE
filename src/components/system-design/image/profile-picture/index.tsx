@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { DOMAttributes } from "react";
 
 // constants
 import { DEFAULT_PROFILE_IMAGE_URI } from "src/constants";
@@ -7,7 +8,11 @@ import { coerceCssPixelValue } from "src/styles/coerceCssPixelValue";
 // styles
 import { CssPixelValue } from "src/styles/types";
 
-type Props = { image: { uri?: string }; size?: CssPixelValue };
+type Props = {
+  image: { uri?: string };
+  size?: CssPixelValue;
+  onClick?: DOMAttributes<HTMLDivElement>["onClick"];
+};
 
 const ProfilePicture = ({ size = "100%", ...props }: Props) => {
   const styles = {
@@ -17,6 +22,7 @@ const ProfilePicture = ({ size = "100%", ...props }: Props) => {
       height: ${coerceCssPixelValue(size)};
       overflow: hidden;
       border-radius: 50%;
+      cursor: ${props.onClick ? "pointer" : "auto"};
 
       > img {
         position: absolute;
@@ -31,7 +37,12 @@ const ProfilePicture = ({ size = "100%", ...props }: Props) => {
   };
 
   return (
-    <div css={styles.container}>
+    <div
+      css={styles.container}
+      onClick={(event) => {
+        props.onClick?.(event);
+      }}
+    >
       <img
         src={props.image?.uri ? props.image.uri : DEFAULT_PROFILE_IMAGE_URI}
       />
