@@ -2,7 +2,7 @@ import { SubmitErrorHandler, SubmitHandler } from "react-hook-form";
 import { css } from "@emotion/react";
 
 // components
-import PageNavigation from "src/components/design-system/pagination";
+import Pagination from "src/components/design-system/pagination";
 import CommentForm from "../comment-form";
 import CommentList from "./comment-list";
 import Heading from "src/components/design-system/heading";
@@ -42,10 +42,12 @@ const CommentBoard = (props: Props) => {
           onClickDeleteButton={props.onClickDeleteCommentButton}
         />
 
-        <PageNavigation
-          pageInfo={props.commentListPageInfo}
-          onClickButton={props.onClickPageNavigationButton}
-        />
+        {props.commentListPageInfo.totalPages !== 0 && (
+          <Pagination
+            pageInfo={props.commentListPageInfo}
+            onClickButton={props.onClickPageNavigationButton}
+          />
+        )}
 
         <CommentForm
           onSubmit={props.onSubmitCommentForm}

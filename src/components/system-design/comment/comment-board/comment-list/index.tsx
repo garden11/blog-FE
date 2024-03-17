@@ -21,6 +21,7 @@ import { CommentDetail } from "src/types/comment";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
+import React from "react";
 
 type Props = {
   list: CommentDetail[];
@@ -75,8 +76,8 @@ const CommentList = (props: Props) => {
     <ul css={styles.contianer}>
       {props.list.map((listItem, index) => {
         return (
-          <>
-            <li key={listItem.id} className={cx("item")}>
+          <React.Fragment key={listItem.id}>
+            <li className={cx("item")}>
               <Stack.Horizontal spacing={spacing.unit30}>
                 <Stack.Horizontal.Item flex={"none"}>
                   <ProfilePicture
@@ -145,7 +146,7 @@ const CommentList = (props: Props) => {
                 <Spacing.Vertical size={spacing.unit20} />
               </>
             )}
-          </>
+          </React.Fragment>
         );
       })}
     </ul>

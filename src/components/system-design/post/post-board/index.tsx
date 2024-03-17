@@ -1,5 +1,4 @@
 import _ from "lodash";
-import EditIcon from "@mui/icons-material/Edit";
 import { css } from "@emotion/react";
 import { cx } from "@emotion/css";
 
@@ -52,10 +51,12 @@ const PostBoard = (props: Props) => {
               onClickListItem={props.onClickPostListItem}
             />
 
-            <Pagination
-              pageInfo={props.postListPageInfo}
-              onClickButton={props.onClickPageButton}
-            />
+            {props.postListPageInfo.totalPages !== 0 && (
+              <Pagination
+                pageInfo={props.postListPageInfo}
+                onClickButton={props.onClickPageButton}
+              />
+            )}
           </Stack.Vertical>
         )}
       </Stack.Vertical.Item>
