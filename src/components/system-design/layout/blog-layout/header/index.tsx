@@ -151,6 +151,7 @@ const Header = () => {
             <Menu
               profile={profile}
               onClickOutSide={() => setIsMenuOpen(false)}
+              onClickCloseButton={() => setIsMenuOpen(false)}
             />
           )}
         </Flex>

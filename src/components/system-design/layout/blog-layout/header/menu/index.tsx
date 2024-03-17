@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 // components
 import Button from "src/components/design-system/button";
 import Card from "src/components/design-system/card";
+import Flex from "src/components/design-system/flex";
 import Line from "src/components/design-system/line";
 import Stack from "src/components/design-system/stack";
 import ProfilePicture from "src/components/system-design/image/profile-picture";
@@ -23,6 +24,7 @@ import { ProfileDetail } from "src/types/profile";
 type Props = {
   profile: ProfileDetail | undefined;
   onClickOutSide: () => void;
+  onClickCloseButton: () => void;
 };
 
 const Menu = (props: Props) => {
@@ -52,7 +54,7 @@ const Menu = (props: Props) => {
   const handleClickMyPosts = () => {
     if (!session) return;
 
-    router.push(`/${session.username}`);
+    router.push(`/users/${session.username}/posts`);
   };
 
   const handleClickMyInfo = () => {
@@ -70,6 +72,12 @@ const Menu = (props: Props) => {
       right: 30px;
       width: 300px;
 
+      .close-button {
+        font-size: 34px;
+        cursor: pointer;
+        ${spacing.margin.right10};
+      }
+
       .section {
         ${spacing.padding20};
 
@@ -83,6 +91,14 @@ const Menu = (props: Props) => {
   return (
     <div css={styles.container} ref={ref}>
       <Card width={"100%"} variant="rounded">
+        <Flex
+          className={cx("close-button")}
+          justifyContent="flex-end"
+          onClick={props.onClickCloseButton}
+        >
+          ×
+        </Flex>
+
         <div className={cx("section")}>
           {props.profile && (
             <Stack.Vertical spacing={spacing.unit10} alignItems="center">
