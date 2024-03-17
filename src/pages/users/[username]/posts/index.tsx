@@ -31,9 +31,6 @@ const UserBlogBoard: Page<Props> = (props) => {
   const router = useRouter();
   const { username, page = 1 } = router.query as PageQuery;
 
-  const { isSignedIn } = useAuth();
-  const { handleClickCreatePostButton } = usePostActions();
-
   const [postList, setPostList] = useState<PostDetail[]>([] as PostDetail[]);
   const [postListPageInfo, setPostListPageInfo] = useState<PageInfo>(
     {} as PageInfo
@@ -60,12 +57,12 @@ const UserBlogBoard: Page<Props> = (props) => {
   }, [username, page]);
 
   const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {
-    router.push(`/post/${postId}`);
+    router.push(`/posts/${postId}`);
   };
 
-  const handleClickPostBoardPageNavigationButton = (page: number) => {
+  const handleClickPostBoardPageButton = (page: number) => {
     router.push({
-      pathname: `/${username}`,
+      pathname: `/users/${username}/posts`,
       query: { page },
     });
   };
@@ -77,12 +74,10 @@ const UserBlogBoard: Page<Props> = (props) => {
       </Head>
 
       <PostBoard
-        canPost={isSignedIn(username)}
         postList={postList}
         postListPageInfo={postListPageInfo}
         onClickPostListItem={handleClickPostBoardListItem}
-        onClickPageNavigationButton={handleClickPostBoardPageNavigationButton}
-        onClickCreatePostButton={handleClickCreatePostButton}
+        onClickPageButton={handleClickPostBoardPageButton}
       />
     </>
   );

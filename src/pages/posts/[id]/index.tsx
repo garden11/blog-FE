@@ -87,7 +87,7 @@ const BlogPost: Page<Props> = (props: Props) => {
   }, [post, commentBoardPage]);
 
   const handleClickUpdatePostButton = () => {
-    router.replace(`/post/${post.id}/edit`);
+    router.replace(`/posts/${post.id}/edit`);
   };
 
   const handleClickDeletePostButton = async (postId: PostDetail["id"]) => {

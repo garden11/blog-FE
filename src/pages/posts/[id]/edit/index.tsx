@@ -143,7 +143,7 @@ const PostEdit: Page<Props> = (props) => {
         request: postTagListRequest,
       });
 
-      router.replace(`/post/${post.id}`);
+      router.replace(`/posts/${post.id}`);
     } catch (error) {
       alert("포스트 저장 중 에러가 발생하였습니다.");
     }

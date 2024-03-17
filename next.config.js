@@ -2,6 +2,7 @@ const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
     return [
+      { source: "/", destination: "/posts" },
       {
         source: "/api/auth/:path*",
         destination: `/api/auth/:path*`,

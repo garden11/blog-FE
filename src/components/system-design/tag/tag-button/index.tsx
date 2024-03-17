@@ -26,12 +26,14 @@ const TagButton = (props: Props) => {
 
         if (props.tag.id) {
           router.push({
-            pathname: `/`,
-            query: { tagId: props.tag.id },
+            pathname: "/posts",
+            query: {
+              tagId: props.tag.id,
+            },
           });
         } else {
           router.push({
-            pathname: `/`,
+            pathname: "/",
           });
         }
       }}
