@@ -32,49 +32,22 @@ const Pagination = (props: Props) => {
       ${flex.justifyContent("center")};
 
       > .button {
-        height: 50px;
-        width: 50px;
-        ${spacing.margin.x4};
-        text-align: center;
-        line-height: 50px;
-        background-color: ${colors.white};
+        ${spacing.margin.x20};
         font-size: 15px;
-        color: ${colors.grayDark};
-        border: 1px solid ${colors.borderLight};
+        color: ${colors.heading};
         font-weight: 500;
         transition: all 0.3s;
-
-        :hover {
-          color: ${colors.primary};
-        }
+        cursor: pointer;
 
         &.active {
-          background-color: ${colors.primary};
-          border-color: ${colors.primary};
-          color: ${colors.white};
+          font-weight: 900;
+        }
 
-          :hover {
-            color: ${colors.white};
-          }
+        &.disabled {
+          color: ${colors.gray};
         }
       }
     `,
-  };
-
-  const PrevButton = () => {
-    return (
-      <li
-        className={cx("button")}
-        onClick={() => {
-          props.onClickButton(
-            pageUtil.convertToLabelFromNumber(props.pageInfo.number - 1)
-          );
-        }}
-      >
-        {/** < */}
-        &lt;
-      </li>
-    );
   };
 
   const NumberButtons = () => {
@@ -117,11 +90,37 @@ const Pagination = (props: Props) => {
     );
   };
 
-  const NextButton = () => {
+  const PrevButton = () => {
+    const disabled = props.pageInfo.first;
+
     return (
       <li
-        className={cx("button")}
+        className={cx("button", {
+          disabled,
+        })}
+        onClick={() => {
+          !disabled &&
+            props.onClickButton(
+              pageUtil.convertToLabelFromNumber(props.pageInfo.number - 1)
+            );
+        }}
+      >
+        {/** < */}
+        &lt;
+      </li>
+    );
+  };
+
+  const NextButton = () => {
+    const disabled = props.pageInfo.last;
+
+    return (
+      <li
+        className={cx("button", {
+          disabled,
+        })}
         onClick={() =>
+          !disabled &&
           props.onClickButton(
             pageUtil.convertToLabelFromNumber(props.pageInfo.number + 1)
           )
@@ -135,9 +134,9 @@ const Pagination = (props: Props) => {
 
   return (
     <ul css={styles.contianer} className="page-numbers">
-      {!props.pageInfo.first && <PrevButton />}
-      {props.pageInfo.totalPages > 0 && <NumberButtons />}
-      {!props.pageInfo.last && <NextButton />}
+      <PrevButton />
+      <NumberButtons />
+      <NextButton />
     </ul>
   );
 };
