@@ -21,7 +21,7 @@ export type PostRequest = {
   createdAt: string;
   registeredAt: string;
   updatedAt: string;
-  imageUriList: PostImage["uri"][];
+  imageUris: PostImage["uri"][];
 };
 
 export type PostImageRequest = {
@@ -99,7 +99,7 @@ export const getPostDetail = async ({
   return response.data;
 };
 
-export const getPostDetailList = async ({
+export const getPostDetails = async ({
   page,
   username,
   tagId,

@@ -14,7 +14,7 @@ export const postFormSchema = yup.object({
       (object) =>
         `내용은 10000bytes를 초과할 수 없습니다.(${object.value}bytes)`
     ),
-  tagList: yup.mixed<string[]>().test({
+  tags: yup.mixed<string[]>().test({
     name: "itemMaxLength",
     test: function (value: string[] | undefined) {
       if (!value) return true;

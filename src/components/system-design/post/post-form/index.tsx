@@ -60,7 +60,7 @@ const PostForm = (props: Props) => {
     });
 
   const watchs = {
-    tagList: watch("tagList"),
+    tags: watch("tags"),
   };
 
   useEffect(() => {
@@ -68,10 +68,10 @@ const PostForm = (props: Props) => {
   }, [!!props.defaultValues]);
 
   useEffect(() => {
-    if (!tagRef.current || !watchs.tagList) return;
+    if (!tagRef.current || !watchs.tags) return;
 
-    tagRef.current.value = watchs.tagList?.join(", ");
-  }, [watchs.tagList]);
+    tagRef.current.value = watchs.tags?.join(", ");
+  }, [watchs.tags]);
 
   const onUploadImage = async (image: File) => {
     try {
@@ -98,7 +98,7 @@ const PostForm = (props: Props) => {
         </Stack.Vertical.Item>
 
         <Stack.Vertical.Item flex={"none"}>
-          <Input {...register("tagList")} hidden />
+          <Input {...register("tags")} hidden />
 
           <Input placeholder="TAGS" width={"100%"} ref={tagRef} />
         </Stack.Vertical.Item>
@@ -126,12 +126,12 @@ const PostForm = (props: Props) => {
                   editorRef.current?.getInstance().getHTML() ?? "";
 
                 if (tagRef.current?.value) {
-                  const tagList = tagRef.current.value
+                  const tags = tagRef.current.value
                     .replace(/\s+/g, "")
                     .split(",");
 
                   // 공백 제거, 쉼표로 구분
-                  tagList && setValue("tagList", tagList);
+                  tags && setValue("tags", tags);
                 }
 
                 setValue("content", content);

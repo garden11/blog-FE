@@ -45,7 +45,7 @@ type PageQuery = {
 
 type Props = {
   post: Post;
-  tagList: Tag[];
+  tags: Tag[];
 };
 
 const PostEdit: Page<Props> = (props) => {
@@ -92,22 +92,19 @@ const PostEdit: Page<Props> = (props) => {
       const postRequestDefault = {
         title: form.title,
         content: form.content,
-        imageUriList: [] as API.PostRequest["imageUriList"],
+        imageUris: [] as API.PostRequest["imageUris"],
       } as API.PostRequest;
       let postRequest: API.PostRequest;
 
-      const imgNodeList = parse(form.content).querySelectorAll("img");
-      let imageUriList = imgNodeList.map((listItem) =>
-        listItem.getAttribute("src")
-      );
+      const imgNodes = parse(form.content).querySelectorAll("img");
+      let imageUris = imgNodes.map((imgNode) => imgNode.getAttribute("src"));
 
       // undefined, 중복된 값 제거
-      imageUriList = imageUriList.filter(
-        (listItem, index) =>
-          listItem && imageUriList.indexOf(listItem) === index
+      imageUris = imageUris.filter(
+        (imageUri, index) => imageUri && imageUris.indexOf(imageUri) === index
       );
 
-      postRequestDefault.imageUriList = imageUriList as string[];
+      postRequestDefault.imageUris = imageUris as string[];
 
       if (form.registerYN === "Y") {
         postRequest = {
@@ -127,14 +124,14 @@ const PostEdit: Page<Props> = (props) => {
         request: postRequest,
       });
 
-      const postTagListRequest: API.PostTagListRequest = {
+      const postTagsRequest: API.PostTagsRequest = {
         postId: post.id,
-        tagList: form.tagList,
+        tags: form.tags,
       };
 
-      await API.postTagList({
+      await API.postTags({
         accessToken: session.accessToken,
-        request: postTagListRequest,
+        request: postTagsRequest,
       });
 
       router.replace(`/posts/${post.id}`);
@@ -144,8 +141,8 @@ const PostEdit: Page<Props> = (props) => {
   };
 
   const onErrorSubmitForm: SubmitErrorHandler<PostFormValues> = (errors) => {
-    const errorList = Object.values(errors);
-    errorList[0].message && alert(errorList[0].message);
+    const { message } = Object.values(errors)[0];
+    message && alert(message);
   };
 
   return (
@@ -160,7 +157,7 @@ const PostEdit: Page<Props> = (props) => {
               contentByteLength: byteUtil.getByteLengthOfUtf8String(
                 post.content
               ),
-              tagList: props.tagList.map((tag) => tag.name),
+              tags: props.tags.map((tag) => tag.name),
               registerYN: post.registerYN,
             }
       }
@@ -192,14 +189,14 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (!post) return { notFound: true };
 
-  const tagList = await API.getTagList({
+  const tags = await API.getTags({
     postId: post.id,
   });
 
   return {
     props: {
       post,
-      tagList,
+      tags,
     },
   };
 };

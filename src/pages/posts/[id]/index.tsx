@@ -60,30 +60,30 @@ const BlogPost: Page<Props> = (props: Props) => {
   const { post } = props;
   const { username } = router.query as PageQuery;
 
-  const [commentList, setCommentList] = useState<CommentDetail[]>(
+  const [comments, setComments] = useState<CommentDetail[]>(
     [] as CommentDetail[]
   );
-  const [commentListPageInfo, setCommentListPageInfo] = useState<PageInfo>(
+  const [commentsPageInfo, setCommentsPageInfo] = useState<PageInfo>(
     {} as PageInfo
   );
   const [commentBoardPage, setCommentBoardPage] = useState<number>(1);
 
   useEffect(() => {
-    const getCommentDetailList = async () => {
+    const getCommentDetails = async () => {
       try {
-        const { content, ...pageInfo } = await API.getCommentDetailList({
+        const { content, ...pageInfo } = await API.getCommentDetails({
           postId: post.id,
           page: commentBoardPage,
         });
 
-        setCommentList(content);
-        setCommentListPageInfo(pageInfo);
+        setComments(content);
+        setCommentsPageInfo(pageInfo);
       } catch (error) {
         alert("댓글 불러오기 중 에러가 발생하였습니다.");
       }
     };
 
-    getCommentDetailList();
+    getCommentDetails();
   }, [post, commentBoardPage]);
 
   const handleClickUpdatePostButton = () => {
@@ -128,13 +128,13 @@ const BlogPost: Page<Props> = (props: Props) => {
 
       setCommentBoardPage(() => 1);
 
-      const { content, ...pageInfo } = await API.getCommentDetailList({
+      const { content, ...pageInfo } = await API.getCommentDetails({
         postId: post.id,
         page: commentBoardPage,
       });
 
-      setCommentList(content);
-      setCommentListPageInfo(pageInfo);
+      setComments(content);
+      setCommentsPageInfo(pageInfo);
 
       event?.target.reset();
     } catch (error) {
@@ -145,8 +145,8 @@ const BlogPost: Page<Props> = (props: Props) => {
   const onErrorSubmitCommentForm: SubmitErrorHandler<CommentFormValues> = (
     errors
   ) => {
-    const errorList = Object.values(errors);
-    errorList[0].message && alert(errorList[0].message);
+    const { message } = Object.values(errors)[0];
+    message && alert(message);
   };
 
   const handleClickDeleteCommentButton = async (
@@ -160,13 +160,13 @@ const BlogPost: Page<Props> = (props: Props) => {
           accessToken: session.accessToken,
           id: commentId,
         });
-        const { content, ...pageInfo } = await API.getCommentDetailList({
+        const { content, ...pageInfo } = await API.getCommentDetails({
           postId: post.id,
           page: commentBoardPage,
         });
 
-        setCommentList(content);
-        setCommentListPageInfo(pageInfo);
+        setComments(content);
+        setCommentsPageInfo(pageInfo);
       } catch (error) {
         alert("댓글 삭제 중 에러가 발생하였습니다.");
       }
@@ -194,8 +194,8 @@ const BlogPost: Page<Props> = (props: Props) => {
         />
 
         <CommentBoard
-          commentList={commentList}
-          commentListPageInfo={commentListPageInfo}
+          comments={comments}
+          commentsPageInfo={commentsPageInfo}
           onSubmitCommentForm={onSubmitCommentForm}
           onErrorSubmitCommentForm={onErrorSubmitCommentForm}
           onClickDeleteCommentButton={handleClickDeleteCommentButton}

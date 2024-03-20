@@ -46,18 +46,18 @@ const PostBox = (props: Props) => {
 
   const dateUtil = new DateUtil();
 
-  const [tagList, setTagList] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
 
   useEffect(() => {
-    const getTagList = async () => {
-      const tagList = await API.getTagList({
+    const getTags = async () => {
+      const tags = await API.getTags({
         postId: props.post.id,
       });
 
-      setTagList(tagList);
+      setTags(tags);
     };
 
-    getTagList();
+    getTags();
   }, []);
 
   const styles = {
@@ -153,8 +153,8 @@ const PostBox = (props: Props) => {
             columnGap={coerceCssPixelValue(spacing.unit8)}
             rowGap={coerceCssPixelValue(spacing.unit8)}
           >
-            {tagList.map((listItem) => (
-              <TagButton key={listItem.id} tag={listItem} />
+            {tags.map((tag) => (
+              <TagButton key={tag.id} tag={tag} />
             ))}
           </Flex>
 
