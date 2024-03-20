@@ -81,7 +81,7 @@ const Posts: Page<Props> = (props) => {
         <title>BLOG</title>
       </Head>
 
-      <Stack.Vertical css={styles.container} spacing={spacing.unit100}>
+      <Stack.Vertical css={styles.container} spacing={spacing.unit50}>
         <Stack.Vertical className={cx("tags")} spacing={spacing.unit20}>
           <div className={cx("title")}>Tags</div>
           <TagList selected={tagId} />
