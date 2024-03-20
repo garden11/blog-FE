@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { ReactNode } from "react";
+import { cx } from "@emotion/css";
 
 // components
 import Heading from "./heading";
@@ -31,17 +32,27 @@ const CardComponent = ({
       width: ${coerceCssPixelValue(width)};
       background-color: ${colors.white};
 
-      ${variant === "standard" && css``};
+      &.standard {
+      }
 
-      ${variant === "rounded" &&
-      css`
+      &.rounded {
         border-radius: 15px;
         box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
-      `};
+      }
     `,
   };
 
-  return <div css={styles.container}>{props.children}</div>;
+  return (
+    <div
+      css={styles.container}
+      className={cx({
+        standard: variant === "standard",
+        rounded: variant === "rounded",
+      })}
+    >
+      {props.children}
+    </div>
+  );
 };
 
 type Card = typeof CardComponent & {
