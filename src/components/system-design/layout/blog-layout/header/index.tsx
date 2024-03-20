@@ -86,8 +86,9 @@ const Header = () => {
       width: 100%;
       height: 60px;
       top: 0px;
-      background-color: ${colors.white};
+      background-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
 
       > .nav-bar {
         height: 100%;
