@@ -39,6 +39,8 @@ const Button = ({
   color = "primary",
   ...props
 }: Props) => {
+  let Element = <></>;
+
   const styles = {
     contianer: css`
       font-weight: 500;
@@ -84,14 +86,14 @@ const Button = ({
   };
 
   if (variant === "standard") {
-    return <StandardButton css={styles.contianer} {...props} />;
+    Element = <StandardButton css={styles.contianer} {...props} />;
   }
 
   if (variant === "outlined") {
-    return <OutlinedButton css={styles.contianer} {...props} />;
+    Element = <OutlinedButton css={styles.contianer} {...props} />;
   }
 
-  return <></>;
+  return Element;
 };
 
 export default Button;
