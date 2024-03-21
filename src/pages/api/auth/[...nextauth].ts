@@ -99,6 +99,7 @@ export const authOptions = (request?: NextApiRequest): NextAuthOptions => {
               accessToken: reissuedTokens.accessToken,
               accessTokenExpiresAt: reissuedTokens.accessTokenExpiresAt,
               refreshToken: reissuedTokens.refreshToken,
+              error: undefined,
             };
           } catch (error) {
             token = { ...token, error: "RefreshAccessTokenError" };
