@@ -86,11 +86,15 @@ const Button = ({
   };
 
   if (variant === "standard") {
-    Element = <StandardButton css={styles.contianer} {...props} />;
+    Element = (
+      <StandardButton css={styles.contianer} color={color} {...props} />
+    );
   }
 
   if (variant === "outlined") {
-    Element = <OutlinedButton css={styles.contianer} {...props} />;
+    Element = (
+      <OutlinedButton css={styles.contianer} color={color} {...props} />
+    );
   }
 
   return Element;
