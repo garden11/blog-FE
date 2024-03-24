@@ -100,7 +100,7 @@ const PostForm = (props: Props) => {
         <Stack.Vertical.Item flex={"none"}>
           <Input {...register("tags")} hidden />
 
-          <Input placeholder="TAGS" width={"100%"} ref={tagRef} />
+          <Input placeholder="TAGS(쉼표로 구분)" width={"100%"} ref={tagRef} />
         </Stack.Vertical.Item>
 
         <Input {...register("contentByteLength")} hidden />
