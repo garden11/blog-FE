@@ -20,9 +20,9 @@ export const postFormSchema = yup.object({
       if (!value) return true;
 
       for (const item of value) {
-        if (item.length > 10) {
+        if (item.length > 20) {
           return this.createError({
-            message: "태그는 10자를 초과할 수 없습니다.",
+            message: "태그는 20자를 초과할 수 없습니다.",
           });
         }
       }
