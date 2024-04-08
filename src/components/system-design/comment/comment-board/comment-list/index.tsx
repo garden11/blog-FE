@@ -24,7 +24,7 @@ import DateUtil from "src/utils/DateUtil";
 import React from "react";
 
 type Props = {
-  list: CommentDetail[];
+  comments: CommentDetail[];
   onClickDeleteButton: (commentId: CommentDetail["id"]) => void;
 };
 
@@ -74,15 +74,15 @@ const CommentList = (props: Props) => {
 
   return (
     <ul css={styles.contianer}>
-      {props.list.map((listItem, index) => {
+      {props.comments.map((comment, index) => {
         return (
-          <React.Fragment key={listItem.id}>
+          <React.Fragment key={comment.id}>
             <li className={cx("item")}>
               <Stack.Horizontal spacing={spacing.unit30}>
                 <Stack.Horizontal.Item flex={"none"}>
                   <ProfilePicture
                     image={{
-                      uri: listItem.profileImageUri ?? undefined,
+                      uri: comment.profileImageUri ?? undefined,
                     }}
                     size={"100px"}
                   />
@@ -101,18 +101,18 @@ const CommentList = (props: Props) => {
                       >
                         <Link
                           className={cx("username")}
-                          href={`/${listItem.username}`}
+                          href={`/${comment.username}`}
                         >
-                          {listItem.username}
+                          {comment.username}
                         </Link>
                         <span className={cx("registered-at")}>
                           {dateUtil.utcUnixStringToDateString(
-                            listItem.registeredAt
+                            comment.registeredAt
                           )}{" "}
                           작성
                         </span>
                       </Stack.Horizontal>
-                      <div className={cx("content")}>{listItem.content}</div>
+                      <div className={cx("content")}>{comment.content}</div>
                     </Stack.Vertical.Item>
 
                     <Stack.Vertical.Item className={cx("comment-deal")}>
@@ -122,11 +122,11 @@ const CommentList = (props: Props) => {
                         alignItems="flex-end"
                       >
                         {/* 댓글을 작성한 사용자인 경우 삭제 버튼 추가 */}
-                        {isSignedIn(listItem.username) && (
+                        {isSignedIn(comment.username) && (
                           <button
                             className={cx("delete-button")}
                             onClick={() =>
-                              props.onClickDeleteButton(listItem.id)
+                              props.onClickDeleteButton(comment.id)
                             }
                           >
                             DELETE
@@ -139,7 +139,7 @@ const CommentList = (props: Props) => {
               </Stack.Horizontal>
             </li>
 
-            {index !== props.list.length - 1 && (
+            {index !== props.comments.length - 1 && (
               <>
                 <Spacing.Vertical size={spacing.unit20} />
                 <Line.Horizontal />

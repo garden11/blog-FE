@@ -31,29 +31,27 @@ const UserBlogBoard: Page<Props> = (props) => {
   const router = useRouter();
   const { username, page = 1 } = router.query as PageQuery;
 
-  const [postList, setPostList] = useState<PostDetail[]>([] as PostDetail[]);
-  const [postListPageInfo, setPostListPageInfo] = useState<PageInfo>(
-    {} as PageInfo
-  );
+  const [posts, setPosts] = useState<PostDetail[]>([] as PostDetail[]);
+  const [postsPageInfo, setPostsPageInfo] = useState<PageInfo>({} as PageInfo);
 
   useEffect(() => {
-    const getPostDetailList = async () => {
+    const getPostDetails = async () => {
       if (!username) return;
 
       try {
-        const { content, ...pageInfo } = await API.getPostDetailList({
+        const { content, ...pageInfo } = await API.getPostDetails({
           username,
           page,
         });
 
-        setPostList(content);
-        setPostListPageInfo(pageInfo);
+        setPosts(content);
+        setPostsPageInfo(pageInfo);
       } catch (error) {
         alert("포스트를 불러올 수 없습니다.");
       }
     };
 
-    getPostDetailList();
+    getPostDetails();
   }, [username, page]);
 
   const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {
@@ -74,9 +72,9 @@ const UserBlogBoard: Page<Props> = (props) => {
       </Head>
 
       <PostBoard
-        postList={postList}
-        postListPageInfo={postListPageInfo}
-        onClickPostListItem={handleClickPostBoardListItem}
+        posts={posts}
+        postsPageInfo={postsPageInfo}
+        onClickListItem={handleClickPostBoardListItem}
         onClickPageButton={handleClickPostBoardPageButton}
       />
     </>

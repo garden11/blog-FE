@@ -14,15 +14,15 @@ export const postFormSchema = yup.object({
       (object) =>
         `내용은 10000bytes를 초과할 수 없습니다.(${object.value}bytes)`
     ),
-  tagList: yup.mixed<string[]>().test({
+  tags: yup.mixed<string[]>().test({
     name: "itemMaxLength",
     test: function (value: string[] | undefined) {
       if (!value) return true;
 
       for (const item of value) {
-        if (item.length > 10) {
+        if (item.length > 20) {
           return this.createError({
-            message: "태그는 10자를 초과할 수 없습니다.",
+            message: "태그는 20자를 초과할 수 없습니다.",
           });
         }
       }

@@ -32,20 +32,20 @@ type Props = {
 const Item = (props: Props) => {
   const router = useRouter();
 
-  const [tagList, setTagList] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
 
   const dateUtil = new DateUtil();
 
   useEffect(() => {
-    const getTagList = async () => {
-      const tagList = await API.getTagList({
+    const getTags = async () => {
+      const tags = await API.getTags({
         postId: props.post.id,
       });
 
-      setTagList(tagList);
+      setTags(tags);
     };
 
-    getTagList();
+    getTags();
   }, []);
 
   const styles = {
@@ -102,8 +102,8 @@ const Item = (props: Props) => {
               columnGap={coerceCssPixelValue(spacing.unit8)}
               rowGap={coerceCssPixelValue(spacing.unit8)}
             >
-              {tagList.map((listItem) => (
-                <TagButton key={listItem.id} tag={listItem} />
+              {tags.map((tag) => (
+                <TagButton key={tag.id} tag={tag} />
               ))}
             </Flex>
           </Stack.Vertical.Item>

@@ -135,7 +135,7 @@ const Menu = (props: Props) => {
 
         <Line.Horizontal />
 
-        <div className={cx("section")} onClick={handleClickMyInfo}>
+        <div className={cx("section")}>
           <div className={cx("item")} onClick={handleClickSignOut}>
             로그아웃
           </div>

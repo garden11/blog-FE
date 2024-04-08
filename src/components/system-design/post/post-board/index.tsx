@@ -17,9 +17,9 @@ import { PageInfo } from "src/types/pageInfo";
 import { PostDetail } from "src/types/post";
 
 type Props = {
-  postList: PostDetail[];
-  postListPageInfo: PageInfo;
-  onClickPostListItem: (postId: PostDetail["id"]) => void;
+  posts: PostDetail[];
+  postsPageInfo: PageInfo;
+  onClickListItem: (postId: PostDetail["id"]) => void;
   onClickPageButton: (page: number) => void;
 };
 
@@ -42,18 +42,15 @@ const PostBoard = (props: Props) => {
   return (
     <Stack.Vertical css={styles.contianer}>
       <Stack.Vertical.Item className={cx("posts-pagination")}>
-        {_.isEmpty(props.postList) ? (
+        {_.isEmpty(props.posts) ? (
           <Flex.Center className={cx("empty")}>포스트가 없습니다.</Flex.Center>
         ) : (
           <Stack.Vertical spacing={spacing.unit30}>
-            <PostList
-              list={props.postList}
-              onClickListItem={props.onClickPostListItem}
-            />
+            <PostList posts={props.posts} onClickItem={props.onClickListItem} />
 
-            {props.postListPageInfo.totalPages !== 0 && (
+            {props.postsPageInfo.totalPages !== 0 && (
               <Pagination
-                pageInfo={props.postListPageInfo}
+                pageInfo={props.postsPageInfo}
                 onClickButton={props.onClickPageButton}
               />
             )}

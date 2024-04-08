@@ -13,6 +13,9 @@ import Flex from "src/components/design-system/flex";
 import ProfilePicture from "src/components/system-design/image/profile-picture";
 import Menu from "./menu";
 
+// constants
+import { eventListeners } from "src/constants";
+
 // hooks
 import useAuth from "src/hooks/useAuth";
 
@@ -34,18 +37,36 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!session) return;
+    getProfileDetail();
+  }, [!!session]);
 
-    const getProfileDetail = async () => {
-      const profile = await API.getProfileDetail({
-        username: session.username,
-      });
-
-      profile && setProfile(profile);
+  useEffect(() => {
+    const handleProfileUpdateEvent = () => {
+      getProfileDetail();
     };
 
-    getProfileDetail();
-  }, [session]);
+    window.addEventListener(
+      eventListeners.PROFILE_UPDATE,
+      handleProfileUpdateEvent
+    );
+
+    return () => {
+      window.removeEventListener(
+        eventListeners.PROFILE_UPDATE,
+        handleProfileUpdateEvent
+      );
+    };
+  }, []);
+
+  const getProfileDetail = async () => {
+    if (!session) return;
+
+    const profile = await API.getProfileDetail({
+      username: session.username,
+    });
+
+    profile && setProfile(profile);
+  };
 
   const handleClickSignInButton = () => {
     const referer = router.asPath;
@@ -65,8 +86,9 @@ const Header = () => {
       width: 100%;
       height: 60px;
       top: 0px;
-      background-color: ${colors.white};
+      background-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
 
       > .nav-bar {
         height: 100%;

@@ -20,16 +20,16 @@ type Props = {
 };
 
 const TagList = (props: Props) => {
-  const [tagList, setTagList] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
 
   useEffect(() => {
-    const getTagList = async () => {
-      const tagList = await API.getTagList({});
+    const getTags = async () => {
+      const tags = await API.getTags({});
 
-      setTagList(tagList);
+      setTags(tags);
     };
 
-    getTagList();
+    getTags();
   }, []);
 
   return (
@@ -43,11 +43,11 @@ const TagList = (props: Props) => {
         selected={!props.selected}
       />
 
-      {tagList.map((listItem) => (
+      {tags.map((tag) => (
         <TagButton
-          key={listItem.id}
-          tag={listItem}
-          selected={listItem.id === props.selected}
+          key={tag.id}
+          tag={tag}
+          selected={tag.id === props.selected}
         />
       ))}
     </Flex>

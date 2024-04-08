@@ -13,3 +13,8 @@ export const DEFAULT_POST_THUMBNAIL_IMAGE_URI =
 
 // page
 export const PAGE_NUMBER_BUTTON_LENGTH = 5;
+
+// eventListeners
+export const eventListeners = {
+  PROFILE_UPDATE: "PROFILE_UPDATE",
+};

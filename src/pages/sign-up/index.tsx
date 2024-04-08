@@ -54,8 +54,8 @@ const SignUp: Page<Props> = (props) => {
   };
 
   const onErrorSubmitForm: SubmitErrorHandler<SignUpFormValues> = (errors) => {
-    const errorList = Object.values(errors);
-    errorList[0].message && alert(errorList[0].message);
+    const { message } = Object.values(errors)[0];
+    message && alert(message);
   };
 
   return (

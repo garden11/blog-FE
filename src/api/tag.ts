@@ -9,12 +9,12 @@ import { Post } from "src/types/post";
 import { Tag } from "src/types/tag";
 import { Tokens } from "src/types/auth";
 
-export type PostTagListRequest = {
+export type PostTagsRequest = {
   postId: string;
-  tagList: string[] | undefined;
+  tags: string[] | undefined;
 };
 
-export const getTagList = async ({
+export const getTags = async ({
   postId,
 }: {
   postId?: Post["id"];
@@ -26,12 +26,12 @@ export const getTagList = async ({
   return response.data;
 };
 
-export const postTagList = async ({
+export const postTags = async ({
   accessToken,
   request,
 }: {
   accessToken: Tokens["accessToken"];
-  request: PostTagListRequest;
+  request: PostTagsRequest;
 }): Promise<void> => {
   await appAxios().post(`/api/v1/tags`, request, {
     headers: { [AUTHORIZATION_HEADER_KEY]: accessToken },

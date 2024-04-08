@@ -61,28 +61,30 @@ const Pagination = (props: Props) => {
         props.pageInfo.totalPages
       );
 
-    const pageNumberList = [];
+    const pageNumbers = [];
 
     for (let i = firstPageNumber; i <= lastPageNumber; i++) {
-      pageNumberList.push(i);
+      pageNumbers.push(i);
     }
 
     return (
       <>
-        {pageNumberList.map((listItem) => {
-          return listItem === props.pageInfo.number ? (
-            <li key={listItem} className={cx("button", "active")}>
-              {pageUtil.convertToLabelFromNumber(listItem)}
+        {pageNumbers.map((pageNumber) => {
+          return pageNumber === props.pageInfo.number ? (
+            <li key={pageNumber} className={cx("button", "active")}>
+              {pageUtil.convertToLabelFromNumber(pageNumber)}
             </li>
           ) : (
             <li
-              key={listItem}
+              key={pageNumber}
               className={cx("button")}
               onClick={() =>
-                props.onClickButton(pageUtil.convertToLabelFromNumber(listItem))
+                props.onClickButton(
+                  pageUtil.convertToLabelFromNumber(pageNumber)
+                )
               }
             >
-              {pageUtil.convertToLabelFromNumber(listItem)}
+              {pageUtil.convertToLabelFromNumber(pageNumber)}
             </li>
           );
         })}

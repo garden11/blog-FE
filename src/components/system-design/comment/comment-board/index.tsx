@@ -19,8 +19,8 @@ import { CommentDetail } from "src/types/comment";
 import { PageInfo } from "src/types/pageInfo";
 
 type Props = {
-  commentList: CommentDetail[];
-  commentListPageInfo: PageInfo;
+  comments: CommentDetail[];
+  commentsPageInfo: PageInfo;
   onSubmitCommentForm: SubmitHandler<CommentFormValues>;
   onErrorSubmitCommentForm: SubmitErrorHandler<CommentFormValues>;
   onClickDeleteCommentButton: (comment: CommentDetail["id"]) => void;
@@ -34,17 +34,17 @@ const CommentBoard = (props: Props) => {
 
   return (
     <div css={styles.container}>
-      <Heading value={`${props.commentListPageInfo.totalElements} COMMENTS`} />
+      <Heading value={`${props.commentsPageInfo.totalElements} COMMENTS`} />
 
       <Stack.Vertical spacing={spacing.unit30}>
         <CommentList
-          list={props.commentList}
+          comments={props.comments}
           onClickDeleteButton={props.onClickDeleteCommentButton}
         />
 
-        {props.commentListPageInfo.totalPages !== 0 && (
+        {props.commentsPageInfo.totalPages !== 0 && (
           <Pagination
-            pageInfo={props.commentListPageInfo}
+            pageInfo={props.commentsPageInfo}
             onClickButton={props.onClickPageNavigationButton}
           />
         )}

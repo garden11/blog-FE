@@ -99,13 +99,14 @@ export const authOptions = (request?: NextApiRequest): NextAuthOptions => {
               accessToken: reissuedTokens.accessToken,
               accessTokenExpiresAt: reissuedTokens.accessTokenExpiresAt,
               refreshToken: reissuedTokens.refreshToken,
+              error: undefined,
             };
           } catch (error) {
             token = { ...token, error: "RefreshAccessTokenError" };
           }
         }
 
-        return token;
+        return Promise.resolve(token);
       },
       /**
        *  The session callback is called whenever a session is checked. By default, only a subset of the token is returned for increased security.
@@ -126,7 +127,7 @@ export const authOptions = (request?: NextApiRequest): NextAuthOptions => {
           error: token.error,
         };
 
-        return session;
+        return Promise.resolve(session);
       },
     },
   };

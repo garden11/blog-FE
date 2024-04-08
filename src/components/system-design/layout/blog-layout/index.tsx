@@ -18,7 +18,7 @@ const BlogLayout = (props: Props) => {
   const styles = {
     body: css`
       ${spacing.padding.x10};
-      ${spacing.padding.top150};
+      ${spacing.padding.top100};
       ${spacing.padding.bottom100};
 
       > .content {
