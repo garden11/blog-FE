@@ -36,7 +36,7 @@ const Posts: Page<Props> = (props) => {
   const [postsPageInfo, setPostsPageInfo] = useState<PageInfo>({} as PageInfo);
 
   useEffect(() => {
-    const getPostDetails = async () => {
+    const loadPostDetails = async () => {
       try {
         const { content, ...pageInfo } = await API.getPostDetails({
           page,
@@ -50,7 +50,7 @@ const Posts: Page<Props> = (props) => {
       }
     };
 
-    getPostDetails();
+    loadPostDetails();
   }, [tagId, page]);
 
   const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {

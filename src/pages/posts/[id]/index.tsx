@@ -69,7 +69,7 @@ const BlogPost: Page<Props> = (props: Props) => {
   const [commentBoardPage, setCommentBoardPage] = useState<number>(1);
 
   useEffect(() => {
-    const getCommentDetails = async () => {
+    const loadCommentDetails = async () => {
       try {
         const { content, ...pageInfo } = await API.getCommentDetails({
           postId: post.id,
@@ -83,7 +83,7 @@ const BlogPost: Page<Props> = (props: Props) => {
       }
     };
 
-    getCommentDetails();
+    loadCommentDetails();
   }, [post, commentBoardPage]);
 
   const handleClickUpdatePostButton = () => {

@@ -43,7 +43,7 @@ const MyInfo: Page<Props> = (props: Props) => {
   useAuth({ shouldRedirect: true });
 
   useEffect(() => {
-    const getUserInfo = async () => {
+    const loadUserInfo = async () => {
       if (!session) return;
 
       try {
@@ -57,11 +57,11 @@ const MyInfo: Page<Props> = (props: Props) => {
       }
     };
 
-    getUserInfo();
+    loadUserInfo();
   }, [session?.username]);
 
   useEffect(() => {
-    const getProfileDetail = async () => {
+    const loadProfileDetail = async () => {
       if (!session) return;
 
       try {
@@ -74,7 +74,7 @@ const MyInfo: Page<Props> = (props: Props) => {
       }
     };
 
-    getProfileDetail();
+    loadProfileDetail();
   }, [session?.username]);
 
   const handleClickWidthdrawalButton = async () => {

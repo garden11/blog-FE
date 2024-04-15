@@ -37,7 +37,7 @@ const Item = (props: Props) => {
   const dateUtil = new DateUtil();
 
   useEffect(() => {
-    const getTags = async () => {
+    const loadTags = async () => {
       const tags = await API.getTags({
         postId: props.post.id,
       });
@@ -45,7 +45,7 @@ const Item = (props: Props) => {
       setTags(tags);
     };
 
-    getTags();
+    loadTags();
   }, []);
 
   const styles = {

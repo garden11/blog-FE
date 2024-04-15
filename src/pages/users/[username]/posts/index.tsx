@@ -35,7 +35,7 @@ const UserBlogBoard: Page<Props> = (props) => {
   const [postsPageInfo, setPostsPageInfo] = useState<PageInfo>({} as PageInfo);
 
   useEffect(() => {
-    const getPostDetails = async () => {
+    const loadPostDetails = async () => {
       if (!username) return;
 
       try {
@@ -51,7 +51,7 @@ const UserBlogBoard: Page<Props> = (props) => {
       }
     };
 
-    getPostDetails();
+    loadPostDetails();
   }, [username, page]);
 
   const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {

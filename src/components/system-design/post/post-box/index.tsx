@@ -49,7 +49,7 @@ const PostBox = (props: Props) => {
   const [tags, setTags] = useState<Tag[]>([]);
 
   useEffect(() => {
-    const getTags = async () => {
+    const loadTags = async () => {
       const tags = await API.getTags({
         postId: props.post.id,
       });
@@ -57,7 +57,7 @@ const PostBox = (props: Props) => {
       setTags(tags);
     };
 
-    getTags();
+    loadTags();
   }, []);
 
   const styles = {
