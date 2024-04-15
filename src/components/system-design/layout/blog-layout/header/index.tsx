@@ -2,7 +2,7 @@ import { cx } from "@emotion/css";
 import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // apit
 import * as API from "src/api";
@@ -31,8 +31,11 @@ const Header = () => {
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
 
+  const scrollYRef = useRef<number>();
+
   const router = useRouter();
 
+  const [isVisible, setIsVisible] = useState<boolean>(true);
   const [profile, setProfile] = useState<ProfileDetail>();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -56,6 +59,27 @@ const Header = () => {
         handleProfileUpdateEvent
       );
     };
+  }, []);
+
+  useEffect(() => {
+    scrollYRef.current = window.scrollY;
+
+    console.log(scrollYRef.current);
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      if (scrollYRef.current === undefined) return;
+
+      const isScrollingUp = scrollYRef.current > scrollY;
+
+      setIsVisible(isScrollingUp);
+      scrollYRef.current = scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const loadProfileDetail = async () => {
@@ -89,6 +113,12 @@ const Header = () => {
       background-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(10px);
+      transition: top 0.4s ease-out;
+
+      &.hidden {
+        top: -60px;
+        transition: top 0.4s ease-out;
+      }
 
       > .nav-bar {
         height: 100%;
@@ -132,7 +162,12 @@ const Header = () => {
   };
 
   return (
-    <header css={styles.container}>
+    <header
+      css={styles.container}
+      className={cx({
+        hidden: !isVisible,
+      })}
+    >
       <nav className={cx("nav-bar")}>
         <Flex
           className={cx("content", "full-width")}
