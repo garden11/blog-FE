@@ -37,12 +37,12 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    getProfileDetail();
+    loadProfileDetail();
   }, [!!session]);
 
   useEffect(() => {
     const handleProfileUpdateEvent = () => {
-      getProfileDetail();
+      loadProfileDetail();
     };
 
     window.addEventListener(
@@ -58,7 +58,7 @@ const Header = () => {
     };
   }, []);
 
-  const getProfileDetail = async () => {
+  const loadProfileDetail = async () => {
     if (!session) return;
 
     const profile = await API.getProfileDetail({
@@ -112,15 +112,6 @@ const Header = () => {
 
           @media (min-width: 1200px) {
             max-width: 1140px;
-          }
-
-          > .toggler {
-            position: absolute;
-            right: 30px;
-
-            @media (min-width: 992px) {
-              display: none;
-            }
           }
 
           > .brand {

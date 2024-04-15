@@ -23,13 +23,13 @@ const TagList = (props: Props) => {
   const [tags, setTags] = useState<Tag[]>([]);
 
   useEffect(() => {
-    const getTags = async () => {
+    const loadTags = async () => {
       const tags = await API.getTags({});
 
       setTags(tags);
     };
 
-    getTags();
+    loadTags();
   }, []);
 
   return (
