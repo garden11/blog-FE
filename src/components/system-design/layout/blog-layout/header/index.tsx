@@ -114,15 +114,6 @@ const Header = () => {
             max-width: 1140px;
           }
 
-          > .toggler {
-            position: absolute;
-            right: 30px;
-
-            @media (min-width: 992px) {
-              display: none;
-            }
-          }
-
           > .brand {
             float: left;
             color: ${colors.heading};
