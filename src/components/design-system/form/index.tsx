@@ -32,10 +32,10 @@ const FormComponent: FormComponent = forwardRef(function FormComponent(
   const form = useContext(Context);
 
   const { variant, labelWidth, itemWidth, itemHeight } = {
-    variant: props.variant || form.variant,
-    labelWidth: props.labelWidth || form.labelWidth,
-    itemWidth: props.itemWidth || form.itemWidth,
-    itemHeight: props.itemHeight || form.itemHeight,
+    variant: props.variant ?? form.variant,
+    labelWidth: props.labelWidth ?? form.labelWidth,
+    itemWidth: props.itemWidth ?? form.itemWidth,
+    itemHeight: props.itemHeight ?? form.itemHeight,
   };
 
   const {
