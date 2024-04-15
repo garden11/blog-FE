@@ -20,6 +20,7 @@ import { eventListeners } from "src/constants";
 import useAuth from "src/hooks/useAuth";
 
 // styles
+import { breakPoints } from "src/styles/breakPoints";
 import { colors } from "src/styles/colors";
 import { flex } from "src/styles/flex";
 import { spacing } from "src/styles/spacing";
@@ -128,19 +129,19 @@ const Header = () => {
         ${spacing.padding.x20};
 
         > .content {
-          @media (min-width: 576px) {
+          @media (min-width: ${breakPoints.SM}) {
             max-width: 540px;
           }
 
-          @media (min-width: 768px) {
+          @media (min-width: ${breakPoints.MD}) {
             max-width: 720px;
           }
 
-          @media (min-width: 992px) {
+          @media (min-width: ${breakPoints.LG}) {
             max-width: 960px;
           }
 
-          @media (min-width: 1200px) {
+          @media (min-width: ${breakPoints.XL}) {
             max-width: 1140px;
           }
 
