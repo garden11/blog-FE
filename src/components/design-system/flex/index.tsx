@@ -62,10 +62,10 @@ const createFlexComponent = <T extends Options | undefined = undefined>(
     ref: ComponentPropsWithRef<"div">["ref"]
   ) {
     const { direction, alignItems, justifyContent } = {
-      direction: props.direction || options?.direction || "row",
-      alignItems: props.alignItems || options?.alignItems || "stretch",
+      direction: props.direction ?? options?.direction ?? "row",
+      alignItems: props.alignItems ?? options?.alignItems ?? "stretch",
       justifyContent:
-        props.justifyContent || options?.justifyContent || "flex-start",
+        props.justifyContent ?? options?.justifyContent ?? "flex-start",
     };
 
     const styles = {
