@@ -6,7 +6,7 @@ import { colors } from "./colors";
 export const globalStyles = css`
   @font-face {
     font-family: "Pretendard";
-    src: url("/fonts/Pretendard-Thin.woff2") format("woff2");
+    src: url("/assets/fonts/Pretendard-Medium.woff2") format("woff2");
   }
 
   :root {
