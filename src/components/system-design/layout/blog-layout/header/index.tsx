@@ -65,8 +65,6 @@ const Header = () => {
   useEffect(() => {
     scrollYRef.current = window.scrollY;
 
-    console.log(scrollYRef.current);
-
     const handleScroll = () => {
       const scrollY = window.scrollY;
 
