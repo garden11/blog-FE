@@ -8,6 +8,7 @@ import Footer from "./footer";
 import Flex from "src/components/design-system/flex";
 
 // styles
+import { breakPoints } from "src/styles/breakPoints";
 import { spacing } from "src/styles/spacing";
 
 type Props = {
@@ -25,19 +26,19 @@ const BlogLayout = (props: Props) => {
         width: 100%;
         min-height: 300px;
 
-        @media (min-width: 576px) {
+        @media (min-width: ${breakPoints.SM}) {
           max-width: 540px;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: ${breakPoints.MD}) {
           max-width: 720px;
         }
 
-        @media (min-width: 992px) {
+        @media (min-width: ${breakPoints.LG}) {
           max-width: 780px;
         }
 
-        @media (min-width: 1200px) {
+        @media (min-width: ${breakPoints.XL}) {
           max-width: 960px;
         }
       }
