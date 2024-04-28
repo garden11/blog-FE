@@ -10,6 +10,7 @@ type Props = {
 const Heading = (props: Props) => {
   const styles = {
     container: css`
+      margin: unset;
       font-size: 35px;
       font-weight: 600;
       text-align: center;
@@ -23,7 +24,7 @@ const Heading = (props: Props) => {
     `,
   };
 
-  return <div css={styles.container}>{props.value}</div>;
+  return <h1 css={styles.container}>{props.value}</h1>;
 };
 
 export default Heading;
