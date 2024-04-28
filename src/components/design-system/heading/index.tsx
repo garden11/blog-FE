@@ -20,26 +20,27 @@ const Heading = ({ variant = "primary", ...props }: Props) => {
       font-weight: 900;
       letter-spacing: 0.5px;
       color: ${colors.heading};
+      margin: unset;
     `,
   };
 
   if (variant === "primary") {
     return (
-      <div css={styles.container}>
+      <h1 css={styles.container}>
         {props.value}
         <Spacing.Vertical size={spacing.unit10} />
         <Line.Horizontal />
         <Spacing.Vertical size={spacing.unit20} />
-      </div>
+      </h1>
     );
   }
 
   if (variant === "secondary") {
     return (
-      <div css={styles.container}>
+      <h2 css={styles.container}>
         {props.value}
         <Spacing.Vertical size={spacing.unit20} />
-      </div>
+      </h2>
     );
   }
 
