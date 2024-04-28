@@ -19,6 +19,9 @@ import CommentBoard from "src/components/system-design/comment/comment-board";
 import PostBox from "src/components/system-design/post/post-box";
 import Stack from "src/components/design-system/stack";
 
+// constants
+import { DEFAULT_POST_THUMBNAIL_IMAGE_URI } from "src/constants";
+
 // types
 import { PostDetail } from "src/types/post";
 import { UserInfo } from "src/types/user";
@@ -181,8 +184,14 @@ const BlogPost: Page<Props> = (props: Props) => {
     <>
       <Head>
         <title>{post.title}</title>
-        {post?.content && (
-          <meta name="description" content={htmlToText(post.content)} />
+
+        <meta
+          property="og:image"
+          content={post.thumbnailImageUri || DEFAULT_POST_THUMBNAIL_IMAGE_URI}
+        ></meta>
+
+        {post.content && (
+          <meta name="description" content={htmlToText(post.content)}></meta>
         )}
       </Head>
 
