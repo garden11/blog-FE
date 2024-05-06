@@ -149,6 +149,11 @@ const Header = () => {
             font-size: 24px;
             font-weight: 900;
             cursor: pointer;
+
+            > em {
+              font-size: 24px;
+              font-style: normal;
+            }
           }
         }
       }
@@ -169,7 +174,7 @@ const Header = () => {
           justifyContent="space-between"
         >
           <div className={cx("brand")} onClick={() => router.push("/")}>
-            jwseok
+            BLOG<em>.</em>
           </div>
 
           {isSignedIn() ? (

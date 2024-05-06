@@ -18,12 +18,13 @@ type Props = {
 const BlogLayout = (props: Props) => {
   const styles = {
     body: css`
-      ${spacing.margin.top100};
-      ${spacing.margin.bottom100};
+      ${spacing.padding.x10};
+      ${spacing.padding.top100};
+      ${spacing.padding.bottom100};
 
       > .content {
-        width: calc(100% - ${2 * spacing.unit10}px);
-        ${spacing.margin.x10};
+        width: 100%;
+        min-height: 300px;
 
         @media (min-width: ${breakPoints.SM}) {
           max-width: 540px;
