@@ -13,19 +13,18 @@ const Footer = (props: Props) => {
   const styles = {
     container: css`
       background-color: ${colors.footer};
-      height: 250px;
+      height: 150px;
 
       .info {
         font-size: 13px;
 
         > .link {
-          color: ${colors.white};
           cursor: pointer;
         }
 
         > .name {
+          font-weight: 600;
           text-transform: uppercase;
-          color: ${colors.primaryContrast};
         }
       }
     `,

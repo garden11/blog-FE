@@ -26,7 +26,7 @@ type Props = {
 const PostBoard = (props: Props) => {
   const styles = {
     contianer: css`
-      min-height: 100%;
+      min-height: 400px;
 
       > .posts-pagination {
         ${flex.display};

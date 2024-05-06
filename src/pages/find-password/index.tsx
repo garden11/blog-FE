@@ -26,7 +26,7 @@ const FindPassword: Page<Props> = (props) => {
   const onSubmitForm: SubmitHandler<EmailFormValues> = async (form, event) => {
     try {
       const processToken = uuidv4();
-      const SUBJECT = "[BLOG] 비밀번호 재설정";
+      const SUBJECT = "[jwseok] 비밀번호 재설정";
       const LINK = `${process.env.NEXT_PUBLIC_DOMAIN_URI}/reset-password/${processToken}`;
       const MESSAGE =
         "다음 링크를 통해 비밀번호를 재설정해 주세요.\n" + `${LINK}`;
