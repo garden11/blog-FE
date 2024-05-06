@@ -19,6 +19,15 @@ import CommentBoard from "src/components/system-design/comment/comment-board";
 import PostBox from "src/components/system-design/post/post-box";
 import Stack from "src/components/design-system/stack";
 
+// constants
+import { DEFAULT_POST_THUMBNAIL_IMAGE_URI } from "src/constants";
+
+// types
+import { PostDetail } from "src/types/post";
+import { UserInfo } from "src/types/user";
+import { CommentDetail } from "src/types/comment";
+import { PageInfo } from "src/types/pageInfo";
+
 // forms
 import { CommentFormValues } from "src/forms/commentForm";
 
@@ -30,10 +39,6 @@ import { spacing } from "src/styles/spacing";
 
 // types
 import { Page } from "src/types/common";
-import { PostDetail } from "src/types/post";
-import { UserInfo } from "src/types/user";
-import { CommentDetail } from "src/types/comment";
-import { PageInfo } from "src/types/pageInfo";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
@@ -56,6 +61,7 @@ const BlogPost: Page<Props> = (props: Props) => {
   const dateUtil = new DateUtil();
 
   const { post } = props;
+  const { username } = router.query as PageQuery;
 
   const [comments, setComments] = useState<CommentDetail[]>(
     [] as CommentDetail[]
@@ -179,9 +185,10 @@ const BlogPost: Page<Props> = (props: Props) => {
       <Head>
         <title>{post.title}</title>
 
-        {post.thumbnailImageUri && (
-          <meta property="og:image" content={post.thumbnailImageUri}></meta>
-        )}
+        <meta
+          property="og:image"
+          content={post.thumbnailImageUri || DEFAULT_POST_THUMBNAIL_IMAGE_URI}
+        ></meta>
 
         {post.content && (
           <meta name="description" content={htmlToText(post.content)}></meta>
