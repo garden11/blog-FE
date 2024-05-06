@@ -1,6 +1,5 @@
 export const colors = {
-  primary: "#98dce8",
-  primaryContrast: "#d1d350",
+  primary: "#1C1C1C",
   gray: "#aaaaaa",
   grayDark: "#7a7a7a",
   white: "#ffffff",
@@ -11,7 +10,6 @@ export const colors = {
   border: "#d4d4d4",
   borderLight: "#eeeeee",
   borderDark: "#7a7a7a",
-  footer: "#dfe7ea",
+  footer: "#F2F2F2",
   link: "#4158d0",
-  background: "#fbfbfb",
 };
