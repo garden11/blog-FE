@@ -1,7 +1,6 @@
 import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 
 // components
-import Card from "src/components/design-system/card";
 import Flex from "src/components/design-system/flex";
 import ProfilePictureForm from "src/components/system-design/my-info/profile-article/profile-picture-form";
 import Heading from "src/components/design-system/heading";
@@ -23,19 +22,17 @@ const ProfileArticle = (props: Props) => {
     props;
 
   return (
-    <Card>
-      <Card.Content>
-        <Heading value={"PROFILE"} />
+    <>
+      <Heading value={"PROFILE"} />
 
-        <Flex.CenterHorizontal>
-          <ProfilePictureForm
-            onSubmit={onSubmitProfileImageForm}
-            onErrorSubmit={onErrorSubmitProfileImageForm}
-            previewImage={{ uri: profile.profileImageUri }}
-          />
-        </Flex.CenterHorizontal>
-      </Card.Content>
-    </Card>
+      <Flex.CenterHorizontal>
+        <ProfilePictureForm
+          onSubmit={onSubmitProfileImageForm}
+          onErrorSubmit={onErrorSubmitProfileImageForm}
+          previewImage={{ uri: profile.profileImageUri }}
+        />
+      </Flex.CenterHorizontal>
+    </>
   );
 };
 

@@ -13,8 +13,9 @@ type Props = { children: ReactNode };
 const EditorLayout = (props: Props) => {
   const styles = {
     container: css`
-      width: 100%;
+      width: calc(100% - (2 * ${spacing.unit10}) px);
       height: 100vh;
+      ${spacing.margin.x10};
 
       > .content {
         height: 100%;
