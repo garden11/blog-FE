@@ -115,13 +115,15 @@ const Item = (props: Props) => {
         </Stack.Vertical>
       </Stack.Horizontal.Item>
 
-      <Stack.Horizontal.Item flex={"none"} className={cx("thumbnail")}>
-        <PostThumbnail
-          image={{
-            uri: props.post.thumbnailImageUri ?? undefined,
-          }}
-        />
-      </Stack.Horizontal.Item>
+      {props.post.thumbnailImageUri && (
+        <Stack.Horizontal.Item flex={"none"} className={cx("thumbnail")}>
+          <PostThumbnail
+            image={{
+              uri: props.post.thumbnailImageUri,
+            }}
+          />
+        </Stack.Horizontal.Item>
+      )}
     </Stack.Horizontal>
   );
 };

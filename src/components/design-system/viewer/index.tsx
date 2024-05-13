@@ -18,6 +18,10 @@ const Viewer = (props: Props) => {
       img {
         max-width: 100%;
       }
+
+      .toastui-editor-contents pre code {
+        white-space: pre;
+      }
     `,
   };
 

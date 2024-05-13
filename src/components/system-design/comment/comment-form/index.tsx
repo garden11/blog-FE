@@ -20,6 +20,7 @@ import useAuth from "src/hooks/useAuth";
 
 // styles
 import { spacing } from "src/styles/spacing";
+import Flex from "src/components/design-system/flex";
 
 type Props = {
   onSubmit: SubmitHandler<FormValues>;
@@ -56,7 +57,9 @@ const CommentForm = (props: Props) => {
             {...register("content")}
           />
 
-          <Button type="submit">SUBMIT</Button>
+          <Flex justifyContent="flex-end">
+            <Button type="submit">SUBMIT</Button>
+          </Flex>
         </Stack.Vertical>
       </Form>
     </div>
