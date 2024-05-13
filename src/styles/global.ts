@@ -22,6 +22,7 @@ export const globalStyles = css`
 
   body {
     margin: 0px;
+    background-color: ${colors.background};
   }
 
   p {

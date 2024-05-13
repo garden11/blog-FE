@@ -12,14 +12,11 @@ const CenteredLayout = (prpos: Props) => {
   const styles = {
     container: css`
       height: 100vh;
+      width: 100%;
     `,
   };
 
-  return (
-    <Flex.Center css={styles.container} wrap="wrap">
-      {prpos.children}
-    </Flex.Center>
-  );
+  return <Flex.Center css={styles.container}>{prpos.children}</Flex.Center>;
 };
 
 export default CenteredLayout;
