@@ -78,7 +78,7 @@ const Posts: Page<Props> = (props) => {
   return (
     <>
       <Head>
-        <title>BLOG</title>
+        <title>jwseok</title>
       </Head>
 
       <Stack.Vertical css={styles.container} spacing={spacing.unit50}>

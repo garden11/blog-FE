@@ -15,12 +15,11 @@ const Heading = (props: Props) => {
       font-weight: 600;
       text-align: center;
       line-height: 100px;
-      color: ${colors.white};
+      color: ${colors.primary};
       user-select: none;
       border-radius: inherit;
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;
-      background: ${colors.primary};
     `,
   };
 
