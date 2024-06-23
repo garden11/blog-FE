@@ -27,7 +27,7 @@ const PostThumbnail = (props: Props) => {
 
   return (
     <div css={styles.continaer}>
-      <img src={props.image.uri} />
+      <img src={props.image.uri} loading="lazy" />
     </div>
   );
 };
