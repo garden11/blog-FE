@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 import * as API from "src/api";
 
 //components
+import Card from "src/components/design-system/card";
 import Flex from "src/components/design-system/flex";
 import Line from "src/components/design-system/line";
 import Spacing from "src/components/design-system/spacing";
 import Stack from "src/components/design-system/stack";
 import ProfilePicture from "../../image/profile-picture";
 import TagButton from "../../tag/tag-button";
-import Viewer from "src/components/design-system/viewer";
 
 // hooks
 import useAuth from "src/hooks/useAuth";
@@ -29,6 +29,11 @@ import { Tag } from "src/types/tag";
 
 // utils
 import DateUtil from "src/utils/DateUtil";
+
+const PostContent = dynamic(
+  () => import("src/components/design-system/viewer"),
+  { ssr: false }
+);
 
 type Props = {
   post: PostDetail;
@@ -134,7 +139,7 @@ const PostBox = (props: Props) => {
       <Line.Horizontal />
       <Spacing.Vertical size={spacing.unit30} />
 
-      <Viewer value={props.post.content} />
+      <PostContent value={props.post.content} />
 
       <Spacing.Vertical size={spacing.unit100} />
 

@@ -1,13 +1,8 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { cx } from "@emotion/css";
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-} from "next";
 
 // api
 import * as API from "src/api";
@@ -22,7 +17,6 @@ import TagList from "src/components/system-design/tag/tag-list";
 import { PostDetail } from "src/types/post";
 import { PageInfo } from "src/types/pageInfo";
 import { Page } from "src/types/common";
-import { Tag } from "src/types/tag";
 
 // styles
 import { spacing } from "src/styles/spacing";
@@ -32,15 +26,32 @@ type PageQuery = {
   tagId?: string | undefined;
 };
 
-type Props = {
-  posts: PostDetail[];
-  postsPageInfo: PageInfo;
-  tags: Tag[];
-};
+type Props = {};
 
 const Posts: Page<Props> = (props) => {
   const router = useRouter();
-  const { tagId } = router.query as PageQuery;
+  const { page = 1, tagId } = router.query as PageQuery;
+
+  const [posts, setPosts] = useState<PostDetail[]>([] as PostDetail[]);
+  const [postsPageInfo, setPostsPageInfo] = useState<PageInfo>({} as PageInfo);
+
+  useEffect(() => {
+    const loadPostDetails = async () => {
+      try {
+        const { content, ...pageInfo } = await API.getPostDetails({
+          page,
+          tagId,
+        });
+
+        setPosts(content);
+        setPostsPageInfo(pageInfo);
+      } catch (error) {
+        alert("포스트를 불러올 수 없습니다.");
+      }
+    };
+
+    loadPostDetails();
+  }, [tagId, page]);
 
   const handleClickPostBoardListItem = (postId: PostDetail["id"]) => {
     router.push(`posts/${postId}`);
@@ -73,12 +84,12 @@ const Posts: Page<Props> = (props) => {
       <Stack.Vertical css={styles.container} spacing={spacing.unit50}>
         <Stack.Vertical className={cx("tags")} spacing={spacing.unit20}>
           <div className={cx("title")}>Tags</div>
-          <TagList tags={props.tags} selectedTagId={tagId} />
+          <TagList selected={tagId} />
         </Stack.Vertical>
 
         <PostBoard
-          posts={props.posts}
-          postsPageInfo={props.postsPageInfo}
+          posts={posts}
+          postsPageInfo={postsPageInfo}
           onClickListItem={handleClickPostBoardListItem}
           onClickPageButton={handleClickPostBoardPageButton}
         />
@@ -89,29 +100,6 @@ const Posts: Page<Props> = (props) => {
 
 Posts.layout = (page: ReactElement) => {
   return <BlogLayout>{page}</BlogLayout>;
-};
-
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<Props>> => {
-  const { query } = context;
-  const { page = 1, tagId } = query as PageQuery;
-
-  const [tags, { content: posts, ...pageInfo }] = await Promise.all([
-    API.getTags({}),
-    API.getPostDetails({
-      page,
-      tagId,
-    }),
-  ]);
-
-  return {
-    props: {
-      posts,
-      postsPageInfo: pageInfo,
-      tags,
-    },
-  };
 };
 
 export default Posts;
