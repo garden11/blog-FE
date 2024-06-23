@@ -16,11 +16,22 @@ import { spacing } from "src/styles/spacing";
 import { Tag } from "src/types/tag";
 
 type Props = {
-  tags: Tag[];
-  selectedTagId?: Tag["id"] | undefined;
+  selected?: Tag["id"] | undefined;
 };
 
 const TagList = (props: Props) => {
+  const [tags, setTags] = useState<Tag[]>([]);
+
+  useEffect(() => {
+    const loadTags = async () => {
+      const tags = await API.getTags({});
+
+      setTags(tags);
+    };
+
+    loadTags();
+  }, []);
+
   return (
     <Flex
       wrap="wrap"
@@ -29,14 +40,14 @@ const TagList = (props: Props) => {
     >
       <TagButton
         tag={{ id: undefined, name: "All" }}
-        selected={!props.selectedTagId}
+        selected={!props.selected}
       />
 
-      {props.tags.map((tag) => (
+      {tags.map((tag) => (
         <TagButton
           key={tag.id}
           tag={tag}
-          selected={tag.id === props.selectedTagId}
+          selected={tag.id === props.selected}
         />
       ))}
     </Flex>
